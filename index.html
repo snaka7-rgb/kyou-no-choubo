@@ -227,6 +227,7 @@ input.in:focus{outline:2px solid var(--role);border-color:transparent}
   .ltable-wrap table.ledger th{padding:6px 2px;font-size:10.5px}
   .ltable-wrap table.ledger td{padding:13px 2px}
   .ltable-wrap table.ledger td.memo{white-space:normal;word-break:break-all;min-width:3em;max-width:none}
+  .ltable-wrap table.ledger th:nth-child(4),.ltable-wrap table.ledger td:nth-child(4){padding-left:12px}
   .ledger-pane .mbar .mt{font-size:16px}
   .carry-edit{display:block;margin:2px 0 0}
   .ledger-pane .mbar button{padding:10px 10px;font-size:14px}
@@ -248,6 +249,10 @@ table.ledger td{padding:8px 6px;border-bottom:1px solid var(--line);white-space:
 table.ledger td.n{text-align:right}
 table.ledger td.c{text-align:center;color:var(--sub)}
 table.ledger td.memo{max-width:220px;overflow:hidden;text-overflow:ellipsis}
+/* 科目名・摘要は見出しも左寄せにして中身とそろえる。摘要は科目名と間をあける */
+table.ledger th:nth-child(3),table.ledger th:nth-child(4){text-align:left}
+table.ledger th:nth-child(4),table.ledger td:nth-child(4){padding-left:18px}
+#printArea th:nth-child(3),#printArea th:nth-child(4){text-align:left}
 table.ledger td.dt{color:var(--ink);font-weight:600}
 table.ledger tr.day-end td{border-bottom:1.5px solid #c9c5bb}
 table.ledger tr.tap{cursor:pointer}
@@ -780,8 +785,9 @@ var EXPORT_FORMAT = 'choubo-export';
 var BACKUP_FORMAT = 'choubo-backup';
 /* 復元で受け付けるバックアップの format（新形式と、旧版の「<コード>-suitocho-backup」） */
 function isBackupFormat(f){ return typeof f === 'string' && (f === BACKUP_FORMAT || /-suitocho-backup$/.test(f)); }
-var APP_VERSION = '2.4';
+var APP_VERSION = '2.5';
 var APP_HISTORY = [
+  ['2.5', '帳簿の科目名・摘要の見出しを中身とそろえ、摘要を少し右へ'],
   ['2.4', '保存するの下に「次を入れる（上へ戻る）」ボタン'],
   ['2.3', 'JDLへそのまま取り込める仕訳CSVを添付、ネットなしでも開ける、不具合を伝えるボタン、新しい版のお知らせ、消した記録を7日間戻せる、アプリ名を『きょうの帳簿』に、商号コードは事務所が設定'],
   ['2.2', 'マイクのアイコンを線画に変更'],
