@@ -192,6 +192,20 @@ input.in:focus{outline:2px solid var(--role);border-color:transparent}
 .chips button.pdel b{margin-left:6px;font-weight:700}
 .chips button.more{border-style:dashed;color:var(--sub)}
 .chips:empty{display:none}
+/* 摘要から選ぶ（v2.6）：摘要の候補チップに相手科目を小さく添える・入金/出金は小さめ・取引先はたたむ */
+.mm-only{display:none}
+.mode-memo .mm-only{display:block}
+.mode-memo .seg.tsel button{padding:8px 0;font-size:15px;border-width:1.5px}
+input.in.memo-big{font-size:20px;padding:14px 12px}
+.chips button.mc{text-align:left;line-height:1.3;padding:8px 12px}
+.chips button.mc .ca{display:block;font-size:11.5px;font-weight:400;margin-top:2px}
+.chips button.mc.on .ca{color:#fff}
+.altrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px;font-size:13px;color:var(--sub)}
+.altrow:empty{display:none}
+.altrow .an{flex-basis:100%}
+.altrow button{border:1px dashed var(--role);background:#fff;color:var(--role);border-radius:8px;min-height:44px;padding:4px 10px;font-size:13px}
+.addp-btn{display:block;width:100%;margin-top:14px;border:1px dashed var(--line);background:transparent;color:var(--role);border-radius:10px;min-height:44px;padding:8px 10px;font-size:15px}
+#stInputMode button{white-space:normal;line-height:1.3;min-height:48px}
 /* 音声入力 */
 .vrow{display:flex;gap:8px;align-items:center}
 .vrow input{flex:1;min-width:0}
@@ -415,12 +429,18 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
       <button type="button" class="btn small" id="bkWarnBtn">バックアップを送る</button>
     </div>
 
-    <!-- 入力欄（日付は上の日付バーの日付）：区分 → 金額 → 相手科目 → 取引先 → 摘要 → 保存 -->
+    <!-- 入力欄（日付は上の日付バーの日付）。並びは設定の「入力のしかた」で切り替える（applyInputMode）：
+         摘要から選ぶ：金額 → 摘要 → 入金/出金・相手科目（自動） → 取引先（たたむ） → 保存
+         科目から選ぶ：区分 → 金額 → 相手科目 → 取引先 → 摘要 → 保存 -->
     <div class="card qform amt-on" id="qForm">
-      <div class="seg" id="qType" role="group" aria-label="入金か出金か">
+     <div class="qg" id="qgType">
+      <div class="f mm-only" id="qTypeLabel" style="font-size:14px;color:var(--sub);margin:12px 0 6px">入金・出金（摘要から自動で決まります）</div>
+      <div class="seg tsel" id="qType" role="group" aria-label="入金か出金か">
         <button data-type="in" class="t-in">入金</button>
         <button data-type="out" class="t-out on">出金</button>
       </div>
+     </div>
+     <div class="qg" id="qgAmt">
       <label class="f" for="qAmount">金額</label>
       <div class="amt-wrap"><input class="in num" id="qAmount" readonly inputmode="none" autocomplete="off" placeholder="0"><span>円</span><button type="button" class="mic hidden" data-voice="qAmount" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qAmountV" aria-live="polite"></div>
       <div class="keypad" id="qKeypad" role="group" aria-label="金額テンキー">
@@ -429,15 +449,26 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
         <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="ok" class="ok" aria-label="次へ（相手科目へ）">次へ ▼</button>
         <button type="button" data-k="0">0</button><button type="button" data-k="00" class="k00">00</button>
       </div>
+     </div>
+     <div class="qg" id="qgAcct">
       <label class="f" id="qAcctsLabel">相手科目</label>
+      <div class="altrow" id="qAlt"></div>
       <div class="acbox" id="qAccts" role="group" aria-labelledby="qAcctsLabel"></div>
+     </div>
+     <div class="qg" id="qgPartner">
+      <button type="button" class="addp-btn hidden" id="qpOpen">＋取引先を入れる（任意）</button>
+      <div id="qpBody">
       <div class="plabel"><label class="f" for="qPartner">取引先・店名（任意）</label><button id="qpEdit" type="button" aria-label="取引先の候補を編集">編集</button></div>
       <div class="vrow"><input class="in" id="qPartner" maxlength="40" autocomplete="off" placeholder="下のボタンから選ぶか入力"><button type="button" class="mic hidden" data-voice="qPartner" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qPartnerV" aria-live="polite"></div>
       <div class="chips" id="qPartners" style="margin-top:8px"></div>
-      <div class="plabel"><label class="f" for="qMemo">摘要・内容（任意）</label><button id="qmEdit" type="button" class="hidden" aria-label="摘要の候補を編集">編集</button></div>
+      </div>
+     </div>
+     <div class="qg" id="qgMemo">
+      <div class="plabel"><label class="f" for="qMemo" id="qMemoLabel">摘要・内容（任意）</label><button id="qmEdit" type="button" class="hidden" aria-label="摘要の候補を編集">編集</button></div>
       <div class="vrow"><input class="in" id="qMemo" maxlength="100" autocomplete="off"><button type="button" class="mic hidden" data-voice="qMemo" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qMemoV" aria-live="polite"></div>
       <div class="chips" id="qMemos" style="margin-top:8px"></div>
-      <div class="savebox"><button class="btn" id="qSave">保存する</button><button class="btn sub" id="qNextEntry" type="button">▲ 次を入れる（上へ戻る）</button></div>
+     </div>
+      <div class="savebox" id="qgSave"><button class="btn" id="qSave">保存する</button><button class="btn sub" id="qNextEntry" type="button">▲ 次を入れる（上へ戻る）</button></div>
     </div>
 
     <div class="card">
@@ -514,6 +545,15 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
       <p style="margin:0" id="setRoleInfo"></p>
       <p class="muted" style="margin:6px 0 0">このタブレットはこの役割専用です。もう一方の役割は別のタブレットで使います。</p>
       <button class="btn sub" id="openWizard" style="margin-top:12px">はじめの設定をやり直す</button>
+    </div>
+
+    <div class="card">
+      <h2>入力のしかた</h2>
+      <div class="seg mini" id="stInputMode" role="group" aria-label="入力のしかた">
+        <button type="button" data-mode="memo" aria-pressed="false">摘要から選ぶ（おすすめ）</button>
+        <button type="button" data-mode="acct" aria-pressed="false">科目から選ぶ（今まで）</button>
+      </div>
+      <p class="muted" style="margin:10px 0 0">摘要から選ぶ：金額のあとに摘要（何の出入りか）を選ぶと、入金・出金と相手科目が自動で決まります（違っていれば押して変えられます）。<br>科目から選ぶ：今までどおり、入金・出金と相手科目を先に選びます。<br>このタブレットに保存され、記録はどちらでも同じです。</p>
     </div>
 
     <div class="card">
@@ -597,6 +637,12 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
       <h3>このタブレットの役割を変更</h3>
       <p class="muted" style="margin-top:-4px">タブレットの使い道を変えるときに使います。記録は役割ごとに残り、消えません。</p>
       <button class="btn sub" id="roleChangeBtn">役割を変更する…</button>
+      <h3>過去の帳簿から摘要を覚える</h3>
+      <p class="muted" style="margin-top:-4px">会計ソフト（JDL）の元帳CSVを読み込むと、摘要と相手科目・入金/出金の組み合わせを覚えて、入力の候補に出します。このタブレットの役割と同じ科目（111 現金／112 小口現金）の元帳だけ読み込みます（複数のファイルを選べます）。読み込みはこの端末の中だけで行い、どこにも送りません。読み込み直すと前の分と置き換わります。</p>
+      <p style="margin:0 0 8px" id="memoDictNow"></p>
+      <button class="btn sub" id="memoDictBtn">過去の帳簿（JDL 元帳CSV）から摘要を読み込む</button>
+      <button class="btn danger hidden" id="memoDictClear">読み込んだ摘要を消す</button>
+      <input type="file" id="memoDictFile" accept=".csv,text/csv,text/plain" multiple class="hidden">
     </div>
 
     <div class="card">
@@ -636,16 +682,22 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
 <div class="overlay hidden" id="sheet">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
     <div class="sheet-head"><h2 id="sheetTitle">記録する</h2><button id="sheetClose" type="button">閉じる</button></div>
-    <div class="sheet-grid">
-      <!-- 上から操作が流れる順：日付 → 区分 → 金額（テンキー） → 相手科目 → 取引先 → 摘要 → 保存／削除 -->
+    <div class="sheet-grid" id="fGrid">
+      <!-- 上から操作が流れる順（今日画面と同じく「入力のしかた」で切り替える）：
+           科目から選ぶ：日付 → 区分 → 金額（テンキー） → 相手科目 → 取引先 → 摘要 → 保存／削除
+           摘要から選ぶ：日付 → 金額 → 摘要 → 入金/出金・相手科目 → 取引先（たたむ） → 保存／削除 -->
+      <div id="fgDate">
       <label class="f" for="fDate">日付</label>
       <input type="date" class="in" id="fDate" min="2019-05-01" max="2099-12-31">
-      <div class="f" style="font-size:14px;color:var(--sub);margin:12px 0 6px">区分</div>
-      <div class="seg" id="fType" role="group" aria-label="入金か出金か">
+      </div>
+      <div id="fgType">
+      <div class="f" id="fTypeLabel" style="font-size:14px;color:var(--sub);margin:12px 0 6px">区分</div>
+      <div class="seg tsel" id="fType" role="group" aria-label="入金か出金か">
         <button data-type="in" class="t-in">入金</button>
         <button data-type="out" class="t-out">出金</button>
       </div>
-      <div class="sf-amt">
+      </div>
+      <div class="sf-amt" id="fgAmt">
         <label class="f" for="fAmount">金額</label>
         <div class="amt-wrap"><input class="in num" id="fAmount" readonly inputmode="none" autocomplete="off" placeholder="0"><span>円</span><button type="button" class="mic hidden" data-voice="fAmount" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="fAmountV" aria-live="polite"></div>
         <div class="keypad" id="keypad" role="group" aria-label="金額テンキー">
@@ -655,15 +707,25 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
           <button type="button" data-k="0">0</button><button type="button" data-k="00" class="k00">00</button>
         </div>
       </div>
+      <div id="fgAcct">
       <label class="f" id="fAcctsLabel">相手科目</label>
+      <div class="altrow" id="fAlt"></div>
       <div class="acbox" id="fAccts" role="group" aria-labelledby="fAcctsLabel"></div>
+      </div>
+      <div id="fgPartner">
+      <button type="button" class="addp-btn hidden" id="fpOpen">＋取引先を入れる（任意）</button>
+      <div id="fpBody">
       <div class="plabel"><label class="f" for="fPartner">取引先・店名（任意）</label><button id="pEdit" type="button" aria-label="取引先の候補を編集">編集</button></div>
       <div class="vrow"><input class="in" id="fPartner" maxlength="40" autocomplete="off" placeholder="下のボタンから選ぶか入力"><button type="button" class="mic hidden" data-voice="fPartner" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="fPartnerV" aria-live="polite"></div>
       <div class="chips" id="fPartners" style="margin-top:8px"></div>
-      <div class="plabel"><label class="f" for="fMemo">摘要・但し書き（任意）</label><button id="mEdit" type="button" class="hidden" aria-label="摘要の候補を編集">編集</button></div>
+      </div>
+      </div>
+      <div id="fgMemo">
+      <div class="plabel"><label class="f" for="fMemo" id="fMemoLabel">摘要・但し書き（任意）</label><button id="mEdit" type="button" class="hidden" aria-label="摘要の候補を編集">編集</button></div>
       <div class="vrow"><input class="in" id="fMemo" maxlength="100" autocomplete="off"><button type="button" class="mic hidden" data-voice="fMemo" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="fMemoV" aria-live="polite"></div>
       <div class="chips" id="fMemos" style="margin-top:8px"></div>
-      <div class="savebox"><button class="btn" id="fSave">保存する</button></div>
+      </div>
+      <div class="savebox" id="fgSave"><button class="btn" id="fSave">保存する</button></div>
       <button class="btn danger hidden" id="fDelete" style="margin-top:28px">この記録を削除する</button>
     </div>
   </div>
@@ -731,6 +793,7 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
       <p class="muted">締めると、レジがこの金額より多い分を「小口から現金へ」として記録します。ふつうは 78,000円 のままです。</p>
       <div class="amt-wrap"><input class="in num" id="wzFloat" inputmode="numeric" maxlength="15" autocomplete="off" aria-label="基準額（円）"><span>円</span></div>
     </div>
+    <p class="muted hidden" id="wzHowto" style="margin:14px 0 0"></p>
     <div class="wz-nav">
       <button type="button" class="btn sub" id="wzBack">戻る</button>
       <button type="button" class="btn" id="wzNext">次へ</button>
@@ -785,8 +848,9 @@ var EXPORT_FORMAT = 'choubo-export';
 var BACKUP_FORMAT = 'choubo-backup';
 /* 復元で受け付けるバックアップの format（新形式と、旧版の「<コード>-suitocho-backup」） */
 function isBackupFormat(f){ return typeof f === 'string' && (f === BACKUP_FORMAT || /-suitocho-backup$/.test(f)); }
-var APP_VERSION = '2.5';
+var APP_VERSION = '2.6';
 var APP_HISTORY = [
+  ['2.6', '摘要から選ぶ入力（摘要を選ぶと科目が自動で決まる）、過去の帳簿から摘要を読み込む'],
   ['2.5', '帳簿の科目名・摘要の見出しを中身とそろえ、摘要を少し右へ'],
   ['2.4', '保存するの下に「次を入れる（上へ戻る）」ボタン'],
   ['2.3', 'JDLへそのまま取り込める仕訳CSVを添付、ネットなしでも開ける、不具合を伝えるボタン、新しい版のお知らせ、消した記録を7日間戻せる、アプリ名を『きょうの帳簿』に、商号コードは事務所が設定'],
@@ -940,7 +1004,7 @@ function defaultAccounts(role){
 function defaultState(role, today){
   return {
     role: role, schema: SCHEMA,
-    settings: { openBal: 0, openDate: today, floatAmt: DEFAULT_FLOAT, fiscalMonth: DEFAULT_FISCAL_MONTH, accounts: defaultAccounts(role), partners: [], hiddenPartners: [], hiddenMemos: [], carry: {} },
+    settings: { openBal: 0, openDate: today, floatAmt: DEFAULT_FLOAT, fiscalMonth: DEFAULT_FISCAL_MONTH, accounts: defaultAccounts(role), partners: [], hiddenPartners: [], hiddenMemos: [], carry: {}, inputMode: 'memo', memoDict: [], memoDictInfo: null },
     entries: [], closed: {}, sent: {}, touched: {}, trash: []
   };
 }
@@ -957,7 +1021,12 @@ function migrateState(s, role, today){
     voiceOk: src.voiceOk === true,
     shopCode: cleanCode(src.shopCode),
     officeMail: validMail(src.officeMail) ? src.officeMail : (src.officeMail == null && validMail(DEFAULT_OFFICE_MAIL) ? DEFAULT_OFFICE_MAIL : ''),
-    accounts: null, partners: [], hiddenPartners: [], hiddenMemos: [], carry: {}
+    accounts: null, partners: [], hiddenPartners: [], hiddenMemos: [], carry: {},
+    /* 入力のしかた（v2.6）：'memo' 摘要から選ぶ（初期値）／'acct' 科目から選ぶ */
+    inputMode: src.inputMode === 'acct' ? 'acct' : 'memo',
+    /* 過去の帳簿から読み込んだ摘要の辞書（検証して組み直す）と、その期間 */
+    memoDict: cleanMemoDict(src.memoDict),
+    memoDictInfo: cleanMemoDictInfo(src.memoDictInfo)
   };
   if (st.openBal === null) st.openBal = 0;
   if (st.floatAmt === null) st.floatAmt = DEFAULT_FLOAT;
@@ -1564,9 +1633,9 @@ function partnerSuggest(stats, partners, hidden, acctKey){
 }
 /* 摘要の候補：2回以上使われた摘要（消したものは除く）。選んだ科目で多い順 → 全体で多い順。上限8個 */
 function memoSuggest(stats, hidden, acctKey){
-  var hid = hiddenSet(hidden), items = [], k = 0;
+  var hid = hiddenKeySet(hidden), items = [], k = 0; /* 消した摘要は正規化キーで比べる（摘要から選ぶの候補と同じ） */
   stats.mT.forEach(function(c, m){
-    if (c < MEMO_MIN || hid['$' + m]) return;
+    if (c < MEMO_MIN || hid['$' + memoKey(m)]) return;
     items.push({ memo: m, n: c, a: acctKey ? (stats.mA.get(acctKey + '\u0002' + m) || 0) : 0, i: k++ });
   });
   items.sort(function(a, b){ return (b.a - a.a) || (b.n - a.n) || (a.i - b.i); });
@@ -1615,6 +1684,206 @@ function isFreshState(s){
   if (!s || !s.settings) return true;
   return !(s.entries && s.entries.length) && !(Number(s.settings.openBal) || 0) && !Object.keys(s.settings.carry || {}).length &&
     !Object.keys(s.closed || {}).length && !s.lastBackup;
+}
+
+/* ---- 摘要から選ぶ（v2.6）：摘要 → (相手科目, 入金/出金) の候補 ----
+   元データ＝この役割の記録（entries：締めの自動行・摘要が空の行は除く）＋過去の帳簿から読み込んだ辞書（settings.memoDict）。
+   同じ摘要（正規化キーが同じ）は合算。保存データには回数を持たず、毎回 entries から数える */
+var MEMO_CAND_SHOW = 12;   /* 候補チップの最大数 */
+var MEMO_DICT_MAX = 1000;  /* 辞書の最大件数（回数の少ないものから切る） */
+var MEMO_MAX_LEN = 64;     /* 辞書の摘要の最大文字数 */
+var MEMO_ALT_SHOW = 3;     /* 「ほかに」の最大数 */
+/* 正規化キー：NFKC（全角英数・半角カナをそろえる）＋前後の空白（全角含む）を除く */
+function memoKey(s){
+  var t = String(s == null ? '' : s);
+  if (t.normalize) t = t.normalize('NFKC');
+  return t.replace(/^[\s　]+|[\s　]+$/g, '');
+}
+/* 絞り込みの比較用：カタカナ → ひらがな、英字は小文字 */
+function kanaFold(s){
+  return String(s == null ? '' : s).toLowerCase().replace(/[ァ-ヶ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0x60); });
+}
+function hiddenKeySet(list){ var o = {}; (list || []).forEach(function(v){ var k = memoKey(v); if (k) o['$' + k] = 1; }); return o; }
+/* 候補の一覧：[{ key, memo, fold, n, combos:[{ type, code, name, jdlName, dname, n }] }]（回数の多い順。組み合わせも多い順）。
+   組み合わせは 入金/出金＋科目コード（コードが無い科目は名前）で合算。name は記録で使ったボタン名（辞書だけのものは空）、dname は辞書の科目名 */
+function memoCandidates(entries, dict, hidden){
+  var hid = hiddenKeySet(hidden), m = new Map(), order = 0;
+  function add(key, memo, type, code, name, jdlName, dname, n, fromEntry){
+    if (!key || hid['$' + key] || (type !== 'in' && type !== 'out') || !(n > 0)) return;
+    var it = m.get(key);
+    if (!it){ it = { key: key, memo: memo, fold: kanaFold(key), n: 0, combos: [], cm: new Map(), i: order++ }; m.set(key, it); }
+    it.n += n;
+    var ck = type + '\u0001' + code + (code ? '' : '\u0001' + name), c = it.cm.get(ck);
+    if (!c){ c = { type: type, code: code, name: '', jdlName: '', dname: '', n: 0, names: new Map(), i: it.combos.length }; it.cm.set(ck, c); it.combos.push(c); }
+    c.n += n;
+    if (name){
+      var nn = (c.names.get(name) || 0) + n; c.names.set(name, nn);
+      if (!c.name || nn > (c.names.get(c.name) || 0)){ c.name = name; c.jdlName = jdlName || ''; }
+    }
+    if (dname && !c.dname) c.dname = dname;
+  }
+  for (var i = 0; i < (entries || []).length; i++){
+    var e = entries[i]; if (!e || e.auto) continue;
+    var memo = String(e.memo || '').replace(/[\s　]+$/, '').replace(/^[\s　]+/, ''), key = memoKey(memo);
+    if (!key || !e.acctName) continue;
+    add(key, memo, e.type, e.acctCode || '', e.acctName, e.jdlName || '', '', 1, true);
+  }
+  (dict || []).forEach(function(d){ add(d.key, d.memo, d.type, d.code, '', '', d.name || '', d.n, false); });
+  var list = [];
+  m.forEach(function(it){
+    it.combos.sort(function(a, b){ return (b.n - a.n) || (a.i - b.i); });
+    it.combos.forEach(function(c){ delete c.names; delete c.i; });
+    delete it.cm; list.push(it);
+  });
+  list.sort(function(a, b){ return (b.n - a.n) || (a.i - b.i); });
+  list.forEach(function(it){ delete it.i; });
+  return list;
+}
+/* 打った文字での絞り込み（正規化キーの部分一致・かなカナ同一視）。空なら回数の多い順。最大 max 個 */
+function memoFilter(cands, input, max){
+  var q = kanaFold(memoKey(input)), out = [];
+  max = max || MEMO_CAND_SHOW;
+  for (var i = 0; i < cands.length && out.length < max; i++){
+    if (!q || cands[i].fold.indexOf(q) >= 0) out.push(cands[i]);
+  }
+  return out;
+}
+/* 入力と完全に一致する候補（正規化キーが同じ → かなカナ・大小文字の違いだけのもの）。無ければ null */
+function memoExact(cands, input){
+  var k = memoKey(input); if (!k) return null;
+  var f = kanaFold(k), alt = null;
+  for (var i = 0; i < cands.length; i++){
+    if (cands[i].key === k) return cands[i];
+    if (!alt && cands[i].fold === f) alt = cands[i];
+  }
+  return alt;
+}
+/* 組み合わせ → 入力欄に入れる科目（name・code・jdlName）。
+   記録で使ったボタン名が今の科目リストにあればそれ。辞書だけのものは、科目リストで同じコードのボタン（摘要と同じ名前のボタンを優先）
+   → JDL の科目名（ほかの科目扱い）→ 帳簿の科目名 */
+function resolveCombo(c, accts, memo){
+  accts = accts || [];
+  var a = null, i, mk = memoKey(memo);
+  if (c.name){
+    for (i = 0; i < accts.length; i++) if (accts[i].name === c.name && (accts[i].code || '') === c.code){ a = accts[i]; break; }
+    if (!a) return { name: c.name, code: c.code, jdlName: c.jdlName || '' };
+  }
+  if (!a && c.code && mk) for (i = 0; i < accts.length; i++) if ((accts[i].code || '') === c.code && memoKey(accts[i].name) === mk){ a = accts[i]; break; }
+  if (!a && c.code) for (i = 0; i < accts.length; i++) if ((accts[i].code || '') === c.code){ a = accts[i]; break; }
+  if (a) return { name: a.name, code: a.code || '', jdlName: a.jdlName || '' };
+  if (JDL_NAMES[c.code]) return { name: JDL_NAMES[c.code], code: c.code, jdlName: '' };
+  return { name: c.dname || c.name || ('科目' + c.code), code: c.code, jdlName: c.dname || '' };
+}
+/* チップ・「ほかに」の小さな表示：「712 仕入高」 */
+function comboLabel(r){ return (r.code ? r.code + ' ' : '') + jdlNameOf(r.code, r.jdlName, r.name); }
+
+/* ---- 過去の帳簿（JDL 元帳CSV）の読み込み ---- */
+/* バイト列 → 文字列：UTF-8 の BOM → UTF-8（厳密）で読めれば UTF-8 → だめなら Shift_JIS */
+function decodeLedgerBytes(u8){
+  if (u8.length >= 3 && u8[0] === 0xEF && u8[1] === 0xBB && u8[2] === 0xBF) return { text: new TextDecoder('utf-8').decode(u8.subarray(3)), enc: 'utf-8' };
+  try { return { text: new TextDecoder('utf-8', { fatal: true }).decode(u8), enc: 'utf-8' }; }
+  catch(e){ return { text: new TextDecoder('shift_jis').decode(u8), enc: 'shift_jis' }; }
+}
+/* CSV の1行 → セルの配列（"…" の中のカンマ・"" に対応） */
+function csvLine(l){
+  var out = [], cur = '', q = false;
+  for (var i = 0; i < l.length; i++){
+    var ch = l.charAt(i);
+    if (q){ if (ch === '"'){ if (l.charAt(i + 1) === '"'){ cur += '"'; i++; } else q = false; } else cur += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ','){ out.push(cur); cur = ''; }
+    else cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+function trimSp(s){ return String(s == null ? '' : s).replace(/^[\s　]+|[\s　]+$/g, ''); }
+/* JDL「元帳」CSV（9列：日付,科目,,補助,,摘要,借方,貸方,残高／10列：先頭が空の列＋同じ並び。明細の先頭セルは ' #'）を読む。
+   現金科目＝ヘッダの「科目」の行の次の行の値。明細＝「日付」列が数字（令和の年＋月日：71101 など）の行だけ。
+   返り値：{ cash, rows:[{ date, code, name, memo, type, amount }], from, to } または { error } */
+function parseJdlLedger(text){
+  var lines = String(text == null ? '' : text).replace(/^﻿/, '').split(/\r\n|\n|\r/);
+  var cash = '', off = -1, rows = [], from = '', to = '';
+  for (var i = 0; i < lines.length; i++){
+    if (!lines[i]) continue;
+    var c = csvLine(lines[i]);
+    if (off < 0){
+      var j = 0; while (j < c.length && !trimSp(c[j])) j++;
+      if (!cash && trimSp(c[j]) === '科目' && c.indexOf('日付') < 0){
+        for (var k = i + 1; k < lines.length && k < i + 4; k++){
+          var n = csvLine(lines[k]), x = 0; while (x < n.length && !trimSp(n[x])) x++;
+          if (x < n.length){ cash = cleanCode(trimSp(n[x])); break; }
+        }
+        continue;
+      }
+      var di = -1;
+      for (var h = 0; h < c.length; h++) if (trimSp(c[h]) === '日付'){ di = h; break; }
+      if (di >= 0 && c.some(function(v){ return trimSp(v) === '摘要'; })) off = di;
+      continue;
+    }
+    var d = trimSp(c[off]);
+    if (!/^\d{5,6}$/.test(d)) continue;
+    var ds = (2018 + parseInt(d.slice(0, -4), 10)) + '-' + d.slice(-4, -2) + '-' + d.slice(-2);
+    if (!validDate(ds)) continue;
+    var dr = parseAmount(c[off + 6], MAX_AMOUNT), cr = parseAmount(c[off + 7], MAX_AMOUNT);
+    if (!dr && !cr) continue;
+    rows.push({ date: ds, code: cleanCode(trimSp(c[off + 1])), name: trimSp(c[off + 2]), memo: String(c[off + 5] == null ? '' : c[off + 5]).replace(/[\s　]+$/, ''),
+      type: dr ? 'in' : 'out', amount: dr || cr });
+    if (!from || ds < from) from = ds;
+    if (!to || ds > to) to = ds;
+  }
+  if (off < 0 || !cash) return { error: 'notLedger' };
+  return { cash: cash, rows: rows, from: from, to: to };
+}
+/* 辞書の並び：回数の多い順（同数は摘要・コード順で決まった並びに） */
+function sortMemoDict(list){
+  return list.sort(function(a, b){ return (b.n - a.n) || (a.key < b.key ? -1 : a.key > b.key ? 1 : 0) || (a.code < b.code ? -1 : a.code > b.code ? 1 : 0) || (a.type < b.type ? -1 : a.type > b.type ? 1 : 0); });
+}
+/* 元帳の明細 → 辞書 [{ key, memo, code, type, n, name }]。摘要が空の行（現金の振替 111⇔112 の行など）・科目コードが無い／諸口（0）／現金科目そのものの行は除く。
+   返り値：{ dict, used }（used＝辞書に数えた明細の行数） */
+function buildMemoDict(rows, cash){
+  var m = new Map(), used = 0;
+  (rows || []).forEach(function(r){
+    var memo = String(r.memo || '').replace(/[\s　]+$/, '').replace(/^[\s　]+/, '');
+    var key = memoKey(memo), code = cleanCode(r.code);
+    if (!key || !code || code === '0' || code === cash || (r.type !== 'in' && r.type !== 'out')) return;
+    memo = cleanStr(memo, MEMO_MAX_LEN); key = memoKey(memo);
+    var k = r.type + '\u0001' + code + '\u0001' + key, o = m.get(k);
+    used++;
+    if (o){ o.n++; return; }
+    o = { key: key, memo: memo, code: code, type: r.type, n: 1 };
+    var nm = cleanStr(r.name, 40).replace(/^[\s　]+|[\s　]+$/g, ''); if (nm) o.name = nm;
+    m.set(k, o);
+  });
+  return { dict: sortMemoDict(Array.from(m.values())).slice(0, MEMO_DICT_MAX), used: used };
+}
+/* 保存データ・バックアップの辞書の検証（文字列長・コード形式・件数上限。キーは摘要から作り直す。Map で集めるので __proto__ 等のキーも安全） */
+function cleanMemoDict(src){
+  if (!Array.isArray(src)) return [];
+  var m = new Map();
+  src.slice(0, MEMO_DICT_MAX * 5).forEach(function(d){
+    if (!isObj(d)) return;
+    var memo = cleanStr(d.memo, MEMO_MAX_LEN).replace(/[\s　]+$/, ''), key = memoKey(memo);
+    var code = cleanCode(d.code), n = toInt(d.n, 1, 1e9);
+    if (!key || !code || code === '0' || (d.type !== 'in' && d.type !== 'out') || n === null) return;
+    var k = d.type + '\u0001' + code + '\u0001' + key, o = m.get(k);
+    if (o){ o.n = Math.min(1e9, o.n + n); return; }
+    o = { key: key, memo: memo, code: code, type: d.type, n: n };
+    var nm = cleanStr(d.name, 40).replace(/^[\s　]+|[\s　]+$/g, ''); if (nm) o.name = nm;
+    m.set(k, o);
+  });
+  return sortMemoDict(Array.from(m.values())).slice(0, MEMO_DICT_MAX);
+}
+function cleanMemoDictInfo(v){
+  if (!isObj(v)) return null;
+  var o = { from: validDate(v.from) ? v.from : '', to: validDate(v.to) ? v.to : '', files: toInt(v.files, 0, 1000) || 0, rows: toInt(v.rows, 0, 1e9) || 0, at: toInt(v.at, 0, 9e15) || 0 };
+  return (o.from || o.to || o.at) ? o : null;
+}
+/* '2024-11-01'〜'2025-10-31' → '令和6年11月〜令和7年10月' */
+function ledgerPeriodLabel(from, to){
+  if (!from || !to) return '';
+  var a = warekiYm(ymOf(from)), b = warekiYm(ymOf(to));
+  return a === b ? a : a + '〜' + b;
 }
 /* LOGIC-END */
 </script>
@@ -1804,6 +2073,7 @@ function applyRole(){
   $('roleLabel').textContent = ROLES[role].label + '・' + role + ' ' + ROLES[role].cashName;
   document.title = APP_NAME + ' - ' + ROLES[role].label;
   try { $('themeColor').setAttribute('content', ROLE_COLOR[role]); } catch(e){}
+  applyInputMode();  /* 入力のしかた（役割ごとの設定） */
   resetQuick(false); /* 役割で科目が違うので入力欄を空に */
 }
 
@@ -1877,6 +2147,11 @@ function showWizardStep(){
   $('wzSteps').innerHTML = wz.steps.map(function(s, i){ return '<i class="' + (i <= wz.i ? 'on' : '') + '"></i>'; }).join('');
   $('wzBack').classList.toggle('hidden', wz.i === 0);
   $('wzNext').textContent = wz.i === wz.steps.length - 1 ? '保存して始める' : '次へ';
+  /* 最後のステップで、記録の入れ方をひとこと */
+  $('wzHowto').classList.toggle('hidden', wz.i !== wz.steps.length - 1);
+  $('wzHowto').textContent = memoMode()
+    ? '記録のしかた：金額を入れて、摘要（何の出入りか）を選ぶと、入金・出金と相手科目が自動で決まります。'
+    : '記録のしかた：入金・出金、金額、相手科目の順に選んで保存します。';
   $('wizard').querySelector('.sheet').scrollTop = 0;
   /* タブレットでは自動でキーボードを出さない（金額・メールの欄だけ、タップで入力） */
   if (cur === 'date') try { $('wzNext').focus({ preventScroll: true }); } catch(e){}
@@ -1941,7 +2216,7 @@ function renderToday(){
 
   var ul = $('dayList');
   if (!info.list.length){
-    ul.innerHTML = '<li class="empty" style="display:block">この日の記録はまだありません。<br>上の入力欄で金額と相手科目を選んで「保存する」を押します。</li>';
+    ul.innerHTML = '<li class="empty" style="display:block">この日の記録はまだありません。<br>' + (memoMode() ? '上の入力欄で金額と摘要を入れて「保存する」を押します。' : '上の入力欄で金額と相手科目を選んで「保存する」を押します。') + '</li>';
   } else {
     var run = info.carry, html = '';
     info.list.forEach(function(e){
@@ -2076,7 +2351,7 @@ function keepAcctOnType(sel){
 }
 
 /* ---------- 入力シート ---------- */
-var form = { id: null, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', amtActive: true, pEdit: false };
+var form = { id: null, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', amtActive: true, pEdit: false, autoFrom: null, pOpen: false };
 function sheetOpen(){ return !$('sheet').classList.contains('hidden'); }
 function openSheet(type, entry){
   form.id = entry ? entry.id : null;
@@ -2086,7 +2361,7 @@ function openSheet(type, entry){
   form.jdlName = entry ? (entry.jdlName || '') : '';
   form.lastAutoMemo = '';
   form.pEdit = false; form.pMore = false; form.mEdit = false;
-  form.more = false;
+  form.more = false; form.autoFrom = null; form.pOpen = !!(entry && entry.partner);
   $('sheetTitle').textContent = entry ? '記録を直す' : (type === 'in' ? '入金を記録' : '出金を記録');
   $('fDate').value = entry ? entry.date : curDate;
   $('fPartner').value = entry ? (entry.partner || '') : '';
@@ -2105,10 +2380,12 @@ function renderSheetParts(){
   Array.prototype.forEach.call($('fType').children, function(b){ var on = b.getAttribute('data-type') === form.type; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
   $('fAccts').innerHTML = acctPickerHtml(form);
   if (form.acctName) $('fAccts').classList.remove('need');
+  renderAlt(SF); renderPartnerFold(SF);
   renderPartnerChips();
 }
 function renderPartnerChips(){ renderSugg(SF); }
 function autoMemo(){
+  if (memoMode()){ renderMemos(SF); return; } /* 摘要から選ぶでは摘要の初期値（取引先名・科目名）を入れない */
   var p = $('fPartner').value.trim();
   var m = p || form.acctName || '';
   var cur = $('fMemo').value;
@@ -2142,6 +2419,7 @@ function saveForm(){
   var amount = parseInt(form.amt || '0', 10) || 0;
   if (!date){ toast('日付を選んでください', true); return; }
   if (!validDate(date)){ toast('日付が正しくありません（2000〜2099年の日付を選んでください）', true); return; }
+  if (!form.acctName && tryAutoAcct(SF)){ toast('摘要から相手科目を選びました。よければもう一度「保存する」を押してください'); return; }
   if (!form.acctName){
     toast('相手科目を選んでください', true);
     var ac = $('fAccts'); ac.classList.add('need');
@@ -2203,11 +2481,13 @@ function scrollToEl(el, box){
 function quickNext(){
   if (!(parseInt(qf.amt || '0', 10) > 0)){ toast('金額を入れてください', true); return; }
   setQuickActive(false);
+  if (memoMode()){ scrollToEl($('qgMemo')); if (isPC()) try { $('qMemo').focus({ preventScroll: true }); } catch(e){} return; }
   scrollToEl($('qAcctsLabel'));
 }
 function sheetNext(){
   if (!(parseInt(form.amt || '0', 10) > 0)){ toast('金額を入れてください', true); return; }
   setAmtActive(false);
+  if (memoMode()){ scrollToEl($('fgMemo'), $('sheet').querySelector('.sheet')); if (isPC()) try { $('fMemo').focus({ preventScroll: true }); } catch(e){} return; }
   scrollToEl($('fAcctsLabel'), $('sheet').querySelector('.sheet'));
 }
 
@@ -2240,6 +2520,7 @@ function renderPartners(c){
   $(c.pBox).innerHTML = html;
 }
 function renderMemos(c){
+  if (memoMode()){ renderMemoCands(c); return; }
   var sel = c.sel, cur = $(c.mIn).value.trim();
   var list = memoSuggest(curStats(), state.settings.hiddenMemos, selAcctKey(sel)), html = '';
   if (!list.length) sel.mEdit = false;
@@ -2296,12 +2577,195 @@ function bindSugg(c){
       });
       return;
     }
+    var mk = b.getAttribute('data-mk');
+    if (mk !== null){ var cand = curMemoCands().byKey.get(mk); if (cand) applyMemoCand(c, cand, 0, true); return; }
     var m = b.getAttribute('data-m'); if (m === null) return;
     $(c.mIn).value = ($(c.mIn).value.trim() === m) ? '' : m;
     renderMemos(c);
   };
   $(c.pIn).addEventListener('input', function(){ renderPartners(c); c.autoMemo(); renderMemos(c); });
-  $(c.mIn).addEventListener('input', function(){ renderMemos(c); });
+  $(c.mIn).addEventListener('input', function(){ if (memoMode()) onMemoInput(c); renderMemos(c); });
+  $(c.pOpen).onclick = function(){ c.sel.pOpen = true; renderPartnerFold(c); };
+  $(c.alt).onclick = function(ev){
+    var b = ev.target.closest('button[data-alt]'); if (!b) return;
+    var cand = c.sel.autoFrom ? curMemoCands().byKey.get(c.sel.autoFrom) : null;
+    if (cand) applyMemoCand(c, cand, +b.getAttribute('data-alt'), false);
+  };
+}
+
+/* ---------- 摘要から選ぶ（v2.6） ---------- */
+function memoMode(){ return !(state && state.settings && state.settings.inputMode === 'acct'); }
+var memoCache = { st: null, ver: -1, v: null };
+/* 候補（記録＋読み込んだ辞書。消したものは除く）。保存のたびに作り直す */
+function curMemoCands(){
+  if (memoCache.st !== state || memoCache.ver !== dataVer){
+    var list = memoCandidates(state.entries, state.settings.memoDict, state.settings.hiddenMemos), by = new Map();
+    list.forEach(function(x){ by.set(x.key, x); });
+    memoCache = { st: state, ver: dataVer, v: { list: list, byKey: by } };
+  }
+  return memoCache.v;
+}
+function comboOf(c, memo){ return resolveCombo(c, state.settings.accounts[c.type], memo); }
+/* 候補チップ（摘要＋小さく「入 612 売上高」）。何も打っていなければ回数の多い順、打ち始めたら部分一致で絞り込む */
+function renderMemoCands(c){
+  var sel = c.sel, raw = $(c.mIn).value, curK = memoKey(raw);
+  var all = curMemoCands().list, list = memoFilter(all, raw, MEMO_CAND_SHOW), html = '';
+  /* 候補と同じ摘要が入っているとき（チップを押した後・記録を直すとき）は、一致するものに続けてよく使う摘要も並べ、選び直しやすくする */
+  if (curK && memoExact(all, raw)){
+    var have = {}; list.forEach(function(x){ have['$' + x.key] = 1; });
+    for (var i = 0; i < all.length && list.length < MEMO_CAND_SHOW; i++) if (!have['$' + all[i].key]) list.push(all[i]);
+  }
+  if (!all.length) sel.mEdit = false;
+  $(c.mEdit).classList.toggle('on', !!sel.mEdit);
+  $(c.mEdit).textContent = sel.mEdit ? '編集を終える' : '編集';
+  $(c.mEdit).classList.toggle('hidden', !all.length);
+  list.forEach(function(m){
+    if (sel.mEdit){ html += '<button type="button" class="pdel" data-delm="' + esc(m.memo) + '" aria-label="' + esc(m.memo) + 'を候補から消す">' + esc(m.memo) + '<b>×</b></button>'; return; }
+    var r = comboOf(m.combos[0], m.key), lab = (m.combos[0].type === 'in' ? '入 ' : '出 ') + comboLabel(r), on = m.key === curK;
+    html += '<button type="button" class="mc' + (on ? ' on' : '') + '" data-mk="' + esc(m.key) + '" aria-pressed="' + (on ? 'true' : 'false') + '" aria-label="' + esc(m.memo + '（' + (m.combos[0].type === 'in' ? '入金' : '出金') + ' ' + comboLabel(r) + '）') + '">' +
+      esc(m.memo) + '<span class="ca ' + (m.combos[0].type === 'in' ? 'c-in' : 'c-out') + '">' + esc(lab) + '</span></button>';
+  });
+  if (sel.mEdit && list.length) html += '<div class="muted" style="flex-basis:100%">×を押すと候補から消します（過去の記録はそのまま）。</div>';
+  else if (!list.length && curK && !sel.acctName) html = '<span class="muted">候補にない新しい摘要です。下で入金・出金と相手科目を選んでください（保存すると次から候補に出ます）。</span>';
+  else if (!all.length) html = '<span class="muted">よく使う摘要は、入力していくと自動でここに並びます。</span>';
+  $(c.mBox).innerHTML = html;
+}
+/* 候補を選ぶ：摘要を入れ、その摘要で idx 番目に多い組み合わせの入金/出金・相手科目を選ぶ */
+function applyMemoCand(c, cand, idx, scroll){
+  var sel = c.sel, cb = cand.combos[idx] || cand.combos[0], r = comboOf(cb, cand.key);
+  $(c.mIn).value = cand.memo;
+  sel.type = cb.type; sel.acctName = r.name; sel.acctCode = r.code; sel.jdlName = r.jdlName || ''; sel.more = false;
+  sel.autoFrom = cand.key; sel.mEdit = false;
+  $(c.acc).classList.remove('need');
+  c.renderAll();
+  if (scroll) scrollToEl($(c.typeG), c.box ? c.box() : null);
+}
+/* 摘要を打ち直したら：自動で選んだ科目は、その摘要と違う摘要になったら外す（新しい摘要は科目を選んでもらう） */
+function onMemoInput(c){
+  var sel = c.sel;
+  if (sel.autoFrom && memoKey($(c.mIn).value) !== sel.autoFrom){
+    sel.autoFrom = null; sel.acctName = ''; sel.acctCode = ''; sel.jdlName = '';
+    c.renderAll();
+  }
+}
+/* 科目が未選択のとき、入力した摘要が候補と完全一致すれば科目を自動で選ぶ（選んだら true） */
+function tryAutoAcct(c){
+  if (!memoMode() || c.sel.acctName) return false;
+  var cand = memoExact(curMemoCands().list, $(c.mIn).value);
+  if (!cand) return false;
+  applyMemoCand(c, cand, 0, true);
+  return true;
+}
+/* 摘要欄で Enter（＝次へ）：完全一致なら科目を自動で選んで入金/出金・相手科目へ。科目が選んであれば保存 */
+function memoEnter(c, saveFn){
+  var ae = document.activeElement; if (ae && ae.blur) ae.blur();
+  if (tryAutoAcct(c)) return;
+  if (c.sel.acctName){ saveFn(); return; }
+  toast('相手科目を選んでください', true);
+  $(c.acc).classList.add('need');
+  scrollToEl($(c.typeG), c.box ? c.box() : null);
+}
+/* 「ほかに：852 消耗品」：自動で選んだ摘要に別の組み合わせがあるとき */
+function renderAlt(c){
+  var sel = c.sel, el = $(c.alt), html = '';
+  var cand = (memoMode() && sel.autoFrom) ? curMemoCands().byKey.get(sel.autoFrom) : null;
+  if (cand){
+    html = '<span class="an">摘要「' + esc(cand.memo) + '」から自動で選びました（違っていれば押して変えられます）</span>';
+    var shown = 0;
+    cand.combos.forEach(function(cb, i){
+      var r = comboOf(cb, cand.key);
+      if (shown >= MEMO_ALT_SHOW || (cb.type === sel.type && r.code === sel.acctCode && r.name === sel.acctName)) return;
+      shown++;
+      html += '<button type="button" data-alt="' + i + '">ほかに：' + (cb.type !== sel.type ? (cb.type === 'in' ? '入金 ' : '出金 ') : '') + esc(comboLabel(r)) + '</button>';
+    });
+  }
+  el.innerHTML = html;
+}
+/* 取引先：摘要から選ぶでは「＋取引先を入れる」でたたむ（入っていれば開く） */
+function renderPartnerFold(c){
+  var fold = memoMode() && !c.sel.pOpen && !$(c.pIn).value.trim();
+  $(c.pOpen).classList.toggle('hidden', !fold);
+  $(c.pBody).classList.toggle('hidden', fold);
+}
+/* 入力のしかたに合わせて並びと見出しを変える（今日画面・修正シート） */
+var QORDER = { acct: ['qgType', 'qgAmt', 'qgAcct', 'qgPartner', 'qgMemo', 'qgSave'], memo: ['qgAmt', 'qgMemo', 'qgType', 'qgAcct', 'qgPartner', 'qgSave'] };
+var FORDER = { acct: ['fgDate', 'fgType', 'fgAmt', 'fgAcct', 'fgPartner', 'fgMemo', 'fgSave'], memo: ['fgDate', 'fgAmt', 'fgMemo', 'fgType', 'fgAcct', 'fgPartner', 'fgSave'] };
+function applyInputMode(){
+  var mm = memoMode(), k = mm ? 'memo' : 'acct';
+  QORDER[k].forEach(function(id){ $('qForm').appendChild($(id)); });
+  FORDER[k].forEach(function(id){ $('fGrid').appendChild($(id)); });
+  $('fGrid').appendChild($('fDelete'));
+  $('qForm').classList.toggle('mode-memo', mm);
+  $('sheet').classList.toggle('mode-memo', mm);
+  $('qMemoLabel').textContent = mm ? '摘要（何の出入りか）' : '摘要・内容（任意）';
+  $('fMemoLabel').textContent = mm ? '摘要（何の出入りか）' : '摘要・但し書き（任意）';
+  $('fTypeLabel').textContent = mm ? '入金・出金（摘要から自動で決まります）' : '区分';
+  ['qMemo', 'fMemo'].forEach(function(id){
+    $(id).classList.toggle('memo-big', mm);
+    if (mm) $(id).setAttribute('placeholder', '下の候補から選ぶか入力'); else $(id).removeAttribute('placeholder');
+    $(id).setAttribute('enterkeyhint', mm ? 'next' : 'done');
+  });
+  ['qKeypad', 'keypad'].forEach(function(id){ var b = $(id).querySelector('[data-k="ok"]'); if (b) b.setAttribute('aria-label', mm ? '次へ（摘要へ）' : '次へ（相手科目へ）'); });
+}
+function setInputMode(m){
+  m = m === 'acct' ? 'acct' : 'memo';
+  if (state.settings.inputMode === m) return;
+  state.settings.inputMode = m; save();
+  qf.autoFrom = null; qf.pOpen = false;
+  applyInputMode(); render();
+  toast(m === 'memo' ? '「摘要から選ぶ」にしました' : '「科目から選ぶ」にしました');
+}
+
+/* ---------- 過去の帳簿（JDL 元帳CSV）から摘要を読み込む（事務所向け。端末の中だけで読む） ---------- */
+var MAX_LEDGER_BYTES = 20 * 1024 * 1024;
+function readFileBytes(file){
+  return new Promise(function(resolve){
+    if (!file || file.size > MAX_LEDGER_BYTES){ resolve({ error: 'size' }); return; }
+    var rd = new FileReader();
+    rd.onload = function(){ resolve({ u8: new Uint8Array(rd.result) }); };
+    rd.onerror = function(){ resolve({ error: 'read' }); };
+    rd.readAsArrayBuffer(file);
+  });
+}
+function importMemoDict(fileList){
+  var files = Array.prototype.slice.call(fileList || [], 0, 50);
+  if (!files.length) return;
+  if (!sjisAvailable()){ infoDlg('この端末では元帳CSVを読み込めません（文字コードの変換に対応していません）。'); return; }
+  Promise.all(files.map(readFileBytes)).then(function(res){
+    var rows = [], ok = [], msgs = [], many = files.length > 1;
+    res.forEach(function(r, i){
+      var nm = many ? '「' + cleanStr(files[i].name, 80) + '」：' : '';
+      if (r.error){ msgs.push(nm + (r.error === 'size' ? 'ファイルが大きすぎます（20MBまで）。' : 'ファイルを読めませんでした。')); return; }
+      var L;
+      try { L = parseJdlLedger(decodeLedgerBytes(r.u8).text); } catch(e){ L = { error: 'parse' }; }
+      if (L.error){ msgs.push(nm + 'JDL の元帳CSVではないようです（読み込みませんでした）。'); return; }
+      if (L.cash !== role){
+        var who = ROLES[L.cash] ? ROLES[L.cash].label + '（' + L.cash + ' ' + ROLES[L.cash].cashName + '）' : '科目 ' + L.cash;
+        msgs.push(nm + 'この帳簿は' + who + 'です。このタブレットは' + ROLES[role].label + '（' + role + ' ' + ROLES[role].cashName + '）なので読み込みません。');
+        return;
+      }
+      rows = rows.concat(L.rows); ok.push(L);
+    });
+    if (!ok.length){ infoDlg(msgs.join('\n') || '読み込める帳簿がありませんでした。'); return; }
+    var B = buildMemoDict(rows, role), st = state.settings, had = st.memoDict.length > 0;
+    var from = '', to = '';
+    ok.forEach(function(L){ if (L.from && (!from || L.from < from)) from = L.from; if (L.to && (!to || L.to > to)) to = L.to; });
+    st.memoDict = B.dict;
+    st.memoDictInfo = cleanMemoDictInfo({ from: from, to: to, files: ok.length, rows: B.used, at: Date.now() });
+    save(); render();
+    infoDlg('過去の帳簿から摘要を読み込みました。\n' +
+      '帳簿の期間：' + (ledgerPeriodLabel(from, to) || '不明') + '（' + ok.length + 'ファイル）\n' +
+      '読み込んだ摘要：' + B.dict.length + ' 件（明細 ' + fmt(B.used) + ' 行から）' +
+      (had ? '\n前に読み込んだ分と置き換えました。' : '') +
+      (msgs.length ? '\n\n読み込まなかったファイル：\n' + msgs.join('\n') : ''));
+  });
+}
+function clearMemoDict(){
+  confirmDlg('読み込んだ摘要（' + state.settings.memoDict.length + ' 件）を消しますか？\n（記録や、記録から覚えた候補はそのまま残ります）', '消す').then(function(ok){
+    if (!ok) return;
+    state.settings.memoDict = []; state.settings.memoDictInfo = null;
+    save(); render(); toast('読み込んだ摘要を消しました');
+  });
 }
 
 /* ---------- 音声入力（Web Speech API） ----------
@@ -2391,19 +2855,23 @@ function applyVoice(id, text){
 }
 
 /* ---------- 今日画面の入力欄（インライン。日付は日付バーの curDate） ---------- */
-var qf = { more: false, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', amtActive: true, pEdit: false, pMore: false, mEdit: false };
-var SQ = { sel: qf, pIn: 'qPartner', pBox: 'qPartners', pEdit: 'qpEdit', mIn: 'qMemo', mBox: 'qMemos', mEdit: 'qmEdit', autoMemo: function(){ quickAutoMemo(); } };
-var SF = { sel: form, pIn: 'fPartner', pBox: 'fPartners', pEdit: 'pEdit', mIn: 'fMemo', mBox: 'fMemos', mEdit: 'mEdit', autoMemo: function(){ autoMemo(); } };
+var qf = { more: false, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', amtActive: true, pEdit: false, pMore: false, mEdit: false, autoFrom: null, pOpen: false };
+var SQ = { sel: qf, pIn: 'qPartner', pBox: 'qPartners', pEdit: 'qpEdit', mIn: 'qMemo', mBox: 'qMemos', mEdit: 'qmEdit', autoMemo: function(){ quickAutoMemo(); },
+  pOpen: 'qpOpen', pBody: 'qpBody', alt: 'qAlt', acc: 'qAccts', typeG: 'qgType', box: null, renderAll: function(){ renderQuick(); } };
+var SF = { sel: form, pIn: 'fPartner', pBox: 'fPartners', pEdit: 'pEdit', mIn: 'fMemo', mBox: 'fMemos', mEdit: 'mEdit', autoMemo: function(){ autoMemo(); },
+  pOpen: 'fpOpen', pBody: 'fpBody', alt: 'fAlt', acc: 'fAccts', typeG: 'fgType', box: function(){ return $('sheet').querySelector('.sheet'); }, renderAll: function(){ renderSheetParts(); } };
 function quickVisible(){ return tab === 'today' && !$('v-today').classList.contains('hidden'); }
 function renderQuick(){
   Array.prototype.forEach.call($('qType').children, function(b){ var on = b.getAttribute('data-type') === qf.type; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
   $('qAccts').innerHTML = acctPickerHtml(qf);
   if (qf.acctName) $('qAccts').classList.remove('need');
+  renderAlt(SQ); renderPartnerFold(SQ);
   renderQuickPartners();
   setQuickActive(qf.amtActive);
 }
 function renderQuickPartners(){ renderSugg(SQ); }
 function quickAutoMemo(){
+  if (memoMode()){ renderMemos(SQ); return; } /* 摘要から選ぶでは摘要の初期値を入れない */
   var m = $('qPartner').value.trim() || qf.acctName || '';
   var cur = $('qMemo').value;
   if (cur === '' || cur === qf.lastAutoMemo){ $('qMemo').value = m; qf.lastAutoMemo = m; }
@@ -2432,7 +2900,7 @@ function quickKey(k){
 /* 保存後・役割切替時：金額・科目・取引先・摘要を空にし、金額欄をアクティブに（keepType で区分は残す） */
 function resetQuick(keepType){
   if (!keepType) qf.type = 'out';
-  qf.acctName = ''; qf.acctCode = ''; qf.jdlName = ''; qf.lastAutoMemo = ''; qf.pEdit = false; qf.pMore = false; qf.mEdit = false; qf.more = false;
+  qf.acctName = ''; qf.acctCode = ''; qf.jdlName = ''; qf.lastAutoMemo = ''; qf.pEdit = false; qf.pMore = false; qf.mEdit = false; qf.more = false; qf.autoFrom = null; qf.pOpen = false;
   setQuickAmt(''); $('qPartner').value = ''; $('qMemo').value = '';
   $('qAccts').classList.remove('need');
   qf.amtActive = true;
@@ -2440,6 +2908,7 @@ function resetQuick(keepType){
 function saveQuick(){
   var date = curDate, amount = parseInt(qf.amt || '0', 10) || 0;
   if (!amount){ toast('金額を入れてください', true); setQuickActive(true); try { $('qAmount').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){} return; }
+  if (!qf.acctName && tryAutoAcct(SQ)){ toast('摘要から相手科目を選びました。よければもう一度「保存する」を押してください'); return; }
   if (!qf.acctName){
     toast('相手科目を選んでください', true);
     $('qAccts').classList.add('need');
@@ -2464,11 +2933,12 @@ function bindQuick(){
   $('qType').onclick = function(ev){
     var b = ev.target.closest('button'); if (!b) return;
     var t = b.getAttribute('data-type'); if (t === qf.type) return;
-    qf.type = t; keepAcctOnType(qf);
+    qf.type = t; keepAcctOnType(qf); qf.autoFrom = null;
     renderQuick(); quickAutoMemo();
   };
   $('qAccts').onclick = function(ev){
     var r = acctPickerClick(ev, qf); if (!r) return;
+    if (r === true) qf.autoFrom = null; /* 自分で選んだ科目 */
     renderQuick(); if (r === true) quickAutoMemo();
   };
   bindSugg(SQ);
@@ -2825,6 +3295,12 @@ function renderSettings(){
   $('stOfficeMail').value = st.officeMail || '';
   $('shopCodeNow').innerHTML = st.shopCode ? '商号コード：<b>' + esc(st.shopCode) + '</b>' : '商号コード：<b>未設定</b>';
   $('stShopCode').value = st.shopCode || '';
+  Array.prototype.forEach.call($('stInputMode').children, function(b){ var on = b.getAttribute('data-mode') === (memoMode() ? 'memo' : 'acct'); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  var di = st.memoDictInfo;
+  $('memoDictNow').innerHTML = st.memoDict.length
+    ? '読み込んだ摘要：<b>' + st.memoDict.length + ' 件</b>' + (di && di.from ? '（' + esc(ledgerPeriodLabel(di.from, di.to)) + 'の帳簿から）' : '')
+    : '読み込んだ摘要：<b>なし</b>';
+  $('memoDictClear').classList.toggle('hidden', !st.memoDict.length);
   renderTrash();
   renderBackupLines();
   Array.prototype.forEach.call(document.querySelectorAll('[data-akind]'), function(b){ b.classList.toggle('on', b.getAttribute('data-akind') === acctKind); });
@@ -2946,7 +3422,8 @@ function setupSW(){
 /* 使い方：このタブレットの役割でやることだけを表示 */
 var HELP_COMMON = [
   'マイクの形のボタンを押して話すと、取引先・摘要・金額を声で入れられます（対応しているブラウザのみ）。',
-  '「今日」画面の上で日付を選び、入金／出金 → 金額（テンキー）→ 相手科目 → 取引先・摘要の順に入れ、「保存する」を押します。テンキーの「次へ ▼」で相手科目へ進みます。続けて次の記録を入れられます。',
+  { memo: '「今日」画面の上で日付を選び、金額（テンキー）→ 摘要（何の出入りか）の順に入れ、「保存する」を押します。テンキーの「次へ ▼」で摘要へ進みます。摘要の候補を押すと、入金・出金と相手科目が自動で決まります（違っていれば押して変えられます）。候補にない摘要は、入れたあとで入金・出金と相手科目を選びます。取引先は「＋取引先を入れる」から入れられます（任意）。続けて次の記録を入れられます。',
+    acct: '「今日」画面の上で日付を選び、入金／出金 → 金額（テンキー）→ 相手科目 → 取引先・摘要の順に入れ、「保存する」を押します。テンキーの「次へ ▼」で相手科目へ進みます。続けて次の記録を入れられます。' },
   '記録をタップすると、直したり消したりできます。「帳簿」タブ（横向きの大きい画面では右側）で、月ごとの帳簿を確認できます。'
 ];
 var HELP = {
@@ -2972,7 +3449,8 @@ var HELP = {
 function renderHelp(){
   var h = HELP[role];
   $('helpLead').textContent = h.lead;
-  $('helpList').innerHTML = h.steps.concat(HELP_COMMON.map(esc)).map(function(s){ return '<li>' + s + '</li>'; }).join('');
+  var mk = memoMode() ? 'memo' : 'acct';
+  $('helpList').innerHTML = h.steps.concat(HELP_COMMON.map(function(x){ return esc(typeof x === 'string' ? x : x[mk]); })).map(function(s){ return '<li>' + s + '</li>'; }).join('');
 }
 function listEditor(container, getList, label){
   container.addEventListener('change', function(ev){
@@ -3212,11 +3690,12 @@ function bind(){
   $('fType').onclick = function(ev){
     var b = ev.target.closest('button'); if (!b) return;
     var t = b.getAttribute('data-type'); if (t === form.type) return;
-    form.type = t; keepAcctOnType(form);
+    form.type = t; keepAcctOnType(form); form.autoFrom = null;
     renderSheetParts(); autoMemo();
   };
   $('fAccts').onclick = function(ev){
     var r = acctPickerClick(ev, form); if (!r) return;
+    if (r === true) form.autoFrom = null;
     renderSheetParts(); if (r === true) autoMemo();
   };
   bindSugg(SF);
@@ -3246,6 +3725,10 @@ function bind(){
   $('exportJdlBtn').onclick = exportJdl;
   $('trashList').onclick = function(ev){ var b = ev.target.closest('button[data-ti]'); if (b) restoreTrash(+b.getAttribute('data-ti')); };
   $('saveShopCode').onclick = saveShopCode;
+  $('stInputMode').onclick = function(ev){ var b = ev.target.closest('button[data-mode]'); if (b) setInputMode(b.getAttribute('data-mode')); };
+  $('memoDictBtn').onclick = function(){ $('memoDictFile').value = ''; $('memoDictFile').click(); };
+  $('memoDictFile').onchange = function(){ if (this.files && this.files.length) importMemoDict(this.files); };
+  $('memoDictClear').onclick = clearMemoDict;
   $('stShopCode').addEventListener('keydown', function(ev){ if (ev.key === 'Enter' && !ev.isComposing){ ev.preventDefault(); saveShopCode(); } });
   $('bugBtn').onclick = openBug;
   $('bugNo').onclick = closeBug;
@@ -3337,7 +3820,11 @@ function bind(){
       /* シートが閉じているときは今日画面の入力欄へ。取引先・摘要・日付の入力中は数字キーを奪わない */
       if (!quickVisible()) return;
       if (ae && (ae.id === 'qPartner' || ae.id === 'qMemo')){
-        if (ev.key === 'Enter' && !ev.isComposing){ ev.preventDefault(); ae.blur(); saveQuick(); }
+        if (ev.key === 'Enter' && !ev.isComposing){
+          ev.preventDefault();
+          if (ae.id === 'qMemo' && memoMode()) memoEnter(SQ, saveQuick); /* 摘要から選ぶ：Enter＝次へ（完全一致なら科目を自動で選ぶ） */
+          else { ae.blur(); saveQuick(); }
+        }
         return;
       }
       if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'SELECT' || ae.tagName === 'TEXTAREA') && ae.id !== 'qAmount') return;
@@ -3351,7 +3838,11 @@ function bind(){
     }
     var typing = ae && (ae.id === 'fPartner' || ae.id === 'fMemo' || ae.id === 'fDate');
     if (typing){
-      if (ev.key === 'Enter' && !ev.isComposing && ae.id !== 'fDate'){ ev.preventDefault(); ae.blur(); saveForm(); }
+      if (ev.key === 'Enter' && !ev.isComposing && ae.id !== 'fDate'){
+        ev.preventDefault();
+        if (ae.id === 'fMemo' && memoMode()) memoEnter(SF, saveForm);
+        else { ae.blur(); saveForm(); }
+      }
       return;
     }
     if (ev.key === 'Enter'){ if (ae && ae.tagName === 'BUTTON') return; ev.preventDefault(); if (form.amtActive) sheetNext(); else saveForm(); return; }
