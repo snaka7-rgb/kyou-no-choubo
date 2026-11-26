@@ -1,0 +1,3377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; font-src 'none'; object-src 'none'; media-src 'none'; frame-src 'none'; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#1f3a5f" id="themeColor">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="きょうの帳簿">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<title>きょうの帳簿</title>
+<style>
+:root{
+  --role:#1f3a5f; --role-soft:#e6ecf4; --role-ink:#ffffff;
+  --bg:#f4f3ef; --card:#ffffff; --ink:#22262b; --sub:#5b6068; --line:#d6d2c9;
+  --in:#1d6a8a; --out:#a2462f; --warn:#805700; --warn-bg:#fff4d6; --ok:#2f6b4f;
+  --radius:14px; --focus:#1a5fd0;
+  color-scheme:light;
+}
+body.role-112{ --role:#2f6b4f; --role-soft:#e3efe8; }
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:#f4f3ef;color:#22262b}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;font-size:16px;line-height:1.5}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus{outline:none}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+header :focus-visible{outline-color:#fff}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:560px;margin:0 auto;padding:0 12px}
+.num{font-variant-numeric:tabular-nums}
+.hidden{display:none!important}
+
+/* header */
+header{background:var(--role);color:var(--role-ink);position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top);transition:background .2s}
+.hrow{display:flex;align-items:center;gap:8px;padding:10px 0 6px}
+.brand{font-weight:700;font-size:17px;flex:1;min-width:0}
+.brand .ver{font-weight:400;font-size:11px;opacity:.85;margin-left:6px;white-space:nowrap}
+.brand small{display:block;font-weight:400;font-size:12px;opacity:.85}
+.roles{display:flex;background:rgba(0,0,0,.18);border-radius:10px;padding:3px}
+.roles button{border:0;background:transparent;color:#fff;min-height:44px;padding:8px 10px;border-radius:8px;font-size:14px;white-space:nowrap}
+.roles button.on{background:#fff;color:var(--role);font-weight:700}
+.tabs{display:flex;gap:4px;padding-bottom:6px}
+.tabs button{flex:1;border:0;background:transparent;color:#fff;opacity:.88;padding:10px 0;font-size:16px;min-height:44px;border-bottom:3px solid transparent}
+.tabs button.on{opacity:1;font-weight:700;border-bottom-color:#fff}
+
+main{padding:12px 0 40px}
+.card{background:var(--card);border-radius:var(--radius);padding:14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+h2{font-size:17px;margin:0 0 10px}
+h3{font-size:15px;margin:14px 0 8px;color:var(--sub)}
+.muted{color:var(--sub);font-size:13px}
+
+/* date bar */
+.datebar{display:flex;gap:6px;align-items:center;margin-bottom:12px}
+.datebar button{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:12px 10px;min-width:72px;font-size:15px}
+.datebar input{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:11px 8px;background:var(--card);font-size:16px;text-align:center}
+.wd{text-align:center;margin:-6px 0 10px;font-size:14px;color:var(--sub)}
+.wd button{border:0;background:var(--role-soft);color:var(--role);border-radius:999px;min-height:44px;padding:4px 16px;margin-left:8px;font-size:14px;font-weight:600}
+.wd{min-height:24px}
+
+/* summary */
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sum div{background:var(--role-soft);border-radius:10px;padding:8px 10px}
+.sum span{display:block;font-size:13px;color:var(--sub)}
+.sum b{font-size:18px}
+.sum .bal{grid-column:1/-1;background:var(--role);color:#fff}
+.sum .bal span{color:rgba(255,255,255,.9)}
+.sum .bal b{font-size:26px}
+.c-in{color:var(--in)} .c-out{color:var(--out)}
+.sum .bal .neg{color:#ffe1d8}
+
+/* close */
+.closebox{border:2px dashed var(--role);}
+.closebox.done{border-style:solid;background:var(--role-soft)}
+.closebox .stamp{font-weight:700;color:var(--role);font-size:17px}
+.warnline{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:8px 10px;font-size:14px;margin-top:8px}
+
+/* list */
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;gap:10px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line)}
+.list li:last-child{border-bottom:0}
+.list li.tap{cursor:pointer}
+.list li.tap:active{background:var(--role-soft)}
+.tag{flex:none;font-size:12px;font-weight:700;border-radius:6px;padding:3px 6px;color:#fff}
+.tag.in{background:var(--in)} .tag.out{background:var(--out)}
+.li-main{flex:1;min-width:0}
+.li-main .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li-main .s{font-size:13px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li-amt{text-align:right;flex:none}
+.li-amt b{display:block;font-size:17px}
+.li-amt small{font-size:12px;color:var(--sub)}
+.auto-badge{font-size:11px;background:var(--role-soft);color:var(--role);border-radius:4px;padding:1px 5px;margin-left:4px;font-weight:600}
+.empty{text-align:center;color:var(--sub);padding:18px 0}
+
+/* buttons */
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:15px;font-size:17px;font-weight:700;background:var(--role);color:#fff}
+.btn.sub{background:var(--card);color:var(--role);border:2px solid var(--role)}
+.btn.danger{background:#fff;color:var(--out);border:2px solid var(--out)}
+.btn.small{display:inline-block;width:auto;min-height:44px;padding:9px 14px;font-size:15px}
+.btn + .btn{margin-top:8px}
+.btn:active{opacity:.8}
+
+/* bottom action bar */
+
+/* month */
+.mbar{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.mbar button{border:1px solid var(--line);background:var(--card);border-radius:10px;min-height:44px;padding:12px 14px;font-size:15px}
+.mbar .mt{flex:1;text-align:center;font-size:19px;font-weight:700}
+table.mt{width:100%;border-collapse:collapse;font-size:14px}
+table.mt th{font-weight:600;color:var(--sub);font-size:12px;text-align:right;padding:6px 4px;border-bottom:2px solid var(--line)}
+table.mt th:first-child{text-align:left}
+table.mt td{padding:12px 4px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.mt td:first-child{text-align:left}
+table.mt tr.tap{cursor:pointer}
+table.mt tr.tap:active{background:var(--role-soft)}
+.mark{font-size:11px;border-radius:4px;padding:1px 4px;margin-left:3px}
+.mark.ok{background:var(--role-soft);color:var(--role)}
+.mark.ng{background:var(--warn-bg);color:var(--warn)}
+.sent{display:inline-block;background:var(--ok);color:#fff;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
+.unsent{display:inline-block;background:#e9e6df;color:var(--sub);border-radius:999px;padding:3px 10px;font-size:13px}
+
+/* forms */
+label.f{display:block;font-size:14px;color:var(--sub);margin:12px 0 6px}
+input.in{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff;font-size:17px}
+input.in:focus{outline:2px solid var(--role);border-color:transparent}
+.amt-wrap{display:flex;align-items:center;gap:8px}
+.amt-wrap input{font-size:28px;font-weight:700;text-align:right;padding:10px 12px}
+.amt-wrap span{font-size:18px}
+.seg{display:flex;gap:8px}
+.seg button{flex:1;border:2px solid var(--line);background:#fff;border-radius:12px;padding:14px 0;font-size:19px;font-weight:700;color:var(--sub)}
+.seg button.on.t-in{background:var(--in);border-color:var(--in);color:#fff}
+.seg button.on.t-out{background:var(--out);border-color:var(--out);color:#fff}
+.seg.mini button{padding:9px 0;font-size:15px}
+.seg.mini button.on{background:var(--role);border-color:var(--role);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:11px 12px;font-size:15px;min-width:64px}
+.chips button.on{background:var(--role);border-color:var(--role);color:#fff;font-weight:700}
+.chips button.add{border-style:dashed;color:var(--role)}
+.chips button small{opacity:.7;font-size:11px;margin-left:3px}
+.row{display:flex;gap:8px;align-items:center}
+.row > *{min-width:0}
+
+/* sheet / modal */
+.overlay{position:fixed;inset:0;background:rgba(20,22,25,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:94vh;overflow:auto;border-radius:18px 18px 0 0;padding:14px 14px calc(18px + env(safe-area-inset-bottom))}
+.sheet-head{display:flex;align-items:center;gap:8px;position:sticky;top:-14px;background:var(--bg);padding:6px 0 8px;z-index:2}
+.sheet-head h2{flex:1;margin:0}
+.sheet-head button{border:0;background:#e6e3dc;border-radius:10px;min-height:44px;padding:9px 16px;font-size:15px}
+.dialog-wrap{align-items:center;padding:16px}
+.dialog{background:#fff;border-radius:16px;padding:18px;max-width:400px;width:100%}
+.dialog p{margin:0 0 16px;white-space:pre-wrap}
+.dialog .row button{flex:1}
+
+/* settings editor rows */
+.erow{display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.erow input{border:1px solid var(--line);border-radius:8px;padding:9px 8px;min-height:44px;background:#fff;font-size:16px;min-width:0}
+.erow .nm{flex:1}
+.erow .cd{width:70px;text-align:center}
+.erow button{flex:none;border:1px solid var(--line);background:#fff;border-radius:8px;min-width:44px;min-height:44px;padding:8px 9px;font-size:14px}
+.erow button.del{margin-left:6px}
+.erow button.del{color:var(--out)}
+.erow .fixed{font-size:11px;color:var(--sub);width:34px;text-align:center}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(20px);background:#2b2f35;color:#fff;padding:12px 18px;border-radius:12px;font-size:15px;opacity:0;pointer-events:none;transition:all .25s;z-index:80;max-width:90vw;text-align:center}
+#toast.show{opacity:.96;transform:translateX(-50%) translateY(0)}
+#toast.err{background:#8d2f1c}
+
+
+/* keypad */
+.amt-wrap input[readonly]{cursor:pointer;background:#fff}
+.amt-wrap input.amt-active{outline:3px solid var(--role);border-color:transparent}
+.keypad{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px;padding:6px;border-radius:14px;background:#e9e6df;opacity:.6;transition:opacity .15s,background .15s;user-select:none;-webkit-user-select:none}
+.keypad.active{opacity:1;background:var(--role-soft)}
+.keypad button{border:0;background:#fff;border-radius:10px;padding:13px 0;font-size:22px;font-weight:600;box-shadow:0 1px 1px rgba(0,0,0,.12);touch-action:manipulation}
+.keypad button:active{background:var(--role-soft)}
+.keypad button.fn{font-size:18px;color:var(--sub)}
+.keypad button.ok{grid-row:span 2;background:var(--role);color:#fff;font-size:18px;font-weight:700}
+.keypad .k00{grid-column:span 2}
+.plabel{display:flex;align-items:flex-end;gap:8px}
+.plabel label.f{flex:1}
+.plabel button{border:1px solid var(--line);background:#fff;border-radius:8px;min-height:44px;min-width:56px;padding:5px 12px;font-size:14px;color:var(--role);margin-bottom:2px}
+.plabel button.on{background:var(--out);border-color:var(--out);color:#fff}
+.chips button.pdel{border-color:var(--out);color:var(--out)}
+.chips button.pdel b{margin-left:6px;font-weight:700}
+.chips button.more{border-style:dashed;color:var(--sub)}
+.chips:empty{display:none}
+/* 音声入力 */
+.vrow{display:flex;gap:8px;align-items:center}
+.vrow input{flex:1;min-width:0}
+.mic{flex:none;min-width:48px;min-height:48px;border:1px solid var(--line);border-radius:12px;background:#fff;color:#22262b;line-height:0;padding:0;display:inline-flex;align-items:center;justify-content:center}
+.mic .micico{width:24px;height:24px;display:block}
+.amt-wrap .mic{margin-left:2px}
+.mic.rec{background:#c0392b;border-color:#c0392b;color:#fff;animation:micblink 1s steps(2,start) infinite}
+@keyframes micblink{50%{background:#e8846f;border-color:#e8846f}}
+@media (prefers-reduced-motion:reduce){ .mic.rec{animation:none} }
+.vstat{font-size:13px;color:var(--out);margin:6px 2px 0;word-break:break-all}
+.sheet-grid{display:block}
+.savebox{margin-top:16px}
+/* 金額＋テンキーは区分の直下に流れの中で置く。取引先・摘要の入力中はテンキーをたたむ */
+.sheet:not(.amt-on) .keypad,.qform:not(.amt-on) .keypad{display:none}
+.acbox.need{outline:2px solid var(--out);outline-offset:4px;border-radius:10px}
+/* 相手科目：コード＋科目名の詰めたグリッド（スマホ3列・PC4列） */
+.acgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.acgrid button{display:flex;align-items:center;gap:5px;min-height:44px;padding:4px 6px;border:1.5px solid var(--line);background:#fff;border-radius:8px;font-size:14px;line-height:1.2;text-align:left;min-width:0}
+.acgrid .cd{flex:none;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;font-size:13px;color:var(--role)}
+.acgrid .nm{min-width:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all}
+.acgrid button.on{background:var(--role);border-color:var(--role);color:#fff;font-weight:700}
+.acgrid button.on .cd{color:#fff}
+.acgrid button:active{background:var(--role-soft)}
+.acmore-btn{display:block;width:100%;margin-top:6px;border:1px dashed var(--role);background:transparent;color:var(--role);border-radius:8px;min-height:44px;padding:9px 10px;font-size:15px}
+.acother-h{font-size:12px;color:var(--sub);margin:8px 0 4px}
+@media (min-width:960px){ .acgrid{grid-template-columns:repeat(4,minmax(0,1fr))} }
+@media (max-width:959px){
+  .keypad button{padding:11px 0}
+}
+@media (max-width:600px){
+  .ledger-pane{padding:0 4px 24px}
+  .ltable-wrap table.ledger{min-width:0;font-size:11.5px;letter-spacing:-.02em}
+  .ltable-wrap table.ledger th{padding:6px 2px;font-size:10.5px}
+  .ltable-wrap table.ledger td{padding:13px 2px}
+  .ltable-wrap table.ledger td.memo{white-space:normal;word-break:break-all;min-width:3em;max-width:none}
+  .ledger-pane .mbar .mt{font-size:16px}
+  .carry-edit{display:block;margin:2px 0 0}
+  .ledger-pane .mbar button{padding:10px 10px;font-size:14px}
+}
+.jn{flex-basis:100%;font-size:12px;color:var(--sub);margin:-4px 0 2px 4px}
+.jn.ng{color:var(--warn)}
+select.in{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff;font-size:17px}
+
+/* ledger (帳簿) */
+.ledger-pane{padding:0 8px 24px}
+.lhead{display:flex;align-items:center;gap:8px;margin:-4px 0 8px;flex-wrap:wrap}
+.lhead b{font-size:16px}
+.lhead .sp{flex:1}
+.ltable-wrap{background:#fff;border-radius:var(--radius);box-shadow:0 1px 2px rgba(0,0,0,.06);overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.ledger{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+table.ledger th{background:#f0eee8;color:var(--sub);font-weight:600;font-size:12px;padding:7px 6px;border-bottom:2px solid var(--line);text-align:center;white-space:nowrap}
+table.ledger th small{display:block;font-weight:400;font-size:10px}
+table.ledger td{padding:8px 6px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:top}
+table.ledger td.n{text-align:right}
+table.ledger td.c{text-align:center;color:var(--sub)}
+table.ledger td.memo{max-width:220px;overflow:hidden;text-overflow:ellipsis}
+table.ledger td.dt{color:var(--ink);font-weight:600}
+table.ledger tr.day-end td{border-bottom:1.5px solid #c9c5bb}
+table.ledger tr.tap{cursor:pointer}
+table.ledger tr.tap:hover td{background:#faf8f3}
+table.ledger tr.tap:active td{background:var(--role-soft)}
+table.ledger tr.cur td{background:var(--role-soft)}
+table.ledger tr.open td,table.ledger tr.total td{background:#f7f5f0;font-weight:700}
+table.ledger tr.total td{border-top:2px solid var(--ink);border-bottom:0}
+table.ledger .nocode{color:var(--warn);font-weight:700}
+table.ledger tr.carry-row{cursor:pointer}
+table.ledger tr.carry-row:hover td{background:#efece4}
+table.ledger tr.carry-row:active td{background:var(--role-soft)}
+table.ledger tr.carry-row td.cm{white-space:normal}
+.carry-edit{display:inline-block;font-size:11px;font-weight:400;color:var(--role);margin-left:6px;white-space:nowrap}
+.hand-badge{display:inline-block;font-size:11px;font-weight:700;background:var(--warn-bg);color:var(--warn);border-radius:4px;padding:1px 5px;margin-left:5px;vertical-align:1px}
+.sum span .hand-badge{display:inline-block;font-size:11px;color:var(--warn)}
+.carry-btn{display:block;margin-top:6px;border:1px solid var(--role);background:#fff;color:var(--role);border-radius:8px;min-height:44px;padding:6px 10px;font-size:14px}
+.dialog h2{margin:0 0 6px}
+.bkline{margin:0 0 10px;font-size:14px}
+.bkline.small{margin:10px 0 0;font-size:13px;color:var(--sub)}
+.bkline.stale{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:6px 10px}
+.mailline{margin-top:10px;background:var(--role-soft);border-radius:10px;padding:10px 12px;font-size:14px}
+.mailline .addr{font-weight:700;user-select:all;-webkit-user-select:all;word-break:break-all}
+.mailline .row{gap:8px;flex-wrap:wrap}
+.mailline button{border:1px solid var(--role);background:#fff;color:var(--role);border-radius:8px;min-height:44px;padding:5px 16px;font-size:14px}
+#shareBtn{font-size:18px;padding:17px}
+.ledger-foot{display:flex;justify-content:flex-end;gap:14px;flex-wrap:wrap;margin:10px 4px 0;font-size:14px}
+.ledger-foot b{font-size:18px}
+
+/* 保存失敗の常時表示 */
+#storeWarn{background:#8d2f1c;color:#fff;font-size:14px;font-weight:600;padding:10px 12px;text-align:center}
+#storeWarn button{margin-left:8px;border:1px solid #fff;background:transparent;color:#fff;border-radius:8px;min-height:44px;padding:6px 12px;font-size:14px}
+
+/* このタブレットの使い方（役割の選択） */
+#roleChooser{position:fixed;inset:0;z-index:70;background:var(--bg);overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:calc(24px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom))}
+#roleChooser .rc-in{width:100%;max-width:560px;margin:auto 0}
+#roleChooser h1{font-size:24px;margin:0 0 6px;text-align:center}
+#roleChooser .rc-lead{text-align:center;color:var(--sub);margin:0 0 20px}
+.rc-btn{display:block;width:100%;border:0;border-radius:18px;padding:22px 20px;margin-bottom:14px;color:#fff;text-align:left;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.rc-btn b{display:block;font-size:24px;line-height:1.3}
+.rc-btn span{display:block;font-size:15px;opacity:.92;margin-top:4px}
+.rc-btn.r111{background:#1f3a5f}
+.rc-btn.r112{background:#2f6b4f}
+.rc-btn:active{opacity:.85}
+#roleChooser .rc-note{font-size:13px;color:var(--sub);text-align:center;margin:6px 0 0}
+#rcCancel{margin-top:14px}
+/* はじめに（初回設定） */
+.wz-steps{display:flex;gap:6px;margin:0 0 14px}
+.wz-steps i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.wz-steps i.on{background:var(--role)}
+.wz-step h3{font-size:18px;color:var(--ink);margin:4px 0 6px}
+.wz-step p{margin:0 0 10px}
+.wz-nav{display:flex;gap:8px;margin-top:18px}
+.wz-nav .btn{flex:1;margin:0}
+.wz-later{display:block;width:100%;margin-top:12px;border:0;background:transparent;color:var(--sub);min-height:44px;font-size:15px;text-decoration:underline}
+.help-list li{margin-bottom:6px}
+
+/* print */
+#printArea{display:none}
+/* 新しい版の帯・お知らせ */
+#updBar{background:#fff4d6;color:#5a3d00;font-size:15px;font-weight:600;padding:8px 12px;text-align:center}
+#updBar button{margin-left:8px;border:1px solid #805700;background:#fff;color:#5a3d00;border-radius:8px;min-height:44px;padding:6px 14px;font-size:15px;font-weight:700}
+.newver{position:relative;border-left:6px solid var(--role);padding-right:52px}
+.newver p{margin:0;font-size:15px}
+.nv-x{position:absolute;top:6px;right:6px;border:0;background:transparent;min-width:44px;min-height:44px;font-size:22px;color:var(--sub)}
+textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;font-size:16px;font-family:inherit;resize:vertical}
+.trash li .rb{flex:none;border:1px solid var(--role);background:#fff;color:var(--role);border-radius:8px;min-height:44px;padding:6px 14px;font-size:14px}
+
+/* タブレット縦（600〜959px）：1カラム。入力欄が間延びしないよう最大幅を抑える */
+@media (min-width:600px) and (max-width:959px){
+  .wrap{max-width:680px;padding:0 20px}
+  .acgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ledger-pane{max-width:900px;margin:0 auto;padding:0 20px 24px}
+  .sheet{max-width:680px}
+  #sheet{align-items:center;padding:20px}
+  #sheet .sheet{border-radius:18px;max-height:92vh}
+  .amt-wrap input{max-width:420px}
+  .keypad{max-width:480px}
+}
+
+/* PC: 2ペイン */
+@media (min-width:960px){
+  html,body{height:100%}
+  body{display:flex;flex-direction:column;overflow:hidden}
+  header{position:static;flex:none}
+  header .wrap{max-width:none;padding:0 20px}
+  .hrow{max-width:none}
+  .tabs{max-width:520px}
+  .tabs button[data-tab="ledger"]{display:none}
+  main.layout{flex:1;min-height:0;display:grid;grid-template-columns:minmax(400px,520px) minmax(0,1fr);padding:0;max-width:none;margin:0}
+  #leftPane{overflow-y:auto;max-width:none;margin:0;padding:14px 16px 0;display:flex;flex-direction:column}
+  #leftPane > section{flex:1 0 auto}
+  #v-ledger{overflow-y:auto;padding:14px 22px 30px;border-left:1px solid var(--line);background:#f8f7f3}
+  #v-ledger.hidden{display:block!important}
+  table.ledger{font-size:14px;min-width:0}
+  table.ledger td.memo{max-width:none}
+  #toast{bottom:40px}
+  #sheet{align-items:center;padding:20px}
+  #sheet .sheet{max-width:600px;border-radius:18px;max-height:92vh;padding:14px 22px 20px}
+}
+
+@media print{
+  @page{size:A4 portrait;margin:12mm 10mm}
+  html,body{height:auto!important;overflow:visible!important;display:block!important;background:#fff!important}
+  body > *:not(#printArea){display:none!important}
+  #printArea *{color:#000!important}
+  #printArea{display:block!important;color:#000;font-size:10pt;font-family:"Hiragino Mincho ProN","Yu Mincho","MS Mincho",serif}
+  #printArea h1{font-size:15pt;text-align:center;margin:0 0 2mm;letter-spacing:.1em}
+  #printArea .pmeta{display:flex;justify-content:space-between;margin:0 0 3mm;font-size:10.5pt}
+  #printArea table{width:100%;border-collapse:collapse}
+  #printArea thead{display:table-header-group}
+  #printArea tr{page-break-inside:avoid}
+  #printArea th,#printArea td{border:0.6pt solid #555;padding:1.2mm 1.6mm;font-size:9.5pt;white-space:nowrap}
+  #printArea th{background:#eee;text-align:center}
+  #printArea td.n{text-align:right;font-variant-numeric:tabular-nums}
+  #printArea td.c{text-align:center}
+  #printArea td.memo{white-space:normal;width:40%}
+  #printArea tr.open td,#printArea tr.total td{font-weight:700;background:#f4f4f4}
+  #printArea .pfoot{margin-top:3mm;text-align:right;font-size:11pt}
+  #printArea .pfoot b{margin-left:4mm}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hrow">
+      <div class="brand">きょうの帳簿<span class="ver" id="appVer"></span><small id="roleLabel">オーナー用・111 現金</small></div>
+    </div>
+    <nav class="tabs" aria-label="画面の切替">
+      <button data-tab="today" class="on">今日</button>
+      <button data-tab="ledger">帳簿</button>
+      <button data-tab="month">月表示</button>
+      <button data-tab="settings">設定</button>
+    </nav>
+  </div>
+  <div id="storeWarn" class="hidden" role="alert"></div>
+  <div id="updBar" class="hidden" role="status">新しい版があります。<button type="button" id="updReload">開き直す</button></div>
+</header>
+
+<main class="layout">
+ <div class="wrap" id="leftPane">
+  <!-- 今日 -->
+  <section id="v-today">
+    <div class="datebar">
+      <button id="prevDay" aria-label="前日">◀ 前日</button>
+      <input type="date" id="curDate" aria-label="日付を選ぶ" min="2019-05-01" max="2099-12-31">
+      <button id="nextDay" aria-label="翌日">翌日 ▶</button>
+    </div>
+    <div class="wd" id="wdLine"></div>
+
+    <div class="card newver hidden" id="newVer" role="status">
+      <button type="button" class="nv-x" id="newVerClose" aria-label="お知らせを閉じる">×</button>
+      <p id="newVerMsg"></p>
+    </div>
+
+    <div class="card hidden" id="bkWarn" style="background:var(--warn-bg);color:var(--warn)">
+      <p style="margin:0 0 10px;font-weight:600" id="bkWarnMsg"></p>
+      <button type="button" class="btn small" id="bkWarnBtn">バックアップを送る</button>
+    </div>
+
+    <!-- 入力欄（日付は上の日付バーの日付）：区分 → 金額 → 相手科目 → 取引先 → 摘要 → 保存 -->
+    <div class="card qform amt-on" id="qForm">
+      <div class="seg" id="qType" role="group" aria-label="入金か出金か">
+        <button data-type="in" class="t-in">入金</button>
+        <button data-type="out" class="t-out on">出金</button>
+      </div>
+      <label class="f" for="qAmount">金額</label>
+      <div class="amt-wrap"><input class="in num" id="qAmount" readonly inputmode="none" autocomplete="off" placeholder="0"><span>円</span><button type="button" class="mic hidden" data-voice="qAmount" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qAmountV" aria-live="polite"></div>
+      <div class="keypad" id="qKeypad" role="group" aria-label="金額テンキー">
+        <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><button type="button" data-k="bs" class="fn" aria-label="1文字消す">⌫</button>
+        <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="c" class="fn" aria-label="クリア">C</button>
+        <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="ok" class="ok" aria-label="次へ（相手科目へ）">次へ ▼</button>
+        <button type="button" data-k="0">0</button><button type="button" data-k="00" class="k00">00</button>
+      </div>
+      <label class="f" id="qAcctsLabel">相手科目</label>
+      <div class="acbox" id="qAccts" role="group" aria-labelledby="qAcctsLabel"></div>
+      <div class="plabel"><label class="f" for="qPartner">取引先・店名（任意）</label><button id="qpEdit" type="button" aria-label="取引先の候補を編集">編集</button></div>
+      <div class="vrow"><input class="in" id="qPartner" maxlength="40" autocomplete="off" placeholder="下のボタンから選ぶか入力"><button type="button" class="mic hidden" data-voice="qPartner" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qPartnerV" aria-live="polite"></div>
+      <div class="chips" id="qPartners" style="margin-top:8px"></div>
+      <div class="plabel"><label class="f" for="qMemo">摘要・内容（任意）</label><button id="qmEdit" type="button" class="hidden" aria-label="摘要の候補を編集">編集</button></div>
+      <div class="vrow"><input class="in" id="qMemo" maxlength="100" autocomplete="off"><button type="button" class="mic hidden" data-voice="qMemo" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qMemoV" aria-live="polite"></div>
+      <div class="chips" id="qMemos" style="margin-top:8px"></div>
+      <div class="savebox"><button class="btn" id="qSave">保存する</button></div>
+    </div>
+
+    <div class="card">
+      <div class="sum num">
+        <div><span>前日からの繰越</span><b id="sCarry">0</b></div>
+        <div><span>記録件数</span><b id="sCount">0件</b></div>
+        <div><span>本日の入金合計</span><b class="c-in" id="sIn">0</b></div>
+        <div><span>本日の出金合計</span><b class="c-out" id="sOut">0</b></div>
+        <div class="bal"><span>差引残高（繰越＋入金−出金）</span><b id="sBal">0</b></div>
+      </div>
+      <div id="beforeStartWarn" class="warnline hidden">この日は残高の起点（設定の「開始日」または前月繰越の指定）より前のため、残高の計算に含まれません。</div>
+    </div>
+
+    <div class="card closebox hidden" id="closeBox"></div>
+
+    <div class="card hidden" id="receiveBox">
+      <h2 style="margin-bottom:4px">レジ（小口現金）から受け取ったとき</h2>
+      <p class="muted" style="margin:0 0 10px">小口現金用のタブレットで締めたときの「小口から現金へ」の金額を受け取ったら押して、その金額を入れてください。入力画面が開くので、金額を入れて保存します。</p>
+      <button class="btn sub" id="receiveBtn">レジから受取</button>
+    </div>
+
+    <div class="card">
+      <h2>この日の記録</h2>
+      <ul class="list" id="dayList"></ul>
+    </div>
+  </section>
+
+  <!-- 月表示 -->
+  <section id="v-month" class="hidden">
+    <div class="mbar">
+      <button id="prevMonth" aria-label="前の月">◀ 前月</button>
+      <div class="mt" id="monthTitle"></div>
+      <button id="nextMonth" aria-label="次の月">翌月 ▶</button>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:10px" id="sentLine"></div>
+      <div class="sum num">
+        <div><span>月初の繰越<span class="hand-badge hidden" id="mCarryBadge">手入力</span></span><b id="mCarry">0</b><button type="button" class="carry-btn" id="mCarryBtn">前月繰越を入力</button></div>
+        <div><span>記録件数</span><b id="mCount">0件</b></div>
+        <div><span>月の入金合計</span><b class="c-in" id="mIn">0</b></div>
+        <div><span>月の出金合計</span><b class="c-out" id="mOut">0</b></div>
+        <div class="bal"><span>月末残高</span><b id="mEnd">0</b></div>
+      </div>
+      <div id="mWarn" class="warnline hidden"></div>
+    </div>
+    <div class="card">
+      <h2>日ごとの一覧</h2>
+      <p class="muted" style="margin:-4px 0 8px">記録のある日だけ表示します。行をタップするとその日の画面へ移ります。</p>
+      <table class="mt num">
+        <thead><tr><th>日</th><th>入金</th><th>出金</th><th>残高</th></tr></thead>
+        <tbody id="monthBody"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>事務所への受け渡し<span class="muted" id="exportMonth" style="font-weight:400;margin-left:8px"></span></h2>
+      <p class="muted" style="margin-top:-4px">「事務所へ送る」を押して Gmail（またはメール・LINE）を選ぶと、ファイルが添付された状態で送れます。<b>JDLへそのまま取り込めるファイルが入っています。</b>全データのバックアップも一緒に添付されます（月1回これを送れば、バックアップも済みます）。送ってもデータは消えません。</p>
+      <div class="warnline hidden" id="jdlNote"></div>
+      <button class="btn" id="shareBtn">事務所へ送る（メール・LINEなど）</button>
+      <div class="mailline hidden" id="mailLine"></div>
+      <p class="muted" style="margin:14px 0 6px">ファイルを個別に保存して添付するときは、下のボタンを使います（1ボタン1ファイル）。</p>
+      <button class="btn sub" id="exportJdlBtn">JDL取込用 仕訳CSVを書き出す</button>
+      <button class="btn sub" id="exportCsvBtn">帳簿ファイル（CSV）を書き出す</button>
+      <button class="btn sub" id="exportJsonBtn">データファイル（JSON）を書き出す</button>
+      <button class="btn sub" id="printBtn">帳簿を印刷／PDF保存</button>
+      <p class="bkline small" id="mBkLine"></p>
+      <p class="muted" style="margin:10px 0 0">帳簿ファイル・データファイルは事務所用の帳簿ファイルです。開いたり直したりせず、そのまま送ってください。<br>印刷／PDF保存：iPhone では印刷画面で共有→「プリント」→ プレビューを2本指で広げる（または共有）と PDF 保存できます。PC では印刷先に「PDFに保存」を選びます。</p>
+    </div>
+  </section>
+
+  <!-- 設定 -->
+  <section id="v-settings" class="hidden">
+    <div class="card">
+      <h2>このタブレットの役割</h2>
+      <p style="margin:0" id="setRoleInfo"></p>
+      <p class="muted" style="margin:6px 0 0">このタブレットはこの役割専用です。もう一方の役割は別のタブレットで使います。</p>
+      <button class="btn sub" id="openWizard" style="margin-top:12px">はじめの設定をやり直す</button>
+    </div>
+
+    <div class="card">
+      <h2>繰越残高（使い始めの残高）</h2>
+      <label class="f" for="stOpenDate">開始日（この日の朝の残高を下に入力）</label>
+      <input type="date" class="in" id="stOpenDate" min="2019-05-01" max="2099-12-31">
+      <label class="f" for="stOpenBal">開始残高（円）</label>
+      <div class="amt-wrap"><input class="in" id="stOpenBal" inputmode="numeric" maxlength="11" autocomplete="off"><span>円</span></div>
+      <div style="margin-top:12px"><button class="btn" id="saveOpen">繰越残高を保存</button></div>
+      <p class="muted" style="margin:10px 0 0">月ごとの前月繰越（月初の残高）は、「帳簿」画面の「期首残高（前月繰越）」の行をタップして直接入れられます（その月から残高を計算し直します）。</p>
+    </div>
+
+    <div class="card" id="floatCard">
+      <h2>基準額（1日の終わりにレジに残す金額）</h2>
+      <p class="muted" style="margin-top:-4px">「本日を締める」を押すと、レジの残高がこの金額より多い分を「小口から現金へ」（出金・相手科目 111 現金）として自動で1行追加し、レジをこの金額にします。多い分はレジから出して、オーナー用の現金へ移します。足りないときは不足額を表示するだけで、行は追加しません。</p>
+      <div class="amt-wrap"><input class="in" id="stFloat" inputmode="numeric" maxlength="11" autocomplete="off" aria-label="基準額（円）"><span>円</span></div>
+      <div style="margin-top:12px"><button class="btn" id="saveFloat">基準額を保存</button></div>
+    </div>
+
+    <div class="card">
+      <h2>事務所のメールアドレス（任意）</h2>
+      <p class="muted" style="margin-top:-4px">月表示の「事務所へ送る」の下に宛先として表示し、コピーできるようにします。入力欄から離れると自動で保存されます。</p>
+      <input type="email" class="in" id="stOfficeMail" maxlength="254" aria-label="事務所のメールアドレス" autocomplete="off" inputmode="email" placeholder="例：office@example.jp">
+    </div>
+
+    <div class="card">
+      <h2>決算月</h2>
+      <p class="muted" style="margin-top:-4px">事務所用の帳簿ファイルに入れる決算日の計算に使います。ふだんは変更不要です（事務所の指示があるときだけ変えてください）。変更は自動で保存されます。</p>
+      <select class="in" id="stFiscal" aria-label="決算月"></select>
+    </div>
+
+    <div class="card">
+      <h2>相手科目</h2>
+      <p class="muted" style="margin-top:-4px">入力画面に出るボタンです。名前・科目コード（任意）を変更でき、↑↓で並べ替えできます。入力画面では、よく使う科目が自動で前に並びます。変更は自動で保存されます。過去の記録の科目名は変わりません。帳簿・書き出しの科目名は、コードに対応する会計ソフトの科目名で表示されます。</p>
+      <div class="seg mini" style="margin-bottom:12px">
+        <button data-akind="in" class="on">入金側の科目</button>
+        <button data-akind="out">出金側の科目</button>
+      </div>
+      <div class="erow muted" style="margin-bottom:4px"><span style="flex:1">科目名</span><span style="width:70px;text-align:center">コード</span><span style="width:118px"></span></div>
+      <div id="acctEditor"></div>
+      <button class="btn sub" id="addAcct">＋ 科目を追加</button>
+    </div>
+
+    <div class="card">
+      <h2>よく使う取引先・店名</h2>
+      <p class="muted" style="margin-top:-4px">入力していくと自動で覚えます。ここで登録・並べ替え・削除もできます。（入力画面の候補は、記録で使った回数の多い順・選んだ相手科目でよく使うものが先に並びます。ここで削除した名前は自動の候補にも出ません。もう一度「新しく登録」すると出るようになります。）</p>
+      <div id="partnerEditor"></div>
+      <button class="btn sub" id="addPartner">＋ 取引先を追加</button>
+    </div>
+
+    <div class="card">
+      <h2>バックアップと復元</h2>
+      <p class="muted" style="margin-top:-4px">このタブレットの全記録と設定を1つのファイルにします（この端末にもう一方の役割のデータがあれば、それも一緒に入ります）。月表示の「事務所へ送る」にも自動で添付されるので、月に1回それを送ればバックアップも済みます。タブレットを変えたときやデータが消えたときに、このファイルで戻せます。タブレットを替える前にも必ず送ってください。</p>
+      <p class="bkline" id="bkLine"></p>
+      <p class="muted" id="persistLine" style="margin:-4px 0 10px"></p>
+      <button class="btn" id="backupShareBtn">バックアップを送る（Gmailなど）</button>
+      <button class="btn sub" id="backupBtn">バックアップを書き出す（JSON）</button>
+      <button class="btn danger" id="restoreBtn">バックアップから復元する</button>
+      <input type="file" id="restoreFile" accept=".json,application/json" class="hidden">
+    </div>
+
+    <div class="card">
+      <h2>使い方</h2>
+      <p style="margin:0 0 8px" id="helpLead"></p>
+      <ol class="muted help-list" id="helpList" style="padding-left:20px;margin:0"></ol>
+      <p class="muted" style="margin:10px 0 0">データはこのタブレットの中だけに保存され、インターネットには送られません。もう一方の役割のデータは、そちらのタブレットにあります。</p>
+    </div>
+
+    <div class="card">
+      <h2>消した記録（7日間）</h2>
+      <p class="muted" style="margin-top:-4px">削除した記録は7日間ここに残り、「戻す」で元に戻せます。7日を過ぎると自動で消えます（締めの解除で消えた自動の行は入りません）。</p>
+      <ul class="list trash" id="trashList"></ul>
+    </div>
+
+    <div class="card">
+      <h2>事務所向け</h2>
+      <p class="muted" style="margin-top:-4px">ふだんは使いません。事務所の案内に従って操作します。</p>
+      <p style="margin:0 0 6px" id="shopCodeNow"></p>
+      <label class="f" for="stShopCode">商号コード（事務所が入れます）</label>
+      <div class="row"><input class="in num" id="stShopCode" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="数字" style="flex:1"><button type="button" class="btn small" id="saveShopCode">保存</button></div>
+      <h3>このタブレットの役割を変更</h3>
+      <p class="muted" style="margin-top:-4px">タブレットの使い道を変えるときに使います。記録は役割ごとに残り、消えません。</p>
+      <button class="btn sub" id="roleChangeBtn">役割を変更する…</button>
+    </div>
+
+    <div class="card">
+      <h2>事務所に不具合を伝える</h2>
+      <p class="muted" style="margin-top:-4px">おかしな動きがあったときに押します。アプリのバージョンや端末の情報と、バックアップを事務所へ送ります。</p>
+      <button class="btn sub" id="bugBtn">事務所に不具合を伝える</button>
+    </div>
+
+    <div class="card">
+      <h2>バージョン</h2>
+      <p style="margin:0 0 8px">現在のバージョン：<b id="verNow"></b></p>
+      <ul class="muted" id="verHist" style="padding-left:20px;margin:0"></ul>
+    </div>
+  </section>
+
+ </div>
+
+  <!-- 帳簿（スマホはタブ、PC は右ペインに常時表示） -->
+  <section id="v-ledger" class="ledger-pane hidden">
+    <div class="mbar">
+      <button id="lPrev" aria-label="帳簿の前の月">◀ 前月</button>
+      <div class="mt" id="lTitle"></div>
+      <button id="lNext" aria-label="帳簿の次の月">翌月 ▶</button>
+    </div>
+    <div class="lhead">
+      <b id="lCash">111 現金</b><span class="muted">出納帳</span><span class="sp"></span>
+      <button class="btn sub small" id="lPrint">印刷／PDF</button>
+    </div>
+    <div class="ltable-wrap" id="lWrap"></div>
+    <div class="ledger-foot num" id="lFoot"></div>
+    <div class="warnline hidden" id="lWarn"></div>
+    <p class="muted" style="margin:10px 4px 0">行をタップすると直せます。残高はその日の最後の行にだけ表示します（会計ソフトの帳簿と同じ）。</p>
+  </section>
+</main>
+
+<!-- 入力シート -->
+<div class="overlay hidden" id="sheet">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-head"><h2 id="sheetTitle">記録する</h2><button id="sheetClose" type="button">閉じる</button></div>
+    <div class="sheet-grid">
+      <!-- 上から操作が流れる順：日付 → 区分 → 金額（テンキー） → 相手科目 → 取引先 → 摘要 → 保存／削除 -->
+      <label class="f" for="fDate">日付</label>
+      <input type="date" class="in" id="fDate" min="2019-05-01" max="2099-12-31">
+      <div class="f" style="font-size:14px;color:var(--sub);margin:12px 0 6px">区分</div>
+      <div class="seg" id="fType" role="group" aria-label="入金か出金か">
+        <button data-type="in" class="t-in">入金</button>
+        <button data-type="out" class="t-out">出金</button>
+      </div>
+      <div class="sf-amt">
+        <label class="f" for="fAmount">金額</label>
+        <div class="amt-wrap"><input class="in num" id="fAmount" readonly inputmode="none" autocomplete="off" placeholder="0"><span>円</span><button type="button" class="mic hidden" data-voice="fAmount" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="fAmountV" aria-live="polite"></div>
+        <div class="keypad" id="keypad" role="group" aria-label="金額テンキー">
+          <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><button type="button" data-k="bs" class="fn" aria-label="1文字消す">⌫</button>
+          <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="c" class="fn" aria-label="クリア">C</button>
+          <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="ok" class="ok" aria-label="次へ（相手科目へ）">次へ ▼</button>
+          <button type="button" data-k="0">0</button><button type="button" data-k="00" class="k00">00</button>
+        </div>
+      </div>
+      <label class="f" id="fAcctsLabel">相手科目</label>
+      <div class="acbox" id="fAccts" role="group" aria-labelledby="fAcctsLabel"></div>
+      <div class="plabel"><label class="f" for="fPartner">取引先・店名（任意）</label><button id="pEdit" type="button" aria-label="取引先の候補を編集">編集</button></div>
+      <div class="vrow"><input class="in" id="fPartner" maxlength="40" autocomplete="off" placeholder="下のボタンから選ぶか入力"><button type="button" class="mic hidden" data-voice="fPartner" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="fPartnerV" aria-live="polite"></div>
+      <div class="chips" id="fPartners" style="margin-top:8px"></div>
+      <div class="plabel"><label class="f" for="fMemo">摘要・但し書き（任意）</label><button id="mEdit" type="button" class="hidden" aria-label="摘要の候補を編集">編集</button></div>
+      <div class="vrow"><input class="in" id="fMemo" maxlength="100" autocomplete="off"><button type="button" class="mic hidden" data-voice="fMemo" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="fMemoV" aria-live="polite"></div>
+      <div class="chips" id="fMemos" style="margin-top:8px"></div>
+      <div class="savebox"><button class="btn" id="fSave">保存する</button></div>
+      <button class="btn danger hidden" id="fDelete" style="margin-top:28px">この記録を削除する</button>
+    </div>
+  </div>
+</div>
+
+<!-- 確認ダイアログ -->
+<div class="overlay dialog-wrap hidden" id="confirmBox">
+  <div class="dialog" role="alertdialog" aria-modal="true" aria-describedby="confirmMsg">
+    <p id="confirmMsg"></p>
+    <div class="row">
+      <button class="btn sub" id="confirmNo">やめる</button>
+      <button class="btn" id="confirmYes">はい</button>
+    </div>
+  </div>
+</div>
+
+<!-- 前月繰越の入力 -->
+<div class="overlay dialog-wrap hidden" id="carryBox">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="carryTitle">
+    <h2 id="carryTitle">前月繰越</h2>
+    <p class="muted" id="carryInfo" style="margin:0 0 4px"></p>
+    <label class="f" for="carryAmt" style="margin-top:8px">前月繰越（この月の1日の朝の残高）</label>
+    <div class="amt-wrap"><input class="in num" id="carryAmt" inputmode="numeric" maxlength="11" autocomplete="off" placeholder="0"><span>円</span></div>
+    <p class="muted" style="margin:8px 0 14px">保存すると、この月の1日からこの金額を起点に残高を計算し直します。これより前の記録はこの月以降の残高に入りません。</p>
+    <button class="btn" id="carrySave">保存</button>
+    <button class="btn danger" id="carryClear">繰越の指定を解除</button>
+    <button class="btn sub" id="carryCancel">やめる</button>
+  </div>
+</div>
+
+<!-- このタブレットの使い方（役割の選択）：その端末に役割の保存が無いとき・役割変更のとき -->
+<div id="roleChooser" class="hidden" role="dialog" aria-modal="true" aria-labelledby="rcTitle">
+  <div class="rc-in">
+    <h1 id="rcTitle">このタブレットの使い方</h1>
+    <p class="rc-lead">このタブレットで使う方を選んでください。</p>
+    <button type="button" class="rc-btn r111" data-pick="111"><b>オーナー用（111 現金）</b><span>オーナーが持つ現金の出し入れを記録します</span></button>
+    <button type="button" class="rc-btn r112" data-pick="112"><b>小口現金用（112 小口現金・お店のレジ）</b><span>お店のレジのお金を記録し、毎日締めます</span></button>
+    <p class="rc-note">選んだ役割はこのタブレットに固定されます。変えるときは事務所に連絡してください。</p>
+    <button type="button" class="btn sub hidden" id="rcCancel">やめる（今の役割のまま）</button>
+  </div>
+</div>
+
+<!-- はじめに（初回設定） -->
+<div class="overlay hidden" id="wizard">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="wzTitle">
+    <div class="sheet-head"><h2 id="wzTitle">はじめに</h2><button id="wzClose" type="button">あとで</button></div>
+    <div class="wz-steps" id="wzSteps" aria-hidden="true"></div>
+    <div class="wz-step" data-step="date">
+      <h3>① 使い始める日</h3>
+      <p class="muted">この日の朝の残高を次で入れます。ふつうは今日のままで大丈夫です。</p>
+      <input type="date" class="in" id="wzDate" min="2019-05-01" max="2099-12-31" aria-label="使い始める日">
+    </div>
+    <div class="wz-step" data-step="bal">
+      <h3>② 使い始める日の朝の残高</h3>
+      <p class="muted" id="wzBalNote"></p>
+      <div class="amt-wrap"><input class="in num" id="wzBal" inputmode="numeric" maxlength="15" autocomplete="off" placeholder="0" aria-label="開始残高（円）"><span>円</span></div>
+    </div>
+    <div class="wz-step" data-step="mail">
+      <h3>③ 事務所のメールアドレス（任意）</h3>
+      <p class="muted" id="wzMailNote">月末に「事務所へ送る」ときの宛先として表示します。わからなければ空のままで次へ進めます。</p>
+      <input type="email" class="in" id="wzMail" maxlength="254" autocomplete="off" inputmode="email" placeholder="例：office@example.jp" aria-label="事務所のメールアドレス">
+    </div>
+    <div class="wz-step" data-step="float">
+      <h3>④ 基準額（1日の終わりにレジに残す金額）</h3>
+      <p class="muted">締めると、レジがこの金額より多い分を「小口から現金へ」として記録します。ふつうは 78,000円 のままです。</p>
+      <div class="amt-wrap"><input class="in num" id="wzFloat" inputmode="numeric" maxlength="15" autocomplete="off" aria-label="基準額（円）"><span>円</span></div>
+    </div>
+    <div class="wz-nav">
+      <button type="button" class="btn sub" id="wzBack">戻る</button>
+      <button type="button" class="btn" id="wzNext">次へ</button>
+    </div>
+    <button type="button" class="wz-later" id="wzLater">あとで設定する（設定画面からいつでも変えられます）</button>
+  </div>
+</div>
+
+<!-- 役割変更の確認（事務所向け） -->
+<div class="overlay dialog-wrap hidden" id="roleChangeBox">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="rcgTitle">
+    <h2 id="rcgTitle">役割の変更（事務所向け）</h2>
+    <p class="muted" style="margin:0 0 4px">続けるには、事務所から案内された番号を入れてください。記録は役割ごとに残ります。</p>
+    <input class="in num" id="roleChangeCode" inputmode="numeric" maxlength="8" autocomplete="off" aria-label="確認の番号" style="margin:8px 0 14px">
+    <div class="row">
+      <button class="btn sub" id="roleChangeNo">やめる</button>
+      <button class="btn" id="roleChangeYes">次へ</button>
+    </div>
+  </div>
+</div>
+
+<!-- 不具合を伝える -->
+<div class="overlay dialog-wrap hidden" id="bugBox">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="bugTitle">
+    <h2 id="bugTitle">事務所に不具合を伝える</h2>
+    <div id="bugStep1">
+      <label class="f" for="bugNote" style="margin-top:4px">どんなことが起きたか（任意）</label>
+      <textarea class="in ta" id="bugNote" maxlength="500" rows="4" placeholder="例：保存を押しても記録が出ない"></textarea>
+      <p class="muted" style="margin:8px 0 14px">送る内容：バージョン・役割・画面の大きさ・端末の種類・直近のエラー記録・書いた内容と、全データのバックアップ。</p>
+      <div class="row"><button class="btn sub" id="bugNo">やめる</button><button class="btn" id="bugSend">送る</button></div>
+    </div>
+    <div id="bugStep2" class="hidden">
+      <p class="muted" style="margin:4px 0 8px">この端末では共有メニューが使えません。下の文面をコピーしてメールに貼り付け、バックアップのファイルを添付して事務所へ送ってください。</p>
+      <textarea class="in ta" id="bugText" rows="8" readonly></textarea>
+      <button class="btn" id="bugCopy" style="margin-top:10px">文面をコピー</button>
+      <button class="btn sub" id="bugBackup">バックアップを書き出す</button>
+      <button class="btn sub" id="bugClose">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- 印刷用（印刷時のみ表示） -->
+<div id="printArea"></div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* LOGIC-START : 画面に依存しない計算処理（テスト用に切り出し可能） */
+var APP_NAME = 'きょうの帳簿';
+var FILE_CODE_FALLBACK = 'choubo';  /* 商号コード未設定のときのファイル名の先頭 */
+var EXPORT_FORMAT = 'choubo-export';
+var BACKUP_FORMAT = 'choubo-backup';
+/* 復元で受け付けるバックアップの format（新形式と、旧版の「<コード>-suitocho-backup」） */
+function isBackupFormat(f){ return typeof f === 'string' && (f === BACKUP_FORMAT || /-suitocho-backup$/.test(f)); }
+var APP_VERSION = '2.3';
+var APP_HISTORY = [
+  ['2.3', 'JDLへそのまま取り込める仕訳CSVを添付、ネットなしでも開ける、不具合を伝えるボタン、新しい版のお知らせ、消した記録を7日間戻せる、アプリ名を『きょうの帳簿』に、商号コードは事務所が設定'],
+  ['2.2', 'マイクのアイコンを線画に変更'],
+  ['2.1', '別々に作った 2.0 を統合'],
+  ['2.0', 'お客さん配布版：タブレットごとに役割を固定、初回設定、『小口から現金へ』に名称変更、説明を平易に、相手科目・取引先・摘要をよく使う順に、声で入力'],
+  ['2.0', '『事務所へ送る』にバックアップを自動添付（オーナー用・小口現金用をまとめて1ファイル）、データを消されにくくする設定、バックアップが古いと今日画面に注意を表示'],
+  ['1.9', '見た目・使いやすさ・安全性の総点検'],
+  ['1.8', 'バックアップをGmail等で送れるように、前回バックアップ日時の表示、テンキーの『保存』を『次へ』に変更'],
+  ['1.7', '『事務所へ送る』ボタン（共有メニューからGmail等で送付）、事務所メール設定'],
+  ['1.6', '締めの文言を見直し（多い分は『オーナーへ渡す』として記録）'],
+  ['1.5', '相手科目をコード＋科目名のグリッドで一覧表示、ほかの科目も選択可'],
+  ['1.4', '今日画面に入力欄を直接配置（日付→区分→金額→相手科目→取引先・摘要）'],
+  ['1.3', 'バージョン表示'],
+  ['1.2', '前月繰越の手入力・入力画面の並び変更'],
+  ['1.1', 'テンキー入力・帳簿表示・JDL元帳CSV書き出し'],
+  ['1.0', '初版']
+];
+var ROLES = {
+  '111': { code: '111', label: 'オーナー用', cashName: '現金' },
+  '112': { code: '112', label: '小口現金用', cashName: '小口現金' }
+};
+var DEFAULT_FLOAT = 78000;
+var DEFAULT_FISCAL_MONTH = 10;
+var RECEIVE_MEMO = 'レジより';
+var CLOSE_MEMO = '現金へ';            /* 旧版（〜1.5）の締め行の摘要（読み込み互換） */
+var OLD_CLOSE_OUT_MEMO = 'オーナーへ渡す'; /* 1.6〜1.9 の締め行の摘要（読み込み時に新しい摘要へ揃える） */
+var CLOSE_OUT_MEMO = '小口から現金へ';  /* 締め：基準額より多い分を 111 へ */
+var DEFAULT_OFFICE_MAIL = '';        /* 配布前に事務所のメールアドレスを入れておくと、初回設定の③を省けます */
+var SCHEMA = 2;
+var MAX_AMOUNT = 999999999;     /* 1件の金額の上限（9桁） */
+var MAX_BALANCE = 99999999999;  /* 開始残高・前月繰越の上限（11桁） */
+var MAX_ENTRIES = 200000;       /* 復元・読み込みで受け付ける記録数の上限 */
+var LAST_MIGRATE_DROPPED = 0;   /* 直近の migrateState で捨てた不正な記録の数 */
+
+/* JDL の科目コード → 科目名（書き出し・帳簿表示はこれを優先。元帳上は全角4文字に切り詰め） */
+var JDL_NAMES = {
+  '0': '諸口', '111': '現金', '112': '小口現金', '121': '当座預金', '134': '普通預金', '135': '普通預金', '183': '仮払金',
+  '313': '短期借入金', '314': '未払金', '315': '未払費用',
+  '612': '売上高', '613': '売上高軽減', '712': '仕入高',
+  '832': '給与手当', '833': '雑給', '837': '福利厚生費', '842': '旅費交通費', '843': '通信費', '844': '交際費',
+  '846': '賃借料', '848': '修繕費', '849': '水道光熱費', '851': '燃料費', '852': '消耗品費', '853': '租税公課',
+  '854': '運賃', '856': '事務用品費', '857': '広告宣伝費', '858': '支払手数料', '859': '諸会費', '863': '衛生費',
+  '869': '雑費', '914': '雑収入'
+};
+
+function pad2(n){ return (n < 10 ? '0' : '') + n; }
+function dateStr(d){ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+function parseDate(s){ var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function addDays(s, n){ var d = parseDate(s); d.setDate(d.getDate() + n); return dateStr(d); }
+function ymOf(s){ return s.slice(0, 7); }
+function ymCompact(ym){ return ym.replace('-', ''); }
+function addMonths(ym, n){ var p = ym.split('-'); var d = new Date(+p[0], +p[1] - 1 + n, 1); return d.getFullYear() + '-' + pad2(d.getMonth() + 1); }
+function daysInMonth(ym){ var p = ym.split('-'); return new Date(+p[0], +p[1], 0).getDate(); }
+function fmt(n){ n = Math.round(Number(n) || 0); var s = String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); return (n < 0 ? '-' : '') + s; }
+/* 入力文字列 → 0 以上の整数（全角数字可・カンマ等は無視・小数点以下は切り捨て・上限 max） */
+function parseAmount(s, max){
+  var t = String(s == null ? '' : s).replace(/[０-９．]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); });
+  t = t.split('.')[0].replace(/[^0-9]/g, '').slice(0, 15);
+  var n = t ? parseInt(t, 10) : 0;
+  var m = max || MAX_BALANCE;
+  return n > m ? m : n;
+}
+/* ---- 読み込み・復元データの検証 ---- */
+function isObj(v){ return !!v && typeof v === 'object' && !Array.isArray(v); }
+/* 'YYYY-MM-DD' として実在する日付（2000〜2099年）か */
+function validDate(s){
+  if (typeof s !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
+  var p = s.split('-'), y = +p[0], m = +p[1], d = +p[2];
+  if (y < 2000 || y > 2099 || m < 1 || m > 12 || d < 1) return false;
+  return d <= new Date(y, m, 0).getDate();
+}
+function validYm(s){ return typeof s === 'string' && /^\d{4}-\d{2}$/.test(s) && validDate(s + '-01'); }
+/* 文字列化（文字列・数値以外は空）・制御文字の除去・長さ制限 */
+function cleanStr(v, max){
+  if (typeof v !== 'string' && typeof v !== 'number') return '';
+  return String(v).replace(/[\u0000-\u001f\u007f]/g, '').slice(0, max || 200);
+}
+/* 科目コード：数字（全角可）1〜6桁のみ。ほかは空 */
+function cleanCode(v){
+  var t = cleanStr(v, 12).replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); }).trim();
+  return /^\d{1,6}$/.test(t) ? t : '';
+}
+/* 整数として読めれば整数（範囲外・数値でないものは null） */
+function toInt(v, min, max){
+  var n = typeof v === 'number' ? v : (typeof v === 'string' && /^\s*-?\d+(\.\d+)?\s*$/.test(v) ? Number(v) : NaN);
+  if (!isFinite(n)) return null;
+  n = Math.round(n);
+  return (n < min || n > max) ? null : n;
+}
+function validMail(v){ return typeof v === 'string' && v.length <= 254 && /^[^\s@<>"'`,;:()\[\]\\]+@[^\s@<>"'`,;:()\[\]\\]+\.[^\s@<>"'`,;:()\[\]\\]+$/.test(v); }
+/* CSV の数式実行（CSV インジェクション）対策：テキスト列が = + - @ タブ CR で始まるときは先頭に ' を付ける */
+function csvSafeText(v){ var t = String(v == null ? '' : v); return /^[=+\-@\t\r]/.test(t) ? "'" + t : t; }
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+/* 商号コード（事務所が設定。数字1〜6桁。未設定は ''） */
+function shopCodeOf(state){ return (state && isObj(state.settings)) ? cleanCode(state.settings.shopCode) : ''; }
+function fileCode(code){ return code || FILE_CODE_FALLBACK; }
+/* 共有の件名・本文の先頭（Gmail の振り分け用）。未設定なら付けない */
+function mailTag(code){ return code ? '[' + code + '] ' : ''; }
+
+/* ---- 和暦・JDL 表記 ---- */
+function reiwaYear(y){ return y - 2018; }
+/* '2025-11-01' → '71101'（令和年＋MM＋DD） */
+function warekiYmd(ds){ var p = ds.split('-'); return String(reiwaYear(+p[0])) + p[1] + p[2]; }
+/* '2026-10-31' → '令和8年10月31日' */
+function warekiLong(ds){ var p = ds.split('-'); return '令和' + reiwaYear(+p[0]) + '年' + (+p[1]) + '月' + (+p[2]) + '日'; }
+/* 'YYYY-MM' → '令和7年11月' */
+function warekiYm(ym){ var p = ym.split('-'); return '令和' + reiwaYear(+p[0]) + '年' + (+p[1]) + '月'; }
+/* その月が属する事業年度の決算日（決算月の末日） */
+function fiscalEndOf(ym, fiscalMonth){
+  var fm = Math.min(12, Math.max(1, parseInt(fiscalMonth, 10) || DEFAULT_FISCAL_MONTH));
+  var p = ym.split('-'), y = +p[0], m = +p[1];
+  var ey = m <= fm ? y : y + 1;
+  var fym = ey + '-' + pad2(fm);
+  return fym + '-' + pad2(daysInMonth(fym));
+}
+/* 文字幅（Shift_JIS のバイト幅と同じ考え方：半角=1, 全角=2） */
+function zenWidth(ch){ var k = ch.charCodeAt(0); return (k < 0x80 || (k >= 0xFF61 && k <= 0xFF9F)) ? 1 : 2; }
+/* 全角 n 文字分の幅に切り詰め、足りない分を全角スペース（奇数幅の余りは半角スペース）で埋める */
+function padZen(str, n){
+  var max = n * 2, w = 0, out = '';
+  var chars = Array.from(String(str == null ? '' : str));
+  for (var i = 0; i < chars.length; i++){
+    var cw = zenWidth(chars[i]);
+    if (w + cw > max) break;
+    out += chars[i]; w += cw;
+  }
+  while (max - w >= 2){ out += '　'; w += 2; }
+  if (max - w === 1) out += ' ';
+  return out;
+}
+function jdlNameOf(code, jdlName, btnName){ return JDL_NAMES[code] || jdlName || btnName || ''; }
+/* 元帳上の4文字科目名（表示用は末尾の全角スペースを除く） */
+function jdlShortName(code, jdlName, btnName){ return padZen(jdlNameOf(code, jdlName, btnName), 4).replace(/[　 ]+$/, ''); }
+
+function defaultAccounts(role){
+  function mk(list){ return list.map(function(a){ return { id: uid(), name: a[0], code: a[1] || '' }; }); }
+  if (role === '112'){
+    return {
+      'in': mk([['店内飲食', '612'], ['takeout', '613'], ['チケット', '612'], ['現金過不足', '914'], ['その他']]),
+      'out': mk([['仕入（材料）', '712'], ['現金へ', '111'], ['コピー代', '856'], ['新聞代', '857'], ['衛生費', '863'], ['現金過不足', '914'], ['その他']])
+    };
+  }
+  return {
+    'in': mk([['小口現金', '112'], ['普通預金', '134'], ['雑収入', '914'], ['その他']]),
+    'out': mk([['仕入（材料）', '712'], ['消耗品', '852'], ['コピー代', '856'], ['広告宣伝費', '857'], ['交際費（食事代）', '844'],
+      ['水道光熱費', '849'], ['支払手数料', '858'], ['燃料費（ガソリン）', '851'], ['通信費', '843'], ['給与', '832'],
+      ['普通預金へ', '134'], ['未払金', '314'], ['雑収入', '914'], ['その他']])
+  };
+}
+function defaultState(role, today){
+  return {
+    role: role, schema: SCHEMA,
+    settings: { openBal: 0, openDate: today, floatAmt: DEFAULT_FLOAT, fiscalMonth: DEFAULT_FISCAL_MONTH, accounts: defaultAccounts(role), partners: [], hiddenPartners: [], hiddenMemos: [], carry: {} },
+    entries: [], closed: {}, sent: {}, touched: {}, trash: []
+  };
+}
+/* 保存データ・復元データの読み込み時の補正（旧データ → 現行形式）。
+   壊れた値・想定外の型・__proto__ 等のキーは捨て、必要なフィールドだけで組み直す */
+function migrateState(s, role, today){
+  if (!isObj(s) || !isObj(s.settings)) s = defaultState(role, today);
+  var src = s.settings, dropped = 0;
+  var st = {
+    openBal: toInt(src.openBal, -MAX_BALANCE, MAX_BALANCE),
+    openDate: validDate(src.openDate) ? src.openDate : '',
+    floatAmt: src.floatAmt == null ? DEFAULT_FLOAT : toInt(src.floatAmt, 0, MAX_AMOUNT),
+    fiscalMonth: toInt(src.fiscalMonth, 1, 12),
+    voiceOk: src.voiceOk === true,
+    shopCode: cleanCode(src.shopCode),
+    officeMail: validMail(src.officeMail) ? src.officeMail : (src.officeMail == null && validMail(DEFAULT_OFFICE_MAIL) ? DEFAULT_OFFICE_MAIL : ''),
+    accounts: null, partners: [], hiddenPartners: [], hiddenMemos: [], carry: {}
+  };
+  if (st.openBal === null) st.openBal = 0;
+  if (st.floatAmt === null) st.floatAmt = DEFAULT_FLOAT;
+  if (st.fiscalMonth === null) st.fiscalMonth = DEFAULT_FISCAL_MONTH;
+  /* 相手科目 */
+  if (!isObj(src.accounts)) st.accounts = defaultAccounts(role);
+  else {
+    st.accounts = { 'in': [], 'out': [] };
+    ['in', 'out'].forEach(function(k){
+      var list = Array.isArray(src.accounts[k]) ? src.accounts[k].slice(0, 300) : [];
+      list.forEach(function(a){
+        if (!isObj(a)) return;
+        var name = cleanStr(a.name, 40).trim(); if (!name) return;
+        var o = { id: cleanStr(a.id, 40) || uid(), name: name, code: cleanCode(a.code) };
+        if (a.jdlName) o.jdlName = cleanStr(a.jdlName, 40);
+        /* 旧初期値の誤り：日用品は 842（旅費交通費）ではなく 852（消耗品費） */
+        if (o.name === '日用品' && o.code === '842') o.code = '852';
+        st.accounts[k].push(o);
+      });
+    });
+  }
+  /* 取引先 */
+  (Array.isArray(src.partners) ? src.partners.slice(0, 1000) : []).forEach(function(p){
+    if (!isObj(p)) return;
+    var name = cleanStr(p.name, 40).trim(); if (!name) return;
+    var c = toInt(p.count, 0, 1e9);
+    st.partners.push({ id: cleanStr(p.id, 40) || uid(), name: name, count: c === null ? 0 : c });
+  });
+  /* 候補から消した取引先・摘要（自動の候補にも出さない） */
+  [['hiddenPartners', 60], ['hiddenMemos', 200]].forEach(function(f){
+    var seenH = {};
+    (Array.isArray(src[f[0]]) ? src[f[0]].slice(0, 2000) : []).forEach(function(v){
+      var t = cleanStr(v, f[1]).trim(); if (!t || seenH['$' + t]) return; seenH['$' + t] = 1; st[f[0]].push(t);
+    });
+  });
+  /* 月ごとの前月繰越（手入力）：{ 'YYYY-MM': 金額 }。無い・壊れている値は捨てる */
+  if (isObj(src.carry)){
+    Object.keys(src.carry).forEach(function(k){
+      var v = src.carry[k];
+      if (!validYm(k) || v === null || v === '') return;
+      var n = toInt(v, -MAX_BALANCE, MAX_BALANCE);
+      if (n !== null) st.carry[k] = n;
+    });
+  }
+  /* 記録 */
+  var entries = [], seen = {};
+  var srcE = Array.isArray(s.entries) ? s.entries : [];
+  if (srcE.length > MAX_ENTRIES){ dropped += srcE.length - MAX_ENTRIES; srcE = srcE.slice(0, MAX_ENTRIES); }
+  srcE.forEach(function(e){
+    var o = cleanEntry(e);
+    if (!o){ dropped++; return; }
+    if (!o.id || seen['$' + o.id]) o.id = uid();
+    seen['$' + o.id] = 1;
+    entries.push(o);
+  });
+  /* 消した記録（ゴミ箱）：{ entry, deletedAt }。新しいものから最大 TRASH_MAX 件。締めの自動行は入れない */
+  var trash = [];
+  (Array.isArray(s.trash) ? s.trash.slice(-TRASH_MAX) : []).forEach(function(t){
+    if (!isObj(t)) return;
+    var at = toInt(t.deletedAt, 1, 9e15), o = cleanEntry(t.entry);
+    if (!at || !o) return;
+    delete o.auto;
+    if (!o.id) o.id = uid();
+    trash.push({ entry: o, deletedAt: at });
+  });
+  /* 締め・送付・変更日時 */
+  var closed = {}, sent = {}, touched = {};
+  if (isObj(s.closed)) Object.keys(s.closed).forEach(function(k){
+    var v = s.closed[k]; if (!validDate(k) || !v) return;
+    var o = {};
+    if (isObj(v)) ['at', 'end', 'diff'].forEach(function(f){ var n = toInt(v[f], -9e15, 9e15); if (n !== null) o[f] = n; });
+    closed[k] = o;
+  });
+  if (isObj(s.sent)) Object.keys(s.sent).forEach(function(k){
+    var v = s.sent[k];
+    if (!validYm(k) || (typeof v !== 'string' && typeof v !== 'number') || String(v).length > 40 || isNaN(new Date(v).getTime())) return;
+    sent[k] = v;
+  });
+  if (isObj(s.touched)) Object.keys(s.touched).forEach(function(k){
+    var n = toInt(s.touched[k], 0, 9e15); if (validYm(k) && n !== null) touched[k] = n;
+  });
+  var lb = (typeof s.lastBackup === 'string' && s.lastBackup.length <= 40 && !isNaN(new Date(s.lastBackup).getTime())) ? s.lastBackup : '';
+  LAST_MIGRATE_DROPPED = dropped;
+  return { role: role, schema: SCHEMA, settings: st, entries: entries, closed: closed, sent: sent, touched: touched, lastBackup: lb, trash: trash };
+}
+/* 1件の記録の検証・正規化（読めなければ null。id は空のことがある） */
+function cleanEntry(e){
+  var amt = isObj(e) ? toInt(e.amount, 0, MAX_AMOUNT) : null;
+  if (amt === null || !validDate(e.date) || (e.type !== 'in' && e.type !== 'out')) return null;
+  var o = { id: cleanStr(e.id, 40), date: e.date, type: e.type, acctName: cleanStr(e.acctName, 40), acctCode: cleanCode(e.acctCode),
+    partner: cleanStr(e.partner, 60), amount: amt, memo: cleanStr(e.memo, 200) };
+  if (e.jdlName) o.jdlName = cleanStr(e.jdlName, 40);
+  if (e.auto){
+    o.auto = 'close';
+    /* 締めの自動行の旧摘要（'オーナーへ渡す'・'現金へ'）を新しい摘要に揃える（帳簿CSVでは自動行の摘要は空欄なので出力は変わらない） */
+    if (o.memo === OLD_CLOSE_OUT_MEMO || o.memo === CLOSE_MEMO) o.memo = CLOSE_OUT_MEMO;
+    if (o.acctName === OLD_CLOSE_OUT_MEMO || o.acctName === CLOSE_MEMO) o.acctName = CLOSE_OUT_MEMO;
+  }
+  var ca = toInt(e.createdAt, 0, 9e15); o.createdAt = ca === null ? 0 : ca;
+  var ua = toInt(e.updatedAt, 0, 9e15); if (ua) o.updatedAt = ua;
+  if (o.acctName === '日用品' && o.acctCode === '842') o.acctCode = '852';
+  return o;
+}
+/* ---- ゴミ箱 ---- */
+var TRASH_DAYS = 7, TRASH_MAX = 200;
+/* 7日を過ぎたもの・未来すぎる日時のものを捨て、新しい方から最大 TRASH_MAX 件 */
+function purgeTrash(trash, now){
+  var lim = TRASH_DAYS * 86400000;
+  return (trash || []).filter(function(t){ return t && t.deletedAt && now - t.deletedAt < lim && t.deletedAt <= now + 86400000; }).slice(-TRASH_MAX);
+}
+function addToTrash(trash, entry, now){
+  var c = {}; Object.keys(entry).forEach(function(k){ if (k !== 'auto') c[k] = entry[k]; });
+  return (trash || []).concat([{ entry: c, deletedAt: now }]).slice(-TRASH_MAX);
+}
+/* 取引先候補：使用回数の多い順（同数は登録順） */
+function sortedPartners(list){
+  return (list || []).map(function(p, i){ return { p: p, i: i }; })
+    .sort(function(a, b){ return ((b.p.count || 0) - (a.p.count || 0)) || (a.i - b.i); })
+    .map(function(x){ return x.p; });
+}
+
+function signed(e){ return e.type === 'in' ? e.amount : -e.amount; }
+/* ---- 残高の起点（開始日＋開始残高／月ごとの前月繰越） ---- */
+function carryOf(st){ var c = st && st.carry; return (c && typeof c === 'object' && !Array.isArray(c)) ? c : {}; }
+/* その月の手入力の前月繰越（無ければ null） */
+function carryOverride(st, ym){ var v = carryOf(st)[ym]; return (typeof v === 'number' && isFinite(v)) ? v : null; }
+/* 起点の一覧（日付順）。開始日と同じ月に前月繰越があれば、その月は前月繰越を優先（開始日は使わない） */
+function anchorList(st){
+  var c = carryOf(st), list = [], cm = {};
+  Object.keys(c).forEach(function(ym){
+    if (/^\d{4}-\d{2}$/.test(ym) && carryOverride(st, ym) !== null){ list.push({ date: ym + '-01', bal: c[ym], kind: 'carry', ym: ym }); cm[ym] = 1; }
+  });
+  if (st.openDate && !cm[ymOf(st.openDate)]) list.push({ date: st.openDate, bal: Number(st.openBal) || 0, kind: 'open' });
+  list.sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+  return list;
+}
+/* date に効く起点：date 以前で最も新しい起点。どの起点より前なら最初の起点を返し before=true（残高に含めない日） */
+function anchorOf(st, date){
+  var list = anchorList(st);
+  if (!list.length) return { date: '', bal: Number(st.openBal) || 0, kind: 'none', before: false };
+  var hit = null;
+  for (var i = 0; i < list.length; i++){ if (list[i].date <= date) hit = list[i]; else break; }
+  var a = hit || list[0];
+  return { date: a.date, bal: a.bal, kind: a.kind, ym: a.ym, before: !hit };
+}
+function isCounted(st, date){ return !anchorOf(st, date).before; }
+/* その日がちょうど起点の日なら、その起点の残高（月の途中で残高を置き直すため）。違えば null */
+function resetAt(st, date){ var a = anchorOf(st, date); return (!a.before && a.date === date) ? a.bal : null; }
+function inRange(e, st){ return isCounted(st, e.date); }
+function sortEntries(list){
+  return list.slice().sort(function(a, b){
+    if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+    var aa = a.auto ? 1 : 0, bb = b.auto ? 1 : 0;
+    if (aa !== bb) return aa - bb;
+    return (a.createdAt || 0) - (b.createdAt || 0);
+  });
+}
+/* その日の朝の残高（直近の起点の残高＋起点の日〜前日までの増減）。起点より前の記録は含めない */
+function balanceBefore(entries, st, date){
+  var a = anchorOf(st, date);
+  var b = a.bal;
+  if (a.before) return b;
+  for (var i = 0; i < entries.length; i++){
+    var e = entries[i];
+    if (e.date >= a.date && e.date < date) b += signed(e);
+  }
+  return b;
+}
+/* 前月繰越の表示用：手入力の値と、手入力が無かった場合の月初残高（＝前月の月末残高）との差 */
+function carryInfo(entries, st, ym){
+  var ov = carryOverride(st, ym), c = {}, src = carryOf(st);
+  Object.keys(src).forEach(function(k){ if (k !== ym) c[k] = src[k]; });
+  var st2 = {}; Object.keys(st).forEach(function(k){ st2[k] = st[k]; }); st2.carry = c;
+  var first = ym + '-01';
+  var a = anchorOf(st2, first);
+  var prevEnd = balanceBefore(entries, st2, first);
+  return {
+    override: ov, prevEnd: prevEnd, prevKnown: !a.before,
+    prevLabel: (a.kind === 'open' && a.date === first) ? '開始残高' : '前月の月末残高',
+    diff: ov === null ? 0 : ov - prevEnd
+  };
+}
+function dayInfo(entries, st, date){
+  var list = sortEntries(entries.filter(function(e){ return e.date === date; }));
+  var carry = balanceBefore(entries, st, date), inSum = 0, outSum = 0;
+  list.forEach(function(e){ if (e.type === 'in') inSum += e.amount; else outSum += e.amount; });
+  var counted = isCounted(st, date);
+  var end = counted ? carry + inSum - outSum : carry;
+  return { list: list, carry: carry, inSum: inSum, outSum: outSum, end: end, counted: counted };
+}
+/* 小口現金（112）の締め：その日の自動行を除いて残高を計算し、基準額を超えた分だけ「小口から現金へ」（相手 111）の出金行を作る。
+   不足のときは行を作らず差を返すだけ */
+function computeClose(entries, st, date){
+  var rest = entries.filter(function(e){ return !(e.date === date && e.auto); });
+  var info = dayInfo(rest, st, date);
+  var base = Number(st.floatAmt) || 0;
+  var diff = info.end - base;
+  var auto = null;
+  if (diff > 0){
+    auto = { id: uid(), date: date, type: 'out', acctName: CLOSE_OUT_MEMO, acctCode: '111', partner: '', amount: diff, memo: CLOSE_OUT_MEMO, auto: 'close', createdAt: Date.now() };
+  }
+  var next = auto ? rest.concat([auto]) : rest;
+  return { entries: next, before: info.end, base: base, diff: diff, auto: auto, after: dayInfo(next, st, date).end };
+}
+function removeCloseRows(entries, date){
+  return entries.filter(function(e){ return !(e.date === date && e.auto); });
+}
+/* 締めた後の表示用：その日の残高と基準額の差 */
+function closeDiff(entries, st, date){
+  var info = dayInfo(entries, st, date);
+  var base = Number(st.floatAmt) || 0;
+  return { end: info.end, base: base, diff: info.end - base };
+}
+function diffLabel(diff){
+  if (diff < 0) return '−' + fmt(-diff) + '円（不足）';
+  if (diff > 0) return '＋' + fmt(diff) + '円（超過）';
+  return '差なし';
+}
+function monthSummary(entries, st, ym){
+  var first = ym + '-01';
+  var carry = balanceBefore(entries, st, first);
+  var bal = carry, inSum = 0, outSum = 0, count = 0, days = [];
+  var n = daysInMonth(ym);
+  for (var d = 1; d <= n; d++){
+    var ds = ym + '-' + pad2(d);
+    var list = entries.filter(function(e){ return e.date === ds; });
+    var i = 0, o = 0;
+    list.forEach(function(e){ if (e.type === 'in') i += e.amount; else o += e.amount; });
+    var counted = isCounted(st, ds);
+    var rs = d > 1 ? resetAt(st, ds) : null;
+    if (rs !== null) bal = rs;
+    if (counted) bal += i - o;
+    inSum += i; outSum += o; count += list.length;
+    if (list.length) days.push({ date: ds, inSum: i, outSum: o, end: bal, count: list.length, counted: counted });
+  }
+  return { carry: carry, inSum: inSum, outSum: outSum, end: bal, count: count, days: days };
+}
+/* 元帳の摘要：取引先＋摘要（重複は省く）。111⇔112 の振替行（レジより／締めの自動行「小口から現金へ」）は JDL の元帳に合わせて空欄。
+   手入力の行の判定は v1.9 と同じ（CSV 出力を変えないため、新しい摘要の手入力行は空欄にしない） */
+function ledgerMemo(e, cashCode){
+  var other = cashCode === '111' ? '112' : '111';
+  var p = String(e.partner || '').trim(), m = String(e.memo || '').trim();
+  if (e.acctCode === other && !p && (e.auto || m === '' || m === RECEIVE_MEMO || m === CLOSE_MEMO || m === OLD_CLOSE_OUT_MEMO || m === e.acctName)) return '';
+  if (!m) return p;
+  if (!p) return m;
+  if (m.indexOf(p) >= 0) return m;
+  return p + '　' + m;
+}
+/* 元帳の行（JDL 元帳と同じ並び。残高はその日の最終行のみ）。開始日より前の記録は含めない */
+function ledgerRows(entries, st, ym, cashCode){
+  var carry = balanceBefore(entries, st, ym + '-01');
+  var all = sortEntries(entries.filter(function(e){ return ymOf(e.date) === ym; }));
+  var list = all.filter(function(e){ return inRange(e, st); });
+  var bal = carry, dr = 0, cr = 0, noCode = 0, rows = [];
+  var curA = anchorOf(st, ym + '-01').date; /* 月の途中で起点が変わったら、その起点の残高に置き直す */
+  list.forEach(function(e, i){
+    var prev = list[i - 1], next = list[i + 1];
+    var an = anchorOf(st, e.date);
+    if (!an.before && an.date !== curA){ curA = an.date; bal = an.bal; }
+    bal += signed(e);
+    if (e.type === 'in') dr += e.amount; else cr += e.amount;
+    var code = e.acctCode || '';
+    if (!code) noCode++;
+    rows.push({
+      id: e.id, date: e.date, type: e.type,
+      firstOfDay: !prev || prev.date !== e.date, lastOfDay: !next || next.date !== e.date,
+      code: code, name: jdlNameOf(code, e.jdlName, e.acctName), shortName: jdlShortName(code, e.jdlName, e.acctName),
+      memo: ledgerMemo(e, cashCode),
+      debit: e.type === 'in' ? e.amount : 0, credit: e.type === 'out' ? e.amount : 0,
+      balance: bal, auto: !!e.auto
+    });
+  });
+  return { ym: ym, cashCode: cashCode, carry: carry, rows: rows, debitSum: dr, creditSum: cr, end: bal, skipped: all.length - list.length, noCode: noCode };
+}
+function csvCell(v){ var s = String(v == null ? '' : v); return /[",\r\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+/* JDL「元帳」CSV（9列・CRLF・UTF-8 BOM付き。Shift_JIS 化は事務所側で行う） */
+function buildJdlCsv(state, ym){
+  var role = state.role, st = state.settings;
+  var L = ledgerRows(state.entries, st, ym, role);
+  var m = +ym.split('-')[1];
+  function row(a){ var r = a.slice(); while (r.length < 9) r.push(''); return r.map(csvCell).join(','); }
+  var lines = [
+    row(['＜商号Ｃ＞', shopCodeOf(state)]),
+    row(['＜商号名＞']),
+    row(['＜決算年月日＞', warekiLong(fiscalEndOf(ym, st.fiscalMonth))]),
+    row(['＜会計処理方法＞', '税込処理']),
+    row([]),
+    row(['自' + m + '月1日～至' + m + '月' + daysInMonth(ym) + '日']),
+    row(['科目', '', '補助']),
+    row([role, padZen(JDL_NAMES[role], 4)]),
+    row([]),
+    row(['＜元帳＞']),
+    row(['日付', '科目', '', '補助', '', '摘要', '借方金額', '貸方金額', '残高']),
+    row(['', '', '', '', '', '期首残高', '', '', L.carry])
+  ];
+  L.rows.forEach(function(r){
+    lines.push(row([warekiYmd(r.date), r.code, padZen(csvSafeText(r.name), 4), '', '', padZen(csvSafeText(r.memo), 32),
+      r.debit || '', r.credit || '', r.lastOfDay ? r.balance : '']));
+  });
+  lines.push(row(['', '', '', '', '', '合計金額', L.debitSum, L.creditSum, L.end]));
+  lines.push(row(['＜元帳終了＞']));
+  return '﻿' + lines.join('\r\n') + '\r\n';
+}
+/* データJSON 用の行（残高つき） */
+function monthRows(entries, st, ym, cashCode){
+  var first = ym + '-01';
+  var bal = balanceBefore(entries, st, first);
+  var list = sortEntries(entries.filter(function(e){ return ymOf(e.date) === ym; }));
+  var curA = anchorOf(st, first).date;
+  return list.map(function(e){
+    var an = anchorOf(st, e.date);
+    if (!an.before && an.date !== curA){ curA = an.date; bal = an.bal; }
+    if (inRange(e, st)) bal += signed(e);
+    var dt = e.createdAt ? new Date(e.createdAt) : null;
+    return {
+      date: e.date, time: (dt && !e.auto) ? pad2(dt.getHours()) + ':' + pad2(dt.getMinutes()) : '',
+      type: e.type, typeLabel: e.type === 'in' ? '入金' : '出金', cashCode: cashCode,
+      acctName: e.acctName, acctCode: e.acctCode || '', jdlName: jdlNameOf(e.acctCode, e.jdlName, e.acctName),
+      partner: e.partner || '', amount: e.amount, memo: e.memo || '', balance: bal, auto: e.auto ? '締め自動' : '',
+      id: e.id
+    };
+  });
+}
+function buildExportJson(state, ym, nowIso){
+  var role = state.role, st = state.settings;
+  var sum = monthSummary(state.entries, st, ym);
+  var rows = monthRows(state.entries, st, ym, role);
+  var obj = {
+    format: EXPORT_FORMAT, version: 2, appVersion: APP_VERSION, shopCode: shopCodeOf(state),
+    cashCode: role, cashName: ROLES[role].cashName, roleLabel: ROLES[role].label,
+    month: ym, exportedAt: nowIso, fiscalEnd: fiscalEndOf(ym, st.fiscalMonth),
+    openingBalance: sum.carry, carryOverride: carryOverride(st, ym), inTotal: sum.inSum, outTotal: sum.outSum, closingBalance: sum.end,
+    entries: rows
+  };
+  if (role === '112'){
+    obj.floatAmount = Number(st.floatAmt) || 0;
+    obj.closedDays = Object.keys(state.closed || {}).filter(function(d){ return ymOf(d) === ym; }).sort().map(function(d){
+      var c = closeDiff(state.entries, st, d);
+      var ar = state.entries.find(function(e){ return e.date === d && e.auto; });
+      return { date: d, balance: c.end, base: c.base, diff: c.diff, toOwner: ar ? ar.amount : 0 };
+    });
+  }
+  return obj;
+}
+function exportFileBase(role, ym, code){ return fileCode(code) + '_' + role + '_' + ymCompact(ym); }
+/* バックアップ：ファイル名・件名・本文（d は Date） */
+function backupMeta(role, d, officeMail, code){
+  var mail = String(officeMail || '').trim();
+  var label = mailTag(code) + APP_NAME;
+  return {
+    fileName: fileCode(code) + '_' + role + '_backup_' + dateStr(d).replace(/-/g, '') + '.json',
+    title: label + ' バックアップ（' + role + ' ' + ROLES[role].cashName + '）' + dateStr(d).replace(/-/g, '/'),
+    text: label + '（' + role + ' ' + ROLES[role].cashName + '）の全データと設定のバックアップです。復元するときは設定の『バックアップから復元する』でこのファイルを選びます。' + (mail ? '\n宛先：' + mail : '')
+  };
+}
+function buildBackupObj(state, nowIso){ return { format: BACKUP_FORMAT, version: 1, shopCode: shopCodeOf(state), savedAt: nowIso, data: state }; }
+/* v2：この端末の両方の役割（111・112）をまとめた1ファイル。roles = { '111': state, '112': state }（データのある役割だけ） */
+function buildBackupAll(roles, nowIso, code){ return { format: BACKUP_FORMAT, version: 2, shopCode: code || '', appVersion: APP_VERSION, savedAt: nowIso, roles: roles }; }
+function backupAllMeta(d, officeMail, roleKeys, code){
+  var mail = String(officeMail || '').trim();
+  var label = mailTag(code) + APP_NAME;
+  var names = roleKeys.map(function(r){ return ROLES[r].label; }).join('・');
+  return {
+    fileName: fileCode(code) + '_backup_' + dateStr(d).replace(/-/g, '') + '.json',
+    title: label + ' バックアップ ' + dateStr(d).replace(/-/g, '/'),
+    text: label + '（' + names + '）の全データと設定のバックアップです。復元するときは設定の『バックアップから復元する』でこのファイルを選びます。' + (mail ? '\n宛先：' + mail : '')
+  };
+}
+var BACKUP_STALE_DAYS = 30;
+/* 前回バックアップの表示（'2026/11/06 18:30'）と、30日以上前・未実施なら stale */
+function backupStatus(lastIso, now){
+  if (!lastIso) return { label: 'まだ取っていません', stale: true, days: null };
+  var d = new Date(lastIso);
+  if (isNaN(d.getTime())) return { label: 'まだ取っていません', stale: true, days: null };
+  var label = dateStr(d).replace(/-/g, '/') + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+  var days = Math.floor((now.getTime() - d.getTime()) / 86400000);
+  return { label: label, stale: days >= BACKUP_STALE_DAYS, days: days };
+}
+/* 今日画面の注意：記録があり、前回から30日以上（未実施なら最初の記録から7日以上）たったら文言を返す。不要なら '' */
+function backupNudge(state, now){
+  if (!state.entries.length) return '';
+  var b = backupStatus(state.lastBackup, now);
+  if (b.days === null){
+    var first = Infinity;
+    state.entries.forEach(function(e){ var c = e.createdAt || 0; if (c < first) first = c; });
+    if (now.getTime() - first < 7 * 86400000) return '';
+    return 'まだバックアップを取っていません。スマホの故障や機種変更でデータが消えないよう、バックアップを送ってください。';
+  }
+  if (!b.stale) return '';
+  return '前回のバックアップから ' + b.days + ' 日たっています（' + b.label + '）。バックアップを送ってください。';
+}
+/* 「事務所へ送る」（共有メニュー）用のファイル名・件名・本文 */
+/* extraLines：本文に足す行（仕訳CSVの照合用の合計など） */
+function shareMeta(role, ym, officeMail, code, extraLines){
+  var label = mailTag(code) + APP_NAME + ' ' + warekiYm(ym) + '（' + role + ' ' + ROLES[role].cashName + '）';
+  var mail = String(officeMail || '').trim();
+  var base = exportFileBase(role, ym, code);
+  var lines = [label + 'のJDL取込用 仕訳CSV、帳簿CSV（元帳・確認用）、データJSON、全データのバックアップです。'];
+  (extraLines || []).forEach(function(l){ if (l) lines.push(l); });
+  if (mail) lines.push('宛先：' + mail);
+  return {
+    title: label,
+    text: lines.join('\n'),
+    csvName: base + '_motocho.csv', jsonName: base + '.json', jdlName: base + '_jdl.csv'
+  };
+}
+
+/* ---- JDL「仕訳一覧」取込CSV（21列・CRLF・Shift_JIS。税込処理。課区・税区は空欄＝JDL の科目設定に任せる） ----
+   入金＝借方 現金科目／貸方 相手科目、出金＝借方 相手科目／貸方 現金科目。
+   111⇔112 の振替は 112 側の仕訳だけで計上する（111 側の相手 112 の行は仕訳CSVに出さない。元帳CSV・JSON には残す） */
+var JDL_UNSET_MARK = '【科目未設定】';
+function jdlShiwake(state, ym){
+  var role = state.role, other = role === '111' ? '112' : '111';
+  var L = ledgerRows(state.entries, state.settings, ym, role);
+  var rows = [], noCode = 0, zero = 0, dr = 0, cr = 0;
+  var tr = { inCount: 0, inSum: 0, outCount: 0, outSum: 0 }, ex = { count: 0, sum: 0 };
+  L.rows.forEach(function(r){
+    var amt = r.debit || r.credit;
+    if (r.code === other){
+      if (r.type === 'in'){ tr.inCount++; tr.inSum += amt; } else { tr.outCount++; tr.outSum += amt; }
+      if (role === '111'){ ex.count++; ex.sum += amt; return; }
+    }
+    if (!amt){ zero++; return; }
+    var memo = r.memo, acc;
+    if (r.code) acc = { code: r.code, name: r.name };
+    else { noCode++; acc = { code: '0', name: JDL_NAMES['0'] }; memo = JDL_UNSET_MARK + memo; }
+    var cash = { code: role, name: JDL_NAMES[role] };
+    var d = r.type === 'in' ? cash : acc, c = r.type === 'in' ? acc : cash;
+    rows.push({ date: r.date, dCode: d.code, dName: d.name, cCode: c.code, cName: c.name, amount: amt, memo: memo });
+    dr += amt; cr += amt;
+  });
+  return { ym: ym, role: role, rows: rows, noCode: noCode, zero: zero, transfer: tr, excluded: ex, debitSum: dr, creditSum: cr };
+}
+function nfc(s){ s = String(s == null ? '' : s); return s.normalize ? s.normalize('NFC') : s; }
+function buildJdlShiwakeCsv(state, ym, J){
+  J = J || jdlShiwake(state, ym);
+  var st = state.settings;
+  function row(a){ var r = a.slice(); while (r.length < 21) r.push(''); return r.map(csvCell).join(','); }
+  var lines = [
+    row(['＜商号Ｃ＞', shopCodeOf(state)]),
+    row(['＜商号名＞']),
+    row(['＜決算年月日＞', warekiLong(fiscalEndOf(ym, st.fiscalMonth))]),
+    row(['＜会計処理方法＞', '税込処理']),
+    row([]),
+    row(['＜仕訳一覧＞']),
+    row(['番号', '日付', '借方科目', '', '借方補助', '', '貸方科目', '', '貸方補助', '', '金額', '摘要', '課区', '', '税区', '', '税計算区分', '別記区分', '資金', '', '手形期日'])
+  ];
+  J.rows.forEach(function(r, i){
+    lines.push(row([i + 1, warekiYmd(r.date),
+      r.dCode, padZen(csvSafeText(nfc(r.dName)), 4), '', '',
+      r.cCode, padZen(csvSafeText(nfc(r.cName)), 4), '', '',
+      r.amount, padZen(csvSafeText(nfc(r.memo)), 32),
+      '', '', '', '', 0, 0, '', '', '']));
+  });
+  lines.push(row(['＜仕訳一覧終了＞']));
+  lines.push(row(['＜仕訳数＞', J.rows.length + '件']));
+  lines.push(row(['＜表示順＞', '番号順']));
+  return lines.join('\r\n') + '\r\n';
+}
+/* 共有本文・画面に出す照合用の行 */
+function jdlNoteLines(J){
+  var out = [], tr = J.transfer;
+  if (J.role === '112'){
+    out.push('小口から現金へ 合計 ' + fmt(tr.outSum) + '円（' + tr.outCount + '件）');
+    if (tr.inCount) out.push('現金から小口へ 合計 ' + fmt(tr.inSum) + '円（' + tr.inCount + '件）');
+  } else {
+    out.push('レジから受取 合計 ' + fmt(tr.inSum) + '円（' + tr.inCount + '件）※仕訳CSVには含めていません（小口現金側の仕訳で計上）');
+    if (tr.outCount) out.push('小口現金へ 合計 ' + fmt(tr.outSum) + '円（' + tr.outCount + '件）※仕訳CSVには含めていません（小口現金側の仕訳で計上）');
+  }
+  if (J.noCode) out.push('科目未設定の行が ' + J.noCode + ' 件あります（仕訳CSVでは諸口・摘要の先頭に' + JDL_UNSET_MARK + '）');
+  if (J.zero) out.push('金額0円の行 ' + J.zero + ' 件は仕訳CSVに入れていません');
+  return out;
+}
+/* ---- Shift_JIS（cp932）への変換：ブラウザの TextDecoder('shift_jis') で逆引き表を作る（初回だけ） ---- */
+var SJIS_MAP = null, LAST_SJIS_REPLACED = 0;
+var SJIS_Q = 0x8148; /* ？ */
+function sjisAvailable(){
+  try { if (typeof TextDecoder !== 'function') return false; new TextDecoder('shift_jis'); return true; } catch(e){ return false; }
+}
+function buildSjisMap(){
+  var dec = new TextDecoder('shift_jis'), m = new Map(), b, l, t;
+  for (b = 0; b < 0x80; b++) m.set(String.fromCharCode(b), b);
+  for (b = 0xA1; b <= 0xDF; b++) m.set(dec.decode(new Uint8Array([b])), b);
+  function lead(l){
+    for (t = 0x40; t <= 0xFC; t++){
+      if (t === 0x7F) continue;
+      var ch = dec.decode(new Uint8Array([l, t]));
+      if (!ch || ch === '\uFFFD' || Array.from(ch).length !== 1) continue;
+      if (!m.has(ch)) m.set(ch, (l << 8) | t);
+    }
+  }
+  /* 同じ文字が2か所にあるとき（NEC 特殊文字・NEC 選定 IBM 拡張 0xED/0xEE と IBM 拡張 0xFA〜0xFC など）は若い番号を使う。
+     事務所の変換スクリプト（Python の cp932）と同じバイト列になる。どちらも JDL では同じ文字として読まれる */
+  for (l = 0x81; l <= 0x9F; l++) lead(l);
+  for (l = 0xE0; l <= 0xFC; l++) lead(l);
+  /* iPad・Mac の入力で出やすい JIS 系の字形（〜 ‖ — ¢ £ ¬ − ¥ ‾）を cp932 の同じ位置へ */
+  [[0x301C, 0x8160], [0x2016, 0x8161], [0x2014, 0x815C], [0x00A2, 0x8191], [0x00A3, 0x8192], [0x00AC, 0x81CA], [0x2212, 0x817C], [0x00A5, 0x5C], [0x203E, 0x7E]]
+    .forEach(function(x){ var ch = String.fromCharCode(x[0]); if (!m.has(ch)) m.set(ch, x[1]); });
+  return m;
+}
+/* 文字列 → Shift_JIS の Uint8Array。表に無い文字（絵文字など）は「？」にし、置き換えた数を LAST_SJIS_REPLACED に入れる */
+function encodeSjis(str){
+  if (!SJIS_MAP) SJIS_MAP = buildSjisMap();
+  var chars = Array.from(String(str == null ? '' : str));
+  var out = new Uint8Array(chars.length * 2), n = 0, rep = 0;
+  for (var i = 0; i < chars.length; i++){
+    var v = SJIS_MAP.get(chars[i]);
+    if (v === undefined){ v = SJIS_Q; rep++; }
+    if (v > 0xFF){ out[n++] = v >> 8; out[n++] = v & 0xFF; } else out[n++] = v;
+  }
+  LAST_SJIS_REPLACED = rep;
+  return out.slice(0, n);
+}
+/* ---- 不具合の連絡・新しい版のお知らせ ---- */
+function bugReportText(o){
+  var errs = (o.errors || []).slice(-20).map(function(e){ return '・' + (e.t || '') + ' ' + (e.m || '') + (e.l ? '（' + e.l + '行）' : ''); });
+  return [
+    mailTag(o.code) + APP_NAME + ' 不具合の連絡',
+    '起きたこと：' + (o.note ? o.note : '（記入なし）'),
+    '',
+    'バージョン：v' + APP_VERSION,
+    '役割：' + (ROLES[o.role] ? ROLES[o.role].label + '（' + o.role + '）' : '未選択'),
+    '画面の大きさ：' + (o.size || ''),
+    '端末：' + (o.ua || ''),
+    '直近のエラー記録：' + (errs.length ? '\n' + errs.join('\n') : 'なし')
+  ].join('\n');
+}
+/* 前回見たバージョンと違えば、お知らせの文（初回起動＝役割を選ぶ前の端末は呼び出し側で出さない） */
+function newVersionNote(seen, ver, hist){
+  if (seen === ver) return '';
+  var h = (hist || []).find(function(x){ return x[0] === ver; });
+  return 'v' + ver + ' になりました：' + (h ? h[1] : '');
+}
+/* ---- 相手科目ボタンの並び：よく使うものを先に ----
+   回数は保存データに別カウンタを持たず、毎回 entries から数える（区分ごと・acctCode＋acctName が一致する件数。締めの自動行は数えない）。
+   1回の描画で1回だけ集計する（O(件数)）。 */
+var PROMOTE_MIN = 2; /* 「ほかの科目」から選んだ科目を通常のグリッドに出す使用回数 */
+function acctUsage(entries, type){
+  var m = new Map();
+  for (var i = 0; i < entries.length; i++){
+    var e = entries[i];
+    if (e.auto || e.type !== type) continue;
+    var k = (e.acctCode || '') + '\u0001' + (e.acctName || '');
+    m.set(k, (m.get(k) || 0) + 1);
+  }
+  return m;
+}
+/* 並び：回数の多い順 → 同数は設定の並び順（ほかの科目から昇格したものは設定の科目の後ろ・コード順）。
+   「その他」（コードなし）は常に最後。返り値：[{ kind:'list', i, name, code, n } | { kind:'jdl', code, name, n }] */
+function acctOrder(accts, entries, type, cashCode){
+  var use = acctUsage(entries, type), items = [], have = {}, last = [];
+  (accts || []).forEach(function(a, i){
+    var code = a.code || '', k = code + '\u0001' + a.name;
+    have[k] = 1;
+    var it = { kind: 'list', i: i, name: a.name, code: code, n: use.get(k) || 0 };
+    if (!code && a.name === 'その他') last.push(it); else items.push(it);
+  });
+  use.forEach(function(n, k){
+    if (have[k] || n < PROMOTE_MIN) return;
+    var p = k.split('\u0001'), code = p[0], name = p[1];
+    if (!code || code === '0' || code === cashCode || JDL_NAMES[code] !== name) return;
+    items.push({ kind: 'jdl', i: 1e9 + (+code), name: name, code: code, n: n });
+  });
+  items.sort(function(a, b){ return (b.n - a.n) || (a.i - b.i); });
+  return items.concat(last);
+}
+/* ---- 取引先・摘要の候補（記録から自動で覚える） ----
+   回数は保存データに持たず、記録（entries）から1回の走査で Map に集計する。締めの自動行は数えない */
+var PARTNER_AUTO_MIN = 3;  /* 登録していない取引先が自動で候補に出る回数 */
+var PARTNER_SHOW = 12;     /* 取引先の候補の表示数（それ以上は「もっと見る」） */
+var MEMO_MIN = 2;          /* 摘要の候補に出る回数 */
+var MEMO_SHOW = 8;         /* 摘要の候補の上限 */
+function acctKeyOf(code, name){ return (code || '') + '\u0001' + (name || ''); }
+function suggestStats(entries){
+  var pT = new Map(), pA = new Map(), mT = new Map(), mA = new Map();
+  for (var i = 0; i < entries.length; i++){
+    var e = entries[i]; if (e.auto) continue;
+    var ak = acctKeyOf(e.acctCode, e.acctName) + '\u0002';
+    var pn = String(e.partner || '').trim(), m = String(e.memo || '').trim();
+    if (pn){ pT.set(pn, (pT.get(pn) || 0) + 1); pA.set(ak + pn, (pA.get(ak + pn) || 0) + 1); }
+    /* 摘要：空・取引先名と同じ・科目名と同じものは数えない（摘要の初期値で自動に入るため） */
+    if (m && m !== pn && m !== e.acctName && m !== jdlNameOf(e.acctCode, e.jdlName, e.acctName)){
+      mT.set(m, (mT.get(m) || 0) + 1); mA.set(ak + m, (mA.get(ak + m) || 0) + 1);
+    }
+  }
+  return { pT: pT, pA: pA, mT: mT, mA: mA };
+}
+function hiddenSet(list){ var o = {}; (list || []).forEach(function(v){ o['$' + v] = 1; }); return o; }
+/* 取引先の候補：登録済み＋記録に3回以上出てきた名前（消したものは除く）。
+   並び：選んだ相手科目で使った回数 → 全体の回数 → 登録順。acctKey が空なら全体の回数順 */
+function partnerSuggest(stats, partners, hidden, acctKey){
+  var hid = hiddenSet(hidden), seen = {}, items = [];
+  (partners || []).forEach(function(p, i){
+    var n = String(p.name || '').trim(); if (!n || hid['$' + n] || seen['$' + n]) return;
+    seen['$' + n] = 1; items.push({ name: n, i: i, reg: true });
+  });
+  stats.pT.forEach(function(c, n){
+    if (c < PARTNER_AUTO_MIN || hid['$' + n] || seen['$' + n]) return;
+    seen['$' + n] = 1; items.push({ name: n, i: 1e9 + items.length, reg: false });
+  });
+  items.forEach(function(it){ it.n = stats.pT.get(it.name) || 0; it.a = acctKey ? (stats.pA.get(acctKey + '\u0002' + it.name) || 0) : 0; });
+  items.sort(function(a, b){ return (b.a - a.a) || (b.n - a.n) || (a.i - b.i); });
+  return items;
+}
+/* 摘要の候補：2回以上使われた摘要（消したものは除く）。選んだ科目で多い順 → 全体で多い順。上限8個 */
+function memoSuggest(stats, hidden, acctKey){
+  var hid = hiddenSet(hidden), items = [], k = 0;
+  stats.mT.forEach(function(c, m){
+    if (c < MEMO_MIN || hid['$' + m]) return;
+    items.push({ memo: m, n: c, a: acctKey ? (stats.mA.get(acctKey + '\u0002' + m) || 0) : 0, i: k++ });
+  });
+  items.sort(function(a, b){ return (b.a - a.a) || (b.n - a.n) || (a.i - b.i); });
+  return items.slice(0, MEMO_SHOW);
+}
+/* ---- 声の金額（「1万2千円」「いちまんにせん」など）→ 数値。読めなければ null ----
+   1回の記録として現実的な上限（1億円未満）を超えるもの・0 も null */
+var VOICE_MAX_AMOUNT = 99999999;
+var KANA_NUM = [['きゅう','九'],['じゅう','十'],['ひゃく','百'],['びゃく','百'],['ぴゃく','百'],['せん','千'],['ぜん','千'],['まん','万'],['おく','億'],
+  ['ぜろ','〇'],['れい','〇'],['いち','一'],['いっ','一'],['さん','三'],['よん','四'],['ろく','六'],['ろっ','六'],['なな','七'],['しち','七'],['はち','八'],['はっ','八'],
+  ['に','二'],['し','四'],['ご','五'],['く','九']];
+var KANA_RE = new RegExp(KANA_NUM.map(function(x){ return x[0]; }).join('|'), 'g');
+var KANJI_DIGIT = { '〇': 0, '零': 0, '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '壱': 1, '弐': 2, '参': 3 };
+var KANJI_UNIT = { '十': 10, '拾': 10, '百': 100, '千': 1000, '阡': 1000 };
+function parseSpokenYen(str){
+  var t = String(str == null ? '' : str)
+    .replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+    .replace(/[\s　,，、。．.]/g, '')
+    .replace(/(円|えん|エン)(です|ちょうど|丁度)?$/, '').replace(/^(金額は?|きんがくは?)/, '');
+  t = t.replace(/[ァ-ヶ]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0x60); }); /* カタカナ → ひらがな */
+  t = t.replace(KANA_RE, function(m){ for (var i = 0; i < KANA_NUM.length; i++) if (KANA_NUM[i][0] === m) return KANA_NUM[i][1]; return m; });
+  t = t.replace(/萬/g, '万');
+  if (!t || !/^[0-9〇零一二三四五六七八九壱弐参十拾百千阡万億]+$/.test(t)) return null;
+  var total = 0, section = 0, num = null, any = false;
+  for (var i = 0; i < t.length; i++){
+    var c = t.charAt(i);
+    if (/[0-9]/.test(c) || KANJI_DIGIT[c] !== undefined){
+      num = (num === null ? 0 : num) * 10 + (/[0-9]/.test(c) ? +c : KANJI_DIGIT[c]); any = true;
+    } else if (KANJI_UNIT[c]){
+      section += (num === null ? 1 : num) * KANJI_UNIT[c]; num = null; any = true;
+    } else if (c === '万' || c === '億'){
+      var sec = section + (num === null ? 0 : num);
+      if (!sec) sec = 1;
+      total += sec * (c === '万' ? 10000 : 100000000); section = 0; num = null; any = true;
+    }
+    if (total + section > 1e12 || (num !== null && num > 1e12)) return null;
+  }
+  total += section + (num === null ? 0 : num);
+  if (!any || !(total > 0) || total > VOICE_MAX_AMOUNT) return null;
+  return total;
+}
+/* 声の文字の後始末：前後の空白と末尾の「。」を除く */
+function cleanSpoken(s){ return String(s == null ? '' : s).replace(/^[\s　]+|[\s　。．.]+$/g, ''); }
+/* 初回設定の案内を出すか：その役割のデータが空（記録0件・開始残高0・前月繰越なし・締めなし・バックアップ未実施） */
+function isFreshState(s){
+  if (!s || !s.settings) return true;
+  return !(s.entries && s.entries.length) && !(Number(s.settings.openBal) || 0) && !Object.keys(s.settings.carry || {}).length &&
+    !Object.keys(s.closed || {}).length && !s.lastBackup;
+}
+/* LOGIC-END */
+</script>
+
+<script>
+(function(){
+'use strict';
+var KEY_PREFIX = 'choubo_';                 /* localStorage のキーの先頭（ここ1か所だけ） */
+var KEY_ROLE = KEY_PREFIX + 'role';
+var KEY_DATA = KEY_PREFIX + 'data_';
+var KEY_ERRLOG = KEY_PREFIX + 'errlog';
+var KEY_SEENVER = KEY_PREFIX + 'seenver';
+var KEY_PENDCODE = KEY_PREFIX + 'pendcode';  /* 役割を選ぶ前に ?c= で受け取った商号コード */
+var storageOK = true;
+
+/* エラー記録（直近20件・時刻・メッセージ・行番号のみ。記録データは入れない） */
+function logError(msg, line){
+  try {
+    var list = []; try { list = JSON.parse(localStorage.getItem(KEY_ERRLOG) || '[]'); } catch(e){ list = []; }
+    if (!Array.isArray(list)) list = [];
+    list.push({ t: new Date().toISOString(), m: String(msg == null ? '' : msg).replace(/[\u0000-\u001f]/g, ' ').slice(0, 200), l: (+line || 0) });
+    localStorage.setItem(KEY_ERRLOG, JSON.stringify(list.slice(-20)));
+  } catch(e){}
+}
+function readErrors(){
+  try { var l = JSON.parse(localStorage.getItem(KEY_ERRLOG) || '[]'); return Array.isArray(l) ? l.filter(isObj).slice(-20) : []; } catch(e){ return []; }
+}
+window.addEventListener('error', function(ev){ logError(ev && ev.message, ev && ev.lineno); });
+window.addEventListener('unhandledrejection', function(ev){ var r = ev && ev.reason; logError('unhandledrejection: ' + (r && r.message ? r.message : String(r)), 0); });
+
+/* 旧版（〜2.2）のキー「<コード>_suitocho_…」から新しいキーへコピー（新しいキーが無いときだけ。旧キーは消さずに残す）。
+   商号コードは補わない（事務所が ?c= か設定で入れる） */
+(function migrateKeys(){
+  try {
+    var ks = [];
+    for (var i = 0; i < localStorage.length; i++) ks.push(localStorage.key(i));
+    ks.forEach(function(k){
+      var m = /^\d{1,6}_suitocho_(role|data_111|data_112)$/.exec(k || '');
+      if (!m) return;
+      var nk = KEY_PREFIX + m[1];
+      if (localStorage.getItem(nk) === null) localStorage.setItem(nk, localStorage.getItem(k));
+    });
+  } catch(e){}
+})();
+
+var lsErr = '';
+function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ storageOK = false; return null; } }
+function lsSet(k, v){
+  try { localStorage.setItem(k, v); lsErr = ''; return true; }
+  catch(e){
+    var quota = e && (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED' || e.code === 22 || e.code === 1014);
+    lsErr = quota ? 'quota' : 'denied';
+    return false;
+  }
+}
+
+var today = dateStr(new Date());
+/* 役割はタブレットごとに固定。役割キーが保存済み（v1.9 以前の利用者を含む）ならその役割で固定。
+   役割キーが無くてもオーナー用（111）の記録があれば、v1.9 以前に切替をせずオーナー用だけ使っていた端末なので 111 で固定。
+   どちらでもなければ「このタブレットの使い方」選択画面を出す（選ぶまで何も保存しない） */
+var savedRole = lsGet(KEY_ROLE);
+var needChoose = false;
+if (savedRole !== '111' && savedRole !== '112'){
+  var legacy111 = null;
+  try { legacy111 = JSON.parse(lsGet(KEY_DATA + '111') || 'null'); } catch(e){ legacy111 = null; }
+  if (legacy111 && Array.isArray(legacy111.entries) && legacy111.entries.length){ savedRole = '111'; lsSet(KEY_ROLE, '111'); }
+  else needChoose = true;
+}
+var role = savedRole === '112' ? '112' : '111';
+var state = null;
+
+/* 商号コード：URL の ?c=<コード> で開かれたら受け取り、未設定の役割データに入れて URL から消す。
+   役割を選ぶ前でも受け付ける（KEY_PENDCODE に置き、役割のデータを作るときに入れる） */
+function putCodeToRaw(r, code, force){
+  var raw = lsGet(KEY_DATA + r); if (!raw) return;
+  try {
+    var s = JSON.parse(raw);
+    if (!isObj(s) || !isObj(s.settings)) return;
+    if (!force && cleanCode(s.settings.shopCode)) return;
+    s.settings.shopCode = code; lsSet(KEY_DATA + r, JSON.stringify(s));
+  } catch(e){}
+}
+(function takeUrlCode(){
+  var code = '';
+  try {
+    var q = new URLSearchParams(location.search);
+    if (!q.has('c')) return;
+    code = cleanCode(q.get('c'));
+    q.delete('c');
+    var qs = q.toString();
+    try { history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash); } catch(e){}
+  } catch(e){ return; }
+  if (!code) return;
+  lsSet(KEY_PENDCODE, code);
+  putCodeToRaw('111', code, false); putCodeToRaw('112', code, false);
+})();
+var curDate = today;
+var curMonth = ymOf(today);
+var ledgerMonth = ymOf(today);
+var seenDate = null, seenMonth = null;
+var tab = 'today';
+var acctKind = 'in';
+var pcMQ = window.matchMedia ? window.matchMedia('(min-width:960px)') : null;
+function isPC(){ return !!(pcMQ && pcMQ.matches); }
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+var brokenNotice = '';
+function load(r){
+  var raw = lsGet(KEY_DATA + r), s = null, broken = false;
+  if (raw){ try { s = JSON.parse(raw); } catch(e){ s = null; } if (!s || typeof s !== 'object') broken = true; }
+  if (broken){
+    /* 壊れたデータは上書きせず、別のキーに退避してから空の状態で始める */
+    var bk = KEY_DATA + r + '_broken_' + dateStr(new Date()).replace(/-/g, '');
+    if (!lsGet(bk)) lsSet(bk, raw);
+    brokenNotice = ROLES[r].label + 'の保存データが壊れていて読み込めませんでした。\n壊れたデータは消さずに残してあります（' + bk + '）。\nバックアップがあれば、設定の「バックアップから復元する」で戻してください。わからないときは事務所に連絡してください。';
+  }
+  var st;
+  try { st = migrateState(s, r, today); } catch(e){ st = migrateState(null, r, today); }
+  if (raw && !broken && LAST_MIGRATE_DROPPED){
+    /* 読み取れない記録があった：元のデータを退避してから続ける */
+    var fk = KEY_DATA + r + '_before_fix_' + dateStr(new Date()).replace(/-/g, '');
+    if (!lsGet(fk)) lsSet(fk, raw);
+    brokenNotice = ROLES[r].label + 'の保存データに読み取れない記録が ' + LAST_MIGRATE_DROPPED + ' 件あり、表示から外しました。\n元のデータは消さずに残してあります（' + fk + '）。事務所に連絡してください。';
+  }
+  if (!st.settings.shopCode){ var pc = cleanCode(lsGet(KEY_PENDCODE)); if (pc) st.settings.shopCode = pc; }
+  /* ゴミ箱：7日を過ぎたものを捨てる */
+  st.trash = purgeTrash(st.trash, Date.now());
+  return st;
+}
+var saveFailed = false, saveFailAt = 0;
+function save(){
+  dataVer++;
+  var ok = lsSet(KEY_DATA + role, JSON.stringify(state));
+  var w = $('storeWarn');
+  if (ok){
+    if (saveFailed){ saveFailed = false; w.classList.add('hidden'); toast('保存できました'); }
+    return true;
+  }
+  var msg = lsErr === 'quota'
+    ? 'この端末の保存容量がいっぱいで、記録を保存できませんでした。'
+    : 'この端末では記録を保存できませんでした（プライベートモード・ブラウザの設定など）。';
+  w.innerHTML = '';
+  w.appendChild(document.createTextNode('保存できていません。この画面を閉じると直近の記録が消えます。'));
+  var rb = document.createElement('button'); rb.type = 'button'; rb.textContent = 'もう一度保存'; rb.onclick = function(){ save(); };
+  w.appendChild(rb);
+  w.classList.remove('hidden');
+  saveFailAt = Date.now();
+  if (!saveFailed) infoDlg(msg + '\n画面を閉じる前に、設定の「バックアップを送る」で事務所へ送ってください。事務所に連絡してください。');
+  saveFailed = true;
+  return false;
+}
+function touch(date){ state.touched[ymOf(date)] = Date.now(); }
+
+/* ---------- toast / confirm ---------- */
+var toastTimer = null;
+function toast(msg, err){
+  /* 保存に失敗した直後は「記録しました」等の成功表示を出さない */
+  if (!err && saveFailed && Date.now() - saveFailAt < 1500) return;
+  var t = $('toast'); t.textContent = msg; t.className = 'show' + (err ? ' err' : '');
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.className = ''; }, err ? 3600 : 2200);
+}
+function infoDlg(msg){ return confirmDlg(msg, 'わかりました', true); }
+function confirmDlg(msg, yesLabel, noCancel){
+  return new Promise(function(resolve){
+    var back = document.activeElement;
+    $('confirmNo').classList.toggle('hidden', !!noCancel);
+    $('confirmMsg').textContent = msg; $('confirmYes').textContent = yesLabel || 'はい';
+    $('confirmBox').classList.remove('hidden');
+    /* 誤操作防止：既定のフォーカスは「やめる」（案内だけのときは「わかりました」） */
+    try { (noCancel ? $('confirmYes') : $('confirmNo')).focus({ preventScroll: true }); } catch(e){}
+    function done(v){
+      $('confirmBox').classList.add('hidden'); $('confirmYes').onclick = null; $('confirmNo').onclick = null;
+      try { if (back && back.focus && document.contains(back)) back.focus({ preventScroll: true }); } catch(e){}
+      resolve(v);
+    }
+    $('confirmYes').onclick = function(){ done(true); };
+    $('confirmNo').onclick = function(){ done(false); };
+  });
+}
+
+/* ---------- role / tabs / layout ---------- */
+var ROLE_COLOR = { '111': '#1f3a5f', '112': '#2f6b4f' };
+function applyRole(){
+  document.body.className = 'role-' + role;
+  $('roleLabel').textContent = ROLES[role].label + '・' + role + ' ' + ROLES[role].cashName;
+  document.title = APP_NAME + ' - ' + ROLES[role].label;
+  try { $('themeColor').setAttribute('content', ROLE_COLOR[role]); } catch(e){}
+  resetQuick(false); /* 役割で科目が違うので入力欄を空に */
+}
+
+/* ---------- このタブレットの使い方（役割の選択） ---------- */
+function chooserOpen(){ return !$('roleChooser').classList.contains('hidden'); }
+function openChooser(canCancel){
+  $('rcCancel').classList.toggle('hidden', !canCancel);
+  $('roleChooser').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  try { $('roleChooser').querySelector('.rc-btn').focus({ preventScroll: true }); } catch(e){}
+}
+function closeChooser(){ $('roleChooser').classList.add('hidden'); document.body.style.overflow = ''; }
+function pickRole(r){
+  r = r === '112' ? '112' : '111';
+  var changed = r !== role || needChoose;
+  role = r; needChoose = false;
+  lsSet(KEY_ROLE, r); lsSet(KEY_SEENVER, APP_VERSION);
+  brokenNotice = ''; state = load(r); save();
+  closeChooser();
+  tab = 'today'; curDate = today; curMonth = ymOf(today); ledgerMonth = ymOf(today);
+  applyRole(); render();
+  if (brokenNotice){ var bn = brokenNotice; brokenNotice = ''; infoDlg(bn); }
+  else if (isFreshState(state)) openWizard();
+  else if (changed) toast('このタブレットを' + ROLES[r].label + 'にしました');
+}
+/* 役割の変更（事務所向け）：商号コード（未設定のときは 0000）を入れたら選択画面へ。
+   ※ 従業員・オーナーがうっかり押して役割が変わるのを防ぐための確認で、セキュリティ（不正利用の防止）が目的ではない。
+     番号は画面のソースから誰でも分かる。データは役割ごとに別々に保存されているので、変更しても記録は消えない */
+var ROLE_CHANGE_FALLBACK = '0000';
+function roleChangeOpen(){ return !$('roleChangeBox').classList.contains('hidden'); }
+function openRoleChange(){
+  $('roleChangeCode').value = '';
+  $('roleChangeBox').classList.remove('hidden');
+  setTimeout(function(){ try { $('roleChangeCode').focus(); } catch(e){} }, 30);
+}
+function closeRoleChange(){ $('roleChangeBox').classList.add('hidden'); }
+function submitRoleChange(){
+  var v = String($('roleChangeCode').value || '').replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); }).trim();
+  if (v !== (state.settings.shopCode || ROLE_CHANGE_FALLBACK)){ toast('番号が違います', true); $('roleChangeCode').value = ''; return; }
+  closeRoleChange();
+  openChooser(true);
+}
+
+/* ---------- はじめに（初回設定） ---------- */
+var wz = { steps: [], i: 0 };
+function wizardOpen(){ return !$('wizard').classList.contains('hidden'); }
+function openWizard(){
+  var st = state.settings;
+  wz.steps = ['date', 'bal', 'mail'];
+  if (role === '112') wz.steps.push('float');
+  wz.i = 0;
+  $('wzTitle').textContent = 'はじめに（' + ROLES[role].label + '）';
+  $('wzDate').value = validDate(st.openDate) ? st.openDate : today;
+  $('wzBal').value = st.openBal ? fmt(st.openBal) : '';
+  $('wzBalNote').textContent = role === '112'
+    ? 'その日の朝にレジに入っているお金（ふつうは基準額の 78,000円）を入れます。'
+    : 'その日の朝にオーナー用の現金がいくらあるかを入れます。';
+  $('wzMail').value = st.officeMail || '';
+  $('wzMailNote').textContent = st.officeMail
+    ? '事務所で設定済みです。このまま「次へ」で進めます。'
+    : '月末に「事務所へ送る」ときの宛先として表示します。わからなければ空のままで次へ進めます。';
+  $('wzFloat').value = fmt(Number(st.floatAmt) || DEFAULT_FLOAT);
+  $('wizard').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  showWizardStep();
+}
+function closeWizard(){ $('wizard').classList.add('hidden'); document.body.style.overflow = ''; }
+function showWizardStep(){
+  var cur = wz.steps[wz.i];
+  Array.prototype.forEach.call(document.querySelectorAll('#wizard .wz-step'), function(el){ el.classList.toggle('hidden', el.getAttribute('data-step') !== cur); });
+  $('wzSteps').innerHTML = wz.steps.map(function(s, i){ return '<i class="' + (i <= wz.i ? 'on' : '') + '"></i>'; }).join('');
+  $('wzBack').classList.toggle('hidden', wz.i === 0);
+  $('wzNext').textContent = wz.i === wz.steps.length - 1 ? '保存して始める' : '次へ';
+  $('wizard').querySelector('.sheet').scrollTop = 0;
+  /* タブレットでは自動でキーボードを出さない（金額・メールの欄だけ、タップで入力） */
+  if (cur === 'date') try { $('wzNext').focus({ preventScroll: true }); } catch(e){}
+}
+function wizardNext(){
+  var cur = wz.steps[wz.i];
+  if (cur === 'date' && !validDate($('wzDate').value)){ toast('使い始める日を選んでください', true); return; }
+  if (cur === 'mail'){
+    var v = $('wzMail').value.trim().replace(/[　\s]/g, ''); $('wzMail').value = v;
+    if (v && !validMail(v)){ toast('メールアドレスの形を確認してください（空のままでも進めます）', true); return; }
+  }
+  if (cur === 'float' && !parseAmount($('wzFloat').value, MAX_AMOUNT)){ toast('基準額を入れてください', true); return; }
+  if (wz.i < wz.steps.length - 1){ wz.i++; showWizardStep(); return; }
+  var st = state.settings;
+  st.openDate = $('wzDate').value;
+  st.openBal = parseAmount($('wzBal').value, MAX_BALANCE);
+  st.officeMail = $('wzMail').value;
+  if (role === '112') st.floatAmt = parseAmount($('wzFloat').value, MAX_AMOUNT);
+  touch(st.openDate); save(); closeWizard();
+  curDate = today; render();
+  toast('はじめの設定を保存しました');
+}
+function wizardBack(){ if (wz.i > 0){ wz.i--; showWizardStep(); } }
+function applyLayout(){
+  var pc = isPC();
+  if (pc && tab === 'ledger') tab = 'today';
+  Array.prototype.forEach.call(document.querySelectorAll('.tabs button'), function(b){
+    var on = b.getAttribute('data-tab') === tab;
+    b.classList.toggle('on', on);
+    if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
+  ['today', 'month', 'settings'].forEach(function(k){ $('v-' + k).classList.toggle('hidden', k !== tab); });
+  $('leftPane').classList.toggle('hidden', !pc && tab === 'ledger');
+  $('v-ledger').classList.toggle('hidden', !pc && tab !== 'ledger');
+}
+function setTab(t){
+  stopVoice();
+  tab = t;
+  if (t === 'ledger') ledgerMonth = ymOf(curDate);
+  window.scrollTo(0, 0); $('leftPane').scrollTop = 0;
+  render();
+}
+
+/* ---------- 今日 ---------- */
+var WD = ['日', '月', '火', '水', '木', '金', '土'];
+function renderToday(){
+  var st = state.settings;
+  if (seenDate !== curDate){ seenDate = curDate; ledgerMonth = ymOf(curDate); }
+  $('curDate').value = curDate;
+  var d = parseDate(curDate);
+  $('wdLine').innerHTML = (d.getMonth() + 1) + '月' + d.getDate() + '日（' + WD[d.getDay()] + '）' +
+    (curDate === today ? '　今日' : '<button id="goToday">今日へ戻る</button>');
+  var g = $('goToday'); if (g) g.onclick = function(){ curDate = today; render(); };
+
+  var info = dayInfo(state.entries, st, curDate);
+  $('sCarry').textContent = fmt(info.carry);
+  $('sIn').textContent = fmt(info.inSum);
+  $('sOut').textContent = fmt(info.outSum);
+  $('sBal').innerHTML = '<span class="' + (info.end < 0 ? 'neg' : '') + '" style="display:inline;font-size:inherit;color:inherit">' + fmt(info.end) + '</span> 円';
+  $('sCount').textContent = info.list.length + '件';
+  $('beforeStartWarn').classList.toggle('hidden', info.counted);
+
+  var ul = $('dayList');
+  if (!info.list.length){
+    ul.innerHTML = '<li class="empty" style="display:block">この日の記録はまだありません。<br>上の入力欄で金額と相手科目を選んで「保存する」を押します。</li>';
+  } else {
+    var run = info.carry, html = '';
+    info.list.forEach(function(e){
+      if (info.counted) run += signed(e);
+      var dt = new Date(e.createdAt || 0);
+      var tm = e.auto ? '締め' : pad2(dt.getHours()) + ':' + pad2(dt.getMinutes());
+      var sub = [tm, e.partner, e.memo].filter(Boolean).join('　');
+      var ty = e.type === 'in' ? 'in' : 'out';
+      html += '<li class="tap" data-id="' + esc(e.id) + '" role="button" tabindex="0" aria-label="' + esc((ty === 'in' ? '入金 ' : '出金 ') + e.acctName + ' ' + fmt(e.amount) + '円 を直す') + '">' +
+        '<span class="tag ' + ty + '">' + (ty === 'in' ? '入金' : '出金') + '</span>' +
+        '<div class="li-main"><div class="t">' + esc(e.acctName) + (e.auto ? '<span class="auto-badge">自動</span>' : '') + '</div><div class="s">' + esc(sub) + '</div></div>' +
+        '<div class="li-amt num"><b class="' + (e.type === 'in' ? 'c-in' : 'c-out') + '">' + (e.type === 'in' ? '' : '−') + fmt(e.amount) + '</b><small>残 ' + fmt(run) + '</small></div></li>';
+    });
+    ul.innerHTML = html;
+  }
+  $('receiveBox').classList.toggle('hidden', role !== '111');
+  renderBackupWarn();
+  renderCloseBox(info);
+  renderQuick();
+}
+function openReceive(){
+  var acct = (state.settings.accounts['in'] || []).find(function(a){ return a.code === '112'; }) || { name: '小口現金', code: '112' };
+  openSheet('in');
+  form.acctName = acct.name; form.acctCode = acct.code || '112'; form.jdlName = acct.jdlName || '';
+  $('sheetTitle').textContent = 'レジから受取';
+  $('fMemo').value = RECEIVE_MEMO; form.lastAutoMemo = '';
+  renderSheetParts();
+}
+function renderCloseBox(info){
+  var box = $('closeBox');
+  if (role !== '112'){ box.classList.add('hidden'); return; }
+  box.classList.remove('hidden');
+  var closed = state.closed[curDate];
+  var html;
+  if (closed){
+    var c = closeDiff(state.entries, state.settings, curDate);
+    var autoRow = state.entries.find(function(e){ return e.date === curDate && e.auto; });
+    var bs = fmt(c.base) + '円';
+    box.classList.add('done');
+    html = '<div class="stamp">✓ 締め済み　レジ ' + fmt(c.end) + '円</div>';
+    if (autoRow) html += '<p style="margin:6px 0 0">小口から現金へ <b>' + fmt(autoRow.amount) + '円</b> 移しました</p>';
+    if (c.diff < 0) html += '<p style="margin:6px 0 0">' + bs + 'より <b>' + fmt(-c.diff) + '円</b> 不足</p>';
+    if (c.diff > 0) html += '<div class="warnline">締めたあとに記録が増えて、レジが' + bs + 'より ' + fmt(c.diff) + '円 多くなっています。「締めを解除」してから、もう一度締め直してください。</div>';
+    html += '<div style="margin-top:12px;text-align:right"><button class="btn sub small" id="closeBtn">締めを解除…</button></div>';
+  } else {
+    var r = computeClose(state.entries, state.settings, curDate);
+    var b0 = fmt(r.base) + '円';
+    var note = r.diff > 0 ? '締めると、多い <b>' + fmt(r.diff) + '円</b> を『小口から現金へ』として記録し、レジを' + b0 + 'にします。<b>' + fmt(r.diff) + '円をレジから出して、オーナー用の現金へ移してください。</b>' :
+      r.diff < 0 ? 'レジが <b>' + fmt(-r.diff) + '円</b> 足りません（記録は追加しません）。お金の数え間違いや記録もれがないか確認してください。' :
+      'レジはちょうど' + b0 + 'です。';
+    box.classList.remove('done');
+    html = '<h2 style="margin-bottom:4px">1日の終わりに締める</h2>' +
+      '<p style="margin:0 0 4px">今のレジの残高 <b>' + fmt(r.before) + '円</b>／基準 ' + b0 + '</p>' +
+      '<p class="muted" style="margin:0 0 10px">' + note + '</p>' +
+      '<button class="btn" id="closeBtn">本日を締める' + (r.diff > 0 ? '（' + b0 + 'に合わせる）' : '') + '</button>';
+    if (!info.counted) html += '<div class="warnline">残高の起点（開始日・前月繰越）より前の日は締められません。</div>';
+  }
+  box.innerHTML = html;
+  $('closeBtn').onclick = function(){ if (closed) doUnclose(); else doClose(); };
+}
+function doClose(){
+  var st = state.settings;
+  if (state.closed[curDate]) return; /* 二重に締めない */
+  if (!isCounted(st, curDate)){ toast('残高の起点より前の日は締められません', true); return; }
+  var r = computeClose(state.entries, st, curDate);
+  state.entries = r.entries;
+  state.closed[curDate] = { at: Date.now(), end: r.after, diff: r.after - r.base };
+  touch(curDate); save(); render();
+  if (r.diff > 0) toast(fmt(r.diff) + '円を『小口から現金へ』として記録して締めました');
+  else if (r.diff < 0) toast('締めました。' + fmt(r.base) + '円より' + fmt(-r.diff) + '円不足しています');
+  else toast('レジはちょうど ' + fmt(r.base) + '円。締めました');
+}
+function doUnclose(){
+  var has = state.entries.some(function(e){ return e.date === curDate && e.auto; });
+  confirmDlg('この日の締めを解除しますか？' + (has ? '\n締めで自動で追加した『小口から現金へ』の行を削除します。' : ''), '締めを解除').then(function(ok){
+    if (!ok) return;
+    state.entries = removeCloseRows(state.entries, curDate);
+    delete state.closed[curDate];
+    touch(curDate); save(); render();
+    toast('締めを解除しました');
+  });
+}
+
+/* ---------- 相手科目のグリッド（今日画面・修正シート共通） ---------- */
+function isOtherSel(sel){ return !!(sel.acctCode && JDL_NAMES[sel.acctCode] && JDL_NAMES[sel.acctCode] === sel.acctName); }
+function otherCodes(type, order){
+  var have = {};
+  (state.settings.accounts[type] || []).forEach(function(a){ if (a.code) have[a.code] = 1; });
+  (order || []).forEach(function(it){ if (it.kind === 'jdl') have[it.code] = 1; });
+  return Object.keys(JDL_NAMES).filter(function(c){ return c !== '0' && c !== role && !have[c]; }).sort(function(a, b){ return (+a) - (+b); });
+}
+function acBtn(attr, code, name, on){
+  return '<button type="button" ' + attr + ' aria-pressed="' + (on ? 'true' : 'false') + '" class="' + (on ? 'on' : '') + '" title="' + esc((code ? code + ' ' : '') + name) + '"><b class="cd">' + (code ? esc(code) : '—') + '</b><span class="nm">' + esc(name) + '</span></button>';
+}
+/* sel = { type, acctName, acctCode, more } */
+function acctPickerHtml(sel){
+  var accts = state.settings.accounts[sel.type] || [], found = false;
+  var order = acctOrder(accts, state.entries, sel.type, role); /* よく使う科目を先に（この描画で1回だけ集計） */
+  var h = '<div class="acgrid">';
+  order.forEach(function(it){
+    var on = it.kind === 'list' ? it.name === sel.acctName : (sel.acctCode === it.code && sel.acctName === it.name);
+    if (on) found = true;
+    h += it.kind === 'list' ? acBtn('data-i="' + it.i + '"', it.code, it.name, on) : acBtn('data-jc="' + esc(it.code) + '"', it.code, it.name, on);
+  });
+  var others = otherCodes(sel.type, order);
+  var selOther = !found && isOtherSel(sel) && others.indexOf(sel.acctCode) >= 0;
+  if (sel.acctName && !found && !(selOther && sel.more)) h += acBtn('data-keep="1"', sel.acctCode || '', sel.acctName, true);
+  h += '</div><button type="button" class="acmore-btn" data-more="1" aria-expanded="' + (sel.more ? 'true' : 'false') + '">' +
+    (sel.more ? '− ほかの科目を閉じる' : '＋ ほかの科目（' + others.length + '）') + '</button>';
+  if (sel.more){
+    h += '<div class="acother-h">ほかの科目（会計ソフトの科目・コード順）。選ぶとその科目で記録します。</div><div class="acgrid acother">';
+    others.forEach(function(c){ h += acBtn('data-jc="' + esc(c) + '"', c, JDL_NAMES[c], selOther && sel.acctCode === c); });
+    h += '</div>';
+  }
+  return h;
+}
+/* クリック処理：選んだら true（sel を書き換える） */
+function acctPickerClick(ev, sel){
+  var b = ev.target.closest('button'); if (!b) return false;
+  if (b.getAttribute('data-more')){ sel.more = !sel.more; return 'toggle'; }
+  if (b.getAttribute('data-keep')) return false;
+  var jc = b.getAttribute('data-jc');
+  if (jc){ sel.acctName = JDL_NAMES[jc]; sel.acctCode = jc; sel.jdlName = ''; return true; }
+  var a = (state.settings.accounts[sel.type] || [])[+b.getAttribute('data-i')]; if (!a) return false;
+  sel.acctName = a.name; sel.acctCode = a.code || ''; sel.jdlName = a.jdlName || '';
+  return true;
+}
+/* 区分を変えたとき：新しい区分にその科目が無ければ選択を外す（ほかの科目から選んだものは残す） */
+function keepAcctOnType(sel){
+  var ok = (state.settings.accounts[sel.type] || []).some(function(a){ return a.name === sel.acctName; }) || isOtherSel(sel);
+  if (!ok){ sel.acctName = ''; sel.acctCode = ''; sel.jdlName = ''; }
+}
+
+/* ---------- 入力シート ---------- */
+var form = { id: null, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', amtActive: true, pEdit: false };
+function sheetOpen(){ return !$('sheet').classList.contains('hidden'); }
+function openSheet(type, entry){
+  form.id = entry ? entry.id : null;
+  form.type = entry ? entry.type : type;
+  form.acctName = entry ? entry.acctName : '';
+  form.acctCode = entry ? (entry.acctCode || '') : '';
+  form.jdlName = entry ? (entry.jdlName || '') : '';
+  form.lastAutoMemo = '';
+  form.pEdit = false; form.pMore = false; form.mEdit = false;
+  form.more = false;
+  $('sheetTitle').textContent = entry ? '記録を直す' : (type === 'in' ? '入金を記録' : '出金を記録');
+  $('fDate').value = entry ? entry.date : curDate;
+  $('fPartner').value = entry ? (entry.partner || '') : '';
+  setAmt(entry ? String(entry.amount) : '');
+  $('fMemo').value = entry ? (entry.memo || '') : '';
+  $('fDelete').classList.toggle('hidden', !entry);
+  $('fAccts').classList.remove('need');
+  renderSheetParts();
+  $('sheet').classList.remove('hidden');
+  $('sheet').querySelector('.sheet').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  setAmtActive(true);
+}
+function closeSheet(){ if (voice.id && voice.id.charAt(0) === 'f') stopVoice(); $('sheet').classList.add('hidden'); document.body.style.overflow = ''; }
+function renderSheetParts(){
+  Array.prototype.forEach.call($('fType').children, function(b){ var on = b.getAttribute('data-type') === form.type; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  $('fAccts').innerHTML = acctPickerHtml(form);
+  if (form.acctName) $('fAccts').classList.remove('need');
+  renderPartnerChips();
+}
+function renderPartnerChips(){ renderSugg(SF); }
+function autoMemo(){
+  var p = $('fPartner').value.trim();
+  var m = p || form.acctName || '';
+  var cur = $('fMemo').value;
+  if (cur === '' || cur === form.lastAutoMemo){ $('fMemo').value = m; form.lastAutoMemo = m; }
+  renderMemos(SF);
+}
+/* 金額（テンキー） */
+function setAmt(s){
+  s = String(s || '').replace(/[^0-9]/g, '').replace(/^0+/, '');
+  if (s.length > 9){ s = s.slice(0, 9); toast('金額は 999,999,999 円までです', true); }
+  form.amt = s;
+  $('fAmount').value = s ? fmt(parseInt(s, 10)) : '';
+}
+function setAmtActive(on){
+  form.amtActive = on;
+  $('keypad').classList.toggle('active', on);
+  $('sheet').querySelector('.sheet').classList.toggle('amt-on', on);
+  $('fAmount').classList.toggle('amt-active', on);
+}
+function keyIn(k){
+  var s = form.amt;
+  if (/^[0-9]$/.test(k)) s += k;
+  else if (k === '00'){ if (s) s += '00'; }
+  else if (k === 'bs') s = s.slice(0, -1);
+  else if (k === 'c') s = '';
+  else if (k === 'ok'){ sheetNext(); return; }
+  setAmt(s);
+}
+function saveForm(){
+  var date = $('fDate').value;
+  var amount = parseInt(form.amt || '0', 10) || 0;
+  if (!date){ toast('日付を選んでください', true); return; }
+  if (!validDate(date)){ toast('日付が正しくありません（2000〜2099年の日付を選んでください）', true); return; }
+  if (!form.acctName){
+    toast('相手科目を選んでください', true);
+    var ac = $('fAccts'); ac.classList.add('need');
+    try { $('fAcctsLabel').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){ $('fAcctsLabel').scrollIntoView(); }
+    return;
+  }
+  if (!amount){ toast('金額を入れてください', true); setAmtActive(true); return; }
+  var st = state.settings;
+  var partner = cleanStr($('fPartner').value, 60).trim();
+  var data = { date: date, type: form.type === 'in' ? 'in' : 'out', acctName: form.acctName, acctCode: form.acctCode, partner: partner, amount: Math.min(amount, MAX_AMOUNT), memo: cleanStr($('fMemo').value, 200).trim() };
+  if (form.jdlName) data.jdlName = form.jdlName;
+  if (form.id){
+    var e = state.entries.find(function(x){ return x.id === form.id; });
+    if (e){ touch(e.date); Object.keys(data).forEach(function(k){ e[k] = data[k]; }); if (!form.jdlName) delete e.jdlName; e.updatedAt = Date.now(); }
+    toast('直しました');
+  } else {
+    data.id = uid(); data.createdAt = Date.now();
+    state.entries.push(data);
+    var p = partner && st.partners.find(function(x){ return x.name === partner; });
+    if (p) p.count = (p.count || 0) + 1;
+    toast((form.type === 'in' ? '入金 ' : '出金 ') + fmt(amount) + ' 円を記録しました');
+  }
+  touch(date);
+  if (!isCounted(st, date)) setTimeout(function(){ toast('残高の起点（開始日・前月繰越）より前の日付です。残高には含まれません', true); }, 2300);
+  save(); closeSheet();
+  curDate = date; ledgerMonth = ymOf(date); render();
+}
+function deleteForm(){
+  var e = state.entries.find(function(x){ return x.id === form.id; });
+  if (!e) return;
+  confirmDlg('この記録を削除しますか？\n' + (e.type === 'in' ? '入金' : '出金') + '　' + e.acctName + '　' + fmt(e.amount) + ' 円', '削除する').then(function(ok){
+    if (!ok) return;
+    state.entries = state.entries.filter(function(x){ return x.id !== e.id; });
+    if (!e.auto) state.trash = addToTrash(state.trash, e, Date.now()); /* 締めの自動行は締め直せば戻るのでゴミ箱に入れない */
+    touch(e.date); save(); closeSheet(); render(); toast(e.auto ? '削除しました' : '削除しました（設定の「消した記録」から7日間戻せます）');
+  });
+}
+
+/* 要素をスクロール位置の上の方へ（固定ヘッダ／シートの見出しの分だけずらす） */
+function scrollToEl(el, box){
+  if (!el) return;
+  var r = el.getBoundingClientRect(), smooth = { behavior: 'smooth' };
+  if (box){
+    var head = box.querySelector('.sheet-head'), off = (head ? head.getBoundingClientRect().height : 0) + 8;
+    var top = box.scrollTop + r.top - box.getBoundingClientRect().top - off;
+    try { box.scrollTo({ top: top, behavior: 'smooth' }); } catch(e){ box.scrollTop = top; }
+    return;
+  }
+  if (isPC()){
+    var lp = $('leftPane'), t2 = lp.scrollTop + r.top - lp.getBoundingClientRect().top - 8;
+    try { lp.scrollTo({ top: t2, behavior: 'smooth' }); } catch(e){ lp.scrollTop = t2; }
+    return;
+  }
+  var hh = document.querySelector('header').getBoundingClientRect().height;
+  var t = window.pageYOffset + r.top - hh - 8;
+  try { window.scrollTo({ top: t, behavior: 'smooth' }); } catch(e){ window.scrollTo(0, t); }
+}
+/* テンキーの「次へ ▼」：金額を確定して相手科目へ */
+function quickNext(){
+  if (!(parseInt(qf.amt || '0', 10) > 0)){ toast('金額を入れてください', true); return; }
+  setQuickActive(false);
+  scrollToEl($('qAcctsLabel'));
+}
+function sheetNext(){
+  if (!(parseInt(form.amt || '0', 10) > 0)){ toast('金額を入れてください', true); return; }
+  setAmtActive(false);
+  scrollToEl($('fAcctsLabel'), $('sheet').querySelector('.sheet'));
+}
+
+/* ---------- 取引先・摘要の候補チップ（今日画面・修正シート共通） ---------- */
+var statsCache = { st: null, ver: -1, v: null }, dataVer = 0;
+function curStats(){
+  if (statsCache.st !== state || statsCache.ver !== dataVer){ statsCache = { st: state, ver: dataVer, v: suggestStats(state.entries) }; }
+  return statsCache.v;
+}
+function selAcctKey(sel){ return sel.acctName ? acctKeyOf(sel.acctCode, sel.acctName) : ''; }
+function renderPartners(c){
+  var sel = c.sel, cur = $(c.pIn).value.trim();
+  var list = partnerSuggest(curStats(), state.settings.partners, state.settings.hiddenPartners, selAcctKey(sel));
+  var html = '';
+  $(c.pEdit).classList.toggle('on', sel.pEdit);
+  $(c.pEdit).textContent = sel.pEdit ? '編集を終える' : '編集';
+  $(c.pEdit).classList.toggle('hidden', !list.length && !sel.pEdit);
+  if (sel.pEdit){
+    list.forEach(function(p){ html += '<button type="button" class="pdel" data-delp="' + esc(p.name) + '" aria-label="' + esc(p.name) + 'を候補から消す">' + esc(p.name) + '<b>×</b></button>'; });
+    if (!list.length) html = '<span class="muted">候補はありません。</span>';
+    else html += '<div class="muted" style="flex-basis:100%">×を押すと候補から消します（過去の記録はそのまま）。</div>';
+    $(c.pBox).innerHTML = html; return;
+  }
+  var shown = sel.pMore ? list : list.slice(0, PARTNER_SHOW);
+  shown.forEach(function(p){ html += '<button type="button" data-p="' + esc(p.name) + '" aria-pressed="' + (p.name === cur ? 'true' : 'false') + '" class="' + (p.name === cur ? 'on' : '') + '">' + esc(p.name) + '</button>'; });
+  if (list.length > PARTNER_SHOW) html += '<button type="button" class="more" data-pmore="1" aria-expanded="' + (sel.pMore ? 'true' : 'false') + '">' + (sel.pMore ? '− 閉じる' : 'もっと見る（' + (list.length - PARTNER_SHOW) + '）') + '</button>';
+  var exists = list.some(function(p){ return p.name === cur && p.reg; });
+  if (cur && !exists) html += '<button type="button" class="add" data-reg="1">＋「' + esc(cur) + '」を新しく登録</button>';
+  else if (!list.length) html += '<span class="muted">よく使う取引先は、入力していくと自動でここに並びます。</span>';
+  $(c.pBox).innerHTML = html;
+}
+function renderMemos(c){
+  var sel = c.sel, cur = $(c.mIn).value.trim();
+  var list = memoSuggest(curStats(), state.settings.hiddenMemos, selAcctKey(sel)), html = '';
+  if (!list.length) sel.mEdit = false;
+  $(c.mEdit).classList.toggle('on', !!sel.mEdit);
+  $(c.mEdit).textContent = sel.mEdit ? '編集を終える' : '編集';
+  $(c.mEdit).classList.toggle('hidden', !list.length);
+  list.forEach(function(m){
+    if (sel.mEdit) html += '<button type="button" class="pdel" data-delm="' + esc(m.memo) + '" aria-label="' + esc(m.memo) + 'を候補から消す">' + esc(m.memo) + '<b>×</b></button>';
+    else html += '<button type="button" data-m="' + esc(m.memo) + '" aria-pressed="' + (m.memo === cur ? 'true' : 'false') + '" class="' + (m.memo === cur ? 'on' : '') + '">' + esc(m.memo) + '</button>';
+  });
+  if (sel.mEdit && list.length) html += '<div class="muted" style="flex-basis:100%">×を押すと候補から消します（過去の記録はそのまま）。</div>';
+  $(c.mBox).innerHTML = html; /* 候補が0件なら何も表示しない */
+}
+function renderSugg(c){ renderPartners(c); renderMemos(c); }
+function hidePartnerName(name){
+  var st = state.settings;
+  st.partners = st.partners.filter(function(x){ return String(x.name).trim() !== name; });
+  if (st.hiddenPartners.indexOf(name) < 0) st.hiddenPartners.push(name);
+}
+function bindSugg(c){
+  $(c.pEdit).onclick = function(){ c.sel.pEdit = !c.sel.pEdit; renderPartners(c); };
+  $(c.mEdit).onclick = function(){ c.sel.mEdit = !c.sel.mEdit; renderMemos(c); };
+  $(c.pBox).onclick = function(ev){
+    var b = ev.target.closest('button'); if (!b) return;
+    var del = b.getAttribute('data-delp');
+    if (del !== null){
+      confirmDlg('「' + del + '」を候補から消しますか？\n（過去の記録はそのまま残ります）', '消す').then(function(ok){
+        if (!ok) return;
+        hidePartnerName(del); save();
+        renderPartners(c); toast('「' + del + '」を候補から消しました');
+      });
+      return;
+    }
+    if (b.getAttribute('data-pmore')){ c.sel.pMore = !c.sel.pMore; renderPartners(c); return; }
+    if (b.getAttribute('data-reg')){
+      var name = cleanStr($(c.pIn).value, 40).trim(); if (!name) return;
+      var st = state.settings;
+      st.hiddenPartners = st.hiddenPartners.filter(function(x){ return x !== name; });
+      if (!st.partners.some(function(x){ return x.name === name; })) st.partners.push({ id: uid(), name: name, count: 0 });
+      save(); renderPartners(c); toast('「' + name + '」を登録しました'); return;
+    }
+    var pn = b.getAttribute('data-p'); if (pn === null) return;
+    $(c.pIn).value = ($(c.pIn).value.trim() === pn) ? '' : pn;
+    renderPartners(c); c.autoMemo(); renderMemos(c);
+  };
+  $(c.mBox).onclick = function(ev){
+    var b = ev.target.closest('button'); if (!b) return;
+    var del = b.getAttribute('data-delm');
+    if (del !== null){
+      confirmDlg('摘要「' + del + '」を候補から消しますか？\n（過去の記録はそのまま残ります）', '消す').then(function(ok){
+        if (!ok) return;
+        var hm = state.settings.hiddenMemos; if (hm.indexOf(del) < 0) hm.push(del);
+        save(); renderMemos(c); toast('「' + del + '」を候補から消しました');
+      });
+      return;
+    }
+    var m = b.getAttribute('data-m'); if (m === null) return;
+    $(c.mIn).value = ($(c.mIn).value.trim() === m) ? '' : m;
+    renderMemos(c);
+  };
+  $(c.pIn).addEventListener('input', function(){ renderPartners(c); c.autoMemo(); renderMemos(c); });
+  $(c.mIn).addEventListener('input', function(){ renderMemos(c); });
+}
+
+/* ---------- 音声入力（Web Speech API） ----------
+   認識はブラウザ内蔵の仕組み（Safari は Apple、Chrome は Google のサーバー）で行われ、ページからの fetch 等ではないため
+   CSP の connect-src 'none' のままで動く想定（Chrome 系では CSP で音声認識は止まらないことをテストで確認。iPad Safari の実機は未確認）。 */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+var voice = { rec: null, id: null, finalText: '', err: '' };
+function micBtns(){ return document.querySelectorAll('button.mic[data-voice]'); }
+function setupVoice(){
+  Array.prototype.forEach.call(micBtns(), function(b){
+    b.classList.toggle('hidden', !SR);
+    b.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+    b.addEventListener('click', function(){ onMic(b.getAttribute('data-voice')); });
+  });
+}
+function voiceUi(id, on, text){
+  Array.prototype.forEach.call(micBtns(), function(b){
+    var me = b.getAttribute('data-voice') === id && on;
+    b.classList.toggle('rec', me); b.setAttribute('aria-pressed', me ? 'true' : 'false');
+  });
+  var st = $(id + 'V'); if (!st) return;
+  st.classList.toggle('hidden', !on);
+  st.textContent = on ? '聞き取り中…（もう一度押すと止まります）' + (text ? '　' + text : '') : '';
+}
+function stopVoice(){
+  if (!voice.rec) return;
+  var r = voice.rec, id = voice.id; voice.rec = null; voice.id = null; voice.finalText = '';
+  try { r.abort(); } catch(e){}
+  voiceUi(id, false);
+}
+function onMic(id){
+  if (!SR) return;
+  if (voice.rec){ var same = voice.id === id; if (same){ try { voice.rec.stop(); } catch(e){ stopVoice(); } return; } stopVoice(); }
+  if (state.settings.voiceOk){ startVoice(id); return; }
+  confirmDlg('声で入力すると、音声はタブレットの会社（Apple や Google）の仕組みで文字に変換されます。帳簿のデータそのものは送られません。使いますか？', 'はい').then(function(ok){
+    if (!ok) return;
+    state.settings.voiceOk = true; save(); startVoice(id);
+  });
+}
+function startVoice(id){
+  var r;
+  try { r = new SR(); } catch(e){ toast('この端末では声で入力できません', true); return; }
+  r.lang = 'ja-JP'; r.interimResults = true; r.continuous = false; r.maxAlternatives = 1;
+  voice.rec = r; voice.id = id; voice.finalText = ''; voice.err = '';
+  if (id === 'qPartner' || id === 'qMemo') setQuickActive(false);
+  if (id === 'fPartner' || id === 'fMemo') setAmtActive(false);
+  r.onresult = function(ev){
+    if (voice.rec !== r) return;
+    var fin = '', mid = '';
+    for (var i = 0; i < ev.results.length; i++){
+      var res = ev.results[i], tx = res[0] ? res[0].transcript : '';
+      if (res.isFinal) fin += tx; else mid += tx;
+    }
+    if (fin) voice.finalText = fin;
+    voiceUi(id, true, cleanSpoken(fin + mid));
+  };
+  r.onerror = function(ev){
+    if (voice.rec !== r) return;
+    voice.err = ev && ev.error || 'error';
+  };
+  r.onend = function(){
+    if (voice.rec !== r) return;
+    var text = cleanSpoken(voice.finalText), err = voice.err;
+    voice.rec = null; voice.id = null; voice.finalText = '';
+    voiceUi(id, false);
+    if (err === 'not-allowed' || err === 'service-not-allowed'){ toast('マイクが使えません。タブレットの設定でブラウザのマイクを許可するか、キーボードのマイクボタンを使ってください', true); return; }
+    if (err === 'aborted') return;
+    if (!text){ toast(err && err !== 'no-speech' ? '声で入力できませんでした。もう一度押して話してください' : '聞き取れませんでした。もう一度押して話してください', true); return; }
+    applyVoice(id, text);
+  };
+  voiceUi(id, true, '');
+  try { r.start(); } catch(e){ voice.rec = null; voice.id = null; voiceUi(id, false); toast('声で入力できませんでした。もう一度押してください', true); }
+}
+function applyVoice(id, text){
+  if (id === 'qAmount' || id === 'fAmount'){
+    var n = parseSpokenYen(text);
+    if (n === null){ toast('金額を聞き取れませんでした。テンキーで入れてください', true); return; }
+    if (id === 'qAmount'){ setQuickAmt(String(n)); setQuickActive(true); } else { setAmt(String(n)); setAmtActive(true); }
+    toast('金額 ' + fmt(n) + ' 円');
+    return;
+  }
+  var el = $(id); if (!el) return;
+  if (id === 'qPartner' || id === 'fPartner') el.value = cleanStr(text, 40);
+  else { var cur = el.value.trim(); el.value = cleanStr(cur ? cur + '　' + text : text, 100); }
+  /* 入力欄の input イベントで候補表示・摘要の初期値の更新を走らせる */
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+}
+
+/* ---------- 今日画面の入力欄（インライン。日付は日付バーの curDate） ---------- */
+var qf = { more: false, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', amtActive: true, pEdit: false, pMore: false, mEdit: false };
+var SQ = { sel: qf, pIn: 'qPartner', pBox: 'qPartners', pEdit: 'qpEdit', mIn: 'qMemo', mBox: 'qMemos', mEdit: 'qmEdit', autoMemo: function(){ quickAutoMemo(); } };
+var SF = { sel: form, pIn: 'fPartner', pBox: 'fPartners', pEdit: 'pEdit', mIn: 'fMemo', mBox: 'fMemos', mEdit: 'mEdit', autoMemo: function(){ autoMemo(); } };
+function quickVisible(){ return tab === 'today' && !$('v-today').classList.contains('hidden'); }
+function renderQuick(){
+  Array.prototype.forEach.call($('qType').children, function(b){ var on = b.getAttribute('data-type') === qf.type; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  $('qAccts').innerHTML = acctPickerHtml(qf);
+  if (qf.acctName) $('qAccts').classList.remove('need');
+  renderQuickPartners();
+  setQuickActive(qf.amtActive);
+}
+function renderQuickPartners(){ renderSugg(SQ); }
+function quickAutoMemo(){
+  var m = $('qPartner').value.trim() || qf.acctName || '';
+  var cur = $('qMemo').value;
+  if (cur === '' || cur === qf.lastAutoMemo){ $('qMemo').value = m; qf.lastAutoMemo = m; }
+  renderMemos(SQ);
+}
+function setQuickAmt(s){
+  s = String(s || '').replace(/[^0-9]/g, '').replace(/^0+/, '');
+  if (s.length > 9){ s = s.slice(0, 9); toast('金額は 999,999,999 円までです', true); }
+  qf.amt = s; $('qAmount').value = s ? fmt(parseInt(s, 10)) : '';
+}
+function setQuickActive(on){
+  qf.amtActive = on;
+  $('qKeypad').classList.toggle('active', on);
+  $('qForm').classList.toggle('amt-on', on);
+  $('qAmount').classList.toggle('amt-active', on);
+}
+function quickKey(k){
+  var s = qf.amt;
+  if (/^[0-9]$/.test(k)) s += k;
+  else if (k === '00'){ if (s) s += '00'; }
+  else if (k === 'bs') s = s.slice(0, -1);
+  else if (k === 'c') s = '';
+  else if (k === 'ok'){ quickNext(); return; }
+  setQuickAmt(s);
+}
+/* 保存後・役割切替時：金額・科目・取引先・摘要を空にし、金額欄をアクティブに（keepType で区分は残す） */
+function resetQuick(keepType){
+  if (!keepType) qf.type = 'out';
+  qf.acctName = ''; qf.acctCode = ''; qf.jdlName = ''; qf.lastAutoMemo = ''; qf.pEdit = false; qf.pMore = false; qf.mEdit = false; qf.more = false;
+  setQuickAmt(''); $('qPartner').value = ''; $('qMemo').value = '';
+  $('qAccts').classList.remove('need');
+  qf.amtActive = true;
+}
+function saveQuick(){
+  var date = curDate, amount = parseInt(qf.amt || '0', 10) || 0;
+  if (!amount){ toast('金額を入れてください', true); setQuickActive(true); try { $('qAmount').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){} return; }
+  if (!qf.acctName){
+    toast('相手科目を選んでください', true);
+    $('qAccts').classList.add('need');
+    try { $('qAcctsLabel').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){ $('qAcctsLabel').scrollIntoView(); }
+    return;
+  }
+  if (!validDate(date)){ toast('日付が正しくありません', true); return; }
+  var st = state.settings, partner = cleanStr($('qPartner').value, 60).trim();
+  var data = { id: uid(), date: date, type: qf.type === 'in' ? 'in' : 'out', acctName: qf.acctName, acctCode: qf.acctCode, partner: partner, amount: Math.min(amount, MAX_AMOUNT), memo: cleanStr($('qMemo').value, 200).trim(), createdAt: Date.now() };
+  if (qf.jdlName) data.jdlName = qf.jdlName;
+  state.entries.push(data);
+  var p = partner && st.partners.find(function(x){ return x.name === partner; });
+  if (p) p.count = (p.count || 0) + 1;
+  touch(date); save();
+  toast((qf.type === 'in' ? '入金 ' : '出金 ') + fmt(amount) + ' 円を記録しました');
+  if (!isCounted(st, date)) setTimeout(function(){ toast('残高の起点（開始日・前月繰越）より前の日付です。残高には含まれません', true); }, 2300);
+  var ae = document.activeElement; if (ae && ae.blur && (ae.id === 'qPartner' || ae.id === 'qMemo')) ae.blur();
+  resetQuick(true);
+  ledgerMonth = ymOf(date); render();
+}
+function bindQuick(){
+  $('qType').onclick = function(ev){
+    var b = ev.target.closest('button'); if (!b) return;
+    var t = b.getAttribute('data-type'); if (t === qf.type) return;
+    qf.type = t; keepAcctOnType(qf);
+    renderQuick(); quickAutoMemo();
+  };
+  $('qAccts').onclick = function(ev){
+    var r = acctPickerClick(ev, qf); if (!r) return;
+    renderQuick(); if (r === true) quickAutoMemo();
+  };
+  bindSugg(SQ);
+  $('qAmount').addEventListener('click', function(){ setQuickActive(true); });
+  $('qAmount').addEventListener('focus', function(){ setQuickActive(true); });
+  ['qPartner', 'qMemo'].forEach(function(id){ $(id).addEventListener('focus', function(){ setQuickActive(false); }); });
+  $('qKeypad').addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+  $('qKeypad').addEventListener('click', function(ev){
+    var b = ev.target.closest('button[data-k]'); if (!b) return;
+    var ae = document.activeElement;
+    if (ae && (ae.id === 'qPartner' || ae.id === 'qMemo')) ae.blur();
+    setQuickActive(true); quickKey(b.getAttribute('data-k'));
+  });
+  $('qSave').onclick = saveQuick;
+}
+
+/* ---------- 月表示 ---------- */
+function renderMonth(){
+  var st = state.settings;
+  if (seenMonth !== curMonth){ seenMonth = curMonth; ledgerMonth = curMonth; }
+  var p = curMonth.split('-');
+  $('monthTitle').textContent = p[0] + '年' + (+p[1]) + '月';
+  var s = monthSummary(state.entries, st, curMonth);
+  $('mCarry').textContent = fmt(s.carry);
+  var ci = carryInfo(state.entries, st, curMonth);
+  $('mCarryBadge').classList.toggle('hidden', ci.override === null);
+  $('mIn').textContent = fmt(s.inSum);
+  $('mOut').textContent = fmt(s.outSum);
+  $('mEnd').textContent = fmt(s.end) + ' 円';
+  $('mCount').textContent = s.count + '件';
+  var floatAmt = Number(st.floatAmt) || 0;
+  var html = '', unclosed = 0;
+  s.days.forEach(function(d){
+    var dd = parseDate(d.date);
+    var mark = '';
+    if (role === '112' && d.counted){
+      if (state.closed[d.date]) mark = '<span class="mark ' + (d.end === floatAmt ? 'ok' : 'ng') + '">締 ' + diffLabel(d.end - floatAmt).replace(/円.*$/, '').replace('差なし', '±0') + '</span>';
+      else { mark = '<span class="mark ng">未締</span>'; unclosed++; }
+    }
+    html += '<tr class="tap" data-date="' + d.date + '"><td>' + (dd.getMonth() + 1) + '/' + dd.getDate() + '（' + WD[dd.getDay()] + '）' + mark + '</td>' +
+      '<td class="c-in">' + (d.inSum ? fmt(d.inSum) : '') + '</td><td class="c-out">' + (d.outSum ? fmt(d.outSum) : '') + '</td><td><b>' + fmt(d.end) + '</b></td></tr>';
+  });
+  $('monthBody').innerHTML = html || '<tr><td colspan="4" class="empty" style="text-align:center">この月の記録はありません</td></tr>';
+  var warn = [];
+  var cw = carryDiffText(ci); if (cw) warn.push(cw);
+  if (unclosed) warn.push('締めていない日が ' + unclosed + ' 日あります（未締め日あり）。');
+  var sent = state.sent[curMonth];
+  if (sent){
+    var sd = new Date(sent);
+    var changed = (state.touched[curMonth] || 0) > sd.getTime();
+    $('sentLine').innerHTML = '<span class="sent">送付済み</span> <span class="muted">' + (sd.getMonth() + 1) + '/' + sd.getDate() + ' ' + pad2(sd.getHours()) + ':' + pad2(sd.getMinutes()) + ' に書き出し</span>';
+    if (changed) warn.push('書き出したあとに記録が変更されています。もう一度書き出して事務所へ渡してください。');
+  } else {
+    $('sentLine').innerHTML = '<span class="unsent">未送付</span>';
+  }
+  $('mWarn').innerHTML = warn.map(esc).join('<br>');
+  $('mWarn').classList.toggle('hidden', !warn.length);
+  $('exportMonth').textContent = '（' + warekiYm(curMonth) + '分）';
+  renderJdlNote();
+  renderMailLine();
+  renderBackupLines();
+}
+
+/* 月表示：仕訳CSVの照合用の合計と注意（振替は小口現金側で計上・科目未設定・商号コード未設定） */
+function renderJdlNote(){
+  var J = jdlShiwake(state, curMonth), el = $('jdlNote');
+  var lines = ['JDL取込用 仕訳CSV：' + J.rows.length + '件'].concat(jdlNoteLines(J));
+  if (!state.settings.shopCode) lines.push('※商号コードが未設定です。事務所に確認してください（送ることはできます）。');
+  var warn = J.noCode || J.zero || !state.settings.shopCode;
+  el.className = warn ? 'warnline' : 'muted';
+  el.style.margin = '8px 0 10px';
+  el.innerHTML = lines.map(esc).join('<br>');
+}
+
+/* ---------- 帳簿（JDL 元帳の見た目） ---------- */
+/* 手入力の前月繰越と前月の月末残高が違うときの注意文（計算は変えず表示だけ） */
+function carryDiffText(ci){
+  if (ci.override === null || !ci.prevKnown || ci.diff === 0) return '';
+  return ci.prevLabel + ' ' + fmt(ci.prevEnd) + '円と ' + fmt(Math.abs(ci.diff)) + '円の差があります（手入力の前月繰越 ' + fmt(ci.override) + '円）。';
+}
+function ledgerTableHtml(L, forPrint, ci){
+  var h = '<table class="ledger num"><thead><tr><th>日付</th><th>科目</th><th>科目名</th><th>摘要</th>' +
+    '<th>借方' + (forPrint ? '' : '<small>入金</small>') + '</th><th>貸方' + (forPrint ? '' : '<small>出金</small>') + '</th><th>残高</th></tr></thead><tbody>';
+  if (forPrint){
+    h += '<tr class="open"><td></td><td></td><td></td><td>期首残高（前月繰越）</td><td></td><td></td><td class="n">' + fmt(L.carry) + '</td></tr>';
+  } else {
+    var hand = ci && ci.override !== null;
+    h += '<tr class="open carry-row" data-carry="1" title="タップすると前月繰越を直せます"><td></td><td></td><td></td><td class="cm">期首残高（前月繰越）' +
+      (hand ? '<span class="hand-badge">手入力</span>' : '') + '<span class="carry-edit">✎ 繰越を直す</span></td><td></td><td></td><td class="n">' + fmt(L.carry) + '</td></tr>';
+  }
+  if (!L.rows.length) h += '<tr><td colspan="7" class="c" style="padding:18px 0">この月の記録はありません</td></tr>';
+  L.rows.forEach(function(r){
+    var d = parseDate(r.date);
+    var cls = [];
+    if (!forPrint) cls.push('tap');
+    if (r.lastOfDay) cls.push('day-end');
+    if (!forPrint && r.date === curDate) cls.push('cur');
+    h += '<tr class="' + cls.join(' ') + '" data-id="' + esc(r.id) + '">' +
+      '<td class="dt">' + (r.firstOfDay ? (d.getMonth() + 1) + '/' + d.getDate() : '') + '</td>' +
+      '<td class="c">' + (r.code ? esc(r.code) : '<span class="nocode">—</span>') + '</td>' +
+      '<td title="' + esc(r.name) + '">' + esc(r.shortName) + '</td>' +
+      '<td class="memo" title="' + esc(r.memo) + '">' + esc(r.memo) + '</td>' +
+      '<td class="n c-in">' + (r.debit ? fmt(r.debit) : '') + '</td>' +
+      '<td class="n c-out">' + (r.credit ? fmt(r.credit) : '') + '</td>' +
+      '<td class="n">' + (r.lastOfDay ? fmt(r.balance) : '') + '</td></tr>';
+  });
+  h += '<tr class="total"><td></td><td></td><td></td><td>合計金額</td><td class="n">' + fmt(L.debitSum) + '</td><td class="n">' + fmt(L.creditSum) + '</td><td class="n">' + fmt(L.end) + '</td></tr>';
+  return h + '</tbody></table>';
+}
+function renderLedger(){
+  var L = ledgerRows(state.entries, state.settings, ledgerMonth, role);
+  var p = ledgerMonth.split('-');
+  $('lTitle').innerHTML = esc(warekiYm(ledgerMonth)) + ' <small class="muted" style="font-weight:400;font-size:13px">' + p[0] + '/' + (+p[1]) + '</small>';
+  $('lCash').textContent = role + ' ' + ROLES[role].cashName;
+  var ci = carryInfo(state.entries, state.settings, ledgerMonth);
+  $('lWrap').innerHTML = ledgerTableHtml(L, false, ci);
+  $('lFoot').innerHTML = '<span>期首残高 ' + fmt(L.carry) + (ci.override !== null ? '（手入力）' : '') + '</span><span>月末残高 <b>' + fmt(L.end) + '</b> 円</span>';
+  var w = [];
+  var cw = carryDiffText(ci); if (cw) w.push(cw);
+  if (L.noCode) w.push('科目コードのない行が ' + L.noCode + ' 件あります（「—」の行）。事務所で科目を確認します。');
+  if (L.skipped) w.push('残高の起点（開始日・前月繰越）より前の記録 ' + L.skipped + ' 件は帳簿に含めていません。');
+  $('lWarn').innerHTML = w.map(esc).join('<br>');
+  $('lWarn').classList.toggle('hidden', !w.length);
+}
+function printLedger(ym){
+  var L = ledgerRows(state.entries, state.settings, ym, role);
+  $('printArea').innerHTML =
+    '<h1>' + (state.settings.shopCode ? esc(state.settings.shopCode) + '　' : '') + '現金出納帳（' + role + ' ' + ROLES[role].cashName + '）</h1>' +
+    '<div class="pmeta"><span>' + warekiYm(ym) + '</span><span>期首残高（前月繰越）　' + fmt(L.carry) + ' 円</span></div>' +
+    ledgerTableHtml(L, true) +
+    '<div class="pfoot">合計　借方 <b>' + fmt(L.debitSum) + '</b>　貸方 <b>' + fmt(L.creditSum) + '</b>　　月末残高 <b>' + fmt(L.end) + ' 円</b></div>';
+  try { window.print(); } catch(e){ toast('印刷を開けませんでした', true); }
+}
+
+/* ---------- 前月繰越の入力ダイアログ ---------- */
+var carryYm = null;
+function carryOpen(){ return !$('carryBox').classList.contains('hidden'); }
+function openCarry(ym){
+  carryYm = ym;
+  var st = state.settings;
+  var ci = carryInfo(state.entries, st, ym);
+  var cur = balanceBefore(state.entries, st, ym + '-01');
+  $('carryTitle').textContent = warekiYm(ym) + 'の前月繰越';
+  var info = [];
+  info.push(ci.override !== null ? '今は手入力の前月繰越 ' + fmt(ci.override) + ' 円を使っています。' : '今の期首残高（計算）は ' + fmt(cur) + ' 円です。');
+  if (ci.prevKnown) info.push(ci.prevLabel + '（計算）：' + fmt(ci.prevEnd) + ' 円');
+  $('carryInfo').textContent = info.join('\n');
+  $('carryInfo').style.whiteSpace = 'pre-wrap';
+  $('carryAmt').value = fmt(ci.override !== null ? ci.override : cur);
+  $('carryClear').classList.toggle('hidden', ci.override === null);
+  $('carryBox').classList.remove('hidden');
+  setTimeout(function(){ try { $('carryAmt').focus(); $('carryAmt').select(); } catch(e){} }, 30);
+}
+function closeCarry(){ $('carryBox').classList.add('hidden'); carryYm = null; }
+/* 前月繰越を変えると、その月から次の起点の前までの残高が変わるので、該当月の変更日時を更新する */
+function touchCarry(ym){
+  touch(ym + '-01');
+  var now = Date.now(), c = state.settings.carry;
+  Object.keys(state.sent).forEach(function(k){
+    if (k <= ym) return;
+    var blocked = Object.keys(c).some(function(cm){ return cm > ym && cm <= k; });
+    if (!blocked) state.touched[k] = now;
+  });
+}
+function saveCarry(){
+  if (!carryYm) return;
+  var ym = carryYm, n = parseAmount($('carryAmt').value, MAX_BALANCE);
+  state.settings.carry[ym] = n;
+  touchCarry(ym); save(); closeCarry(); render();
+  toast(warekiYm(ym) + 'の前月繰越を ' + fmt(n) + ' 円にしました');
+}
+function clearCarry(){
+  if (!carryYm) return;
+  var ym = carryYm;
+  delete state.settings.carry[ym];
+  touchCarry(ym); save(); closeCarry(); render();
+  toast(warekiYm(ym) + 'の前月繰越の指定を解除しました');
+}
+
+/* ---------- 書き出し（1ボタン1ファイル） ---------- */
+/* ファイル保存：claude.ai の画面では downloads 機能（確認画面が出る）、それ以外（端末に保存した HTML など）は通常のダウンロード。
+   保存できたら true、やめた・できなかったら false で終わる Promise */
+var dlPromise = null;
+function getDownloads(){
+  if (!dlPromise){
+    dlPromise = (window.claude && typeof window.claude.use === 'function')
+      ? Promise.resolve().then(function(){ return window.claude.use('downloads'); }).catch(function(){ return null; })
+      : Promise.resolve(null);
+  }
+  return dlPromise;
+}
+function plainDownload(name, content, mime){
+  var blob = new Blob([content], { type: mime });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a'); a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+}
+function download(name, content, mime){
+  var inClaude = !!(window.claude && typeof window.claude.use === 'function');
+  return getDownloads().then(function(dl){
+    if (!dl){
+      if (inClaude){ toast('この画面ではファイルを保存できません。「事務所へ送る」「バックアップを送る」を使ってください', true); return false; }
+      plainDownload(name, content, mime); return true;
+    }
+    return dl.save({ filename: name, data: content }).then(function(){ return true; }, function(err){
+      var c = err && err.code;
+      if (c === 'declined') return false;
+      if (c === 'rate_limited'){ toast('保存の確認画面がすでに開いています。そちらを先に閉じてください', true); return false; }
+      toast('ファイルを保存できませんでした', true); return false;
+    });
+  });
+}
+function withEmptyCheck(ym, go){
+  var s = monthSummary(state.entries, state.settings, ym);
+  if (!s.count) confirmDlg('この月の記録は0件です。それでも書き出しますか？', '書き出す').then(function(ok){ if (ok) go(); });
+  else go();
+}
+function markSent(ym, nowIso){ state.sent[ym] = nowIso; save(); render(); }
+function exportCsv(){
+  var ym = curMonth;
+  withEmptyCheck(ym, function(){
+    var name = exportFileBase(role, ym, state.settings.shopCode) + '_motocho.csv';
+    download(name, buildJdlCsv(state, ym), 'text/csv;charset=utf-8').then(function(ok){
+      if (!ok) return;
+      markSent(ym, new Date().toISOString());
+      toast(name + ' を書き出しました');
+    });
+  });
+}
+function exportJson(){
+  var ym = curMonth;
+  withEmptyCheck(ym, function(){
+    var nowIso = new Date().toISOString();
+    var name = exportFileBase(role, ym, state.settings.shopCode) + '.json';
+    download(name, JSON.stringify(buildExportJson(state, ym, nowIso), null, 2), 'application/json').then(function(ok){
+      if (!ok) return;
+      markSent(ym, nowIso);
+      toast(name + ' を書き出しました');
+    });
+  });
+}
+
+/* JDL取込用 仕訳CSV（Shift_JIS）。作れない端末では bytes=null */
+function jdlPack(ym){
+  var J = jdlShiwake(state, ym), csv = buildJdlShiwakeCsv(state, ym, J), bytes = null, replaced = 0;
+  if (sjisAvailable()){
+    try { bytes = encodeSjis(csv); replaced = LAST_SJIS_REPLACED; } catch(e){ bytes = null; logError('encodeSjis: ' + (e && e.message), 0); }
+  }
+  return { J: J, bytes: bytes, replaced: replaced, name: exportFileBase(role, ym, state.settings.shopCode) + '_jdl.csv' };
+}
+/* 注意（画面・共有本文）：商号コード未設定・置き換えた文字・作れなかった */
+function jdlWarnLines(jp){
+  var w = [];
+  if (!jp.bytes) w.push('※この端末では JDL取込用の仕訳CSV（Shift_JIS）を作れませんでした。帳簿CSVなどほかのファイルは送ります。');
+  else if (jp.replaced) w.push('※Shift_JIS にない文字（絵文字など）' + jp.replaced + ' 文字を「？」に置き換えました。');
+  if (!state.settings.shopCode) w.push('※商号コードが未設定です。事務所に確認してください。');
+  return w;
+}
+function exportJdl(){
+  var ym = curMonth;
+  withEmptyCheck(ym, function(){
+    var jp = jdlPack(ym);
+    if (!jp.bytes){ infoDlg('この端末では JDL取込用の仕訳CSV（Shift_JIS）を作れません。\n帳簿ファイル（CSV）を書き出して送ってください。'); return; }
+    var go = function(){
+      download(jp.name, jp.bytes, 'text/csv').then(function(ok){
+        if (!ok) return;
+        markSent(ym, new Date().toISOString());
+        toast(jp.name + ' を書き出しました');
+        var w = jdlWarnLines(jp).concat(jp.J.noCode ? ['科目未設定の行が ' + jp.J.noCode + ' 件あります（諸口で出しています）。'] : []);
+        if (w.length) setTimeout(function(){ infoDlg(w.join('\n')); }, 300);
+      });
+    };
+    go();
+  });
+}
+
+/* ---------- 事務所へ送る（共有メニュー：Gmail・メール・LINE など） ---------- */
+function shareFiles(ym, nowIso){
+  var code = state.settings.shopCode;
+  var jp = jdlPack(ym);
+  var m = shareMeta(role, ym, state.settings.officeMail, code, jdlNoteLines(jp.J).concat(jdlWarnLines(jp)));
+  var bk = backupPack(new Date(nowIso), nowIso);
+  var files = [];
+  if (jp.bytes) files.push(new File([jp.bytes], m.jdlName, { type: 'text/csv' }));
+  files.push(new File([buildJdlCsv(state, ym)], m.csvName, { type: 'text/csv' }));
+  files.push(new File([JSON.stringify(buildExportJson(state, ym, nowIso), null, 2)], m.jsonName, { type: 'application/json' }));
+  files.push(new File([bk.content], bk.meta.fileName, { type: 'application/json' }));
+  return { meta: m, files: files, bk: bk, jp: jp };
+}
+function canShareFiles(files){
+  try { return !!(navigator.share && navigator.canShare && navigator.canShare({ files: files })); } catch(e){ return false; }
+}
+function shareToOffice(){
+  var ym = curMonth;
+  withEmptyCheck(ym, function(){
+    var nowIso = new Date().toISOString();
+    var sf;
+    try { sf = shareFiles(ym, nowIso); } catch(e){ sf = null; }
+    if (!sf || !canShareFiles(sf.files)){
+      infoDlg('この端末では共有メニューが使えません。\n下の「JDL取込用 仕訳CSV」「帳簿ファイル」「データファイル」と、設定の「バックアップを書き出す」でファイルを保存して、メールに添付して送ってください。');
+      return;
+    }
+    var pre = state.settings.shopCode ? Promise.resolve(true) : confirmDlg('商号コードが未設定です。事務所に確認してください。\nこのまま送りますか？', '送る');
+    pre.then(function(go){
+      if (!go) return;
+      navigator.share({ files: sf.files, title: sf.meta.title, text: sf.meta.text }).then(function(){
+        markBackupAll(sf.bk.roleKeys, nowIso);
+        markSent(ym, nowIso);
+        toast('送付済みにしました（' + warekiYm(ym) + '分・バックアップ込み）');
+        if (!sf.jp.bytes || sf.jp.replaced) setTimeout(function(){ infoDlg(jdlWarnLines(sf.jp).join('\n')); }, 300);
+      }, function(err){
+        if (err && err.name === 'AbortError') return;
+        toast('共有できませんでした。下の書き出しボタンでファイルを保存して添付してください', true);
+      });
+    });
+  });
+}
+function renderMailLine(){
+  var mail = String(state.settings.officeMail || '').trim(), el = $('mailLine');
+  el.classList.toggle('hidden', !mail);
+  if (!mail){ el.innerHTML = ''; return; }
+  el.innerHTML = '<div class="row">宛先：<span class="addr" id="mailAddr">' + esc(mail) + '</span><button type="button" id="copyMail">コピー</button></div>' +
+    '<div class="muted" style="margin-top:4px">共有メニューでは宛先を自動で入れられません。Gmailを選んだら宛先に貼り付けてください。</div>';
+  $('copyMail').onclick = function(){
+    function fallback(){
+      try { var r = document.createRange(); r.selectNodeContents($('mailAddr')); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); } catch(e){}
+      toast('コピーできませんでした。宛先を長押ししてコピーしてください', true);
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(mail).then(function(){ toast('宛先をコピーしました'); }, fallback);
+      else fallback();
+    } catch(e){ fallback(); }
+  };
+}
+
+/* ---------- 設定 ---------- */
+function renderSettings(){
+  var st = state.settings;
+  $('setRoleInfo').innerHTML = '<b>' + ROLES[role].label + '</b>（' + role + ' ' + ROLES[role].cashName + (role === '112' ? '・お店のレジ' : '') + '）';
+  renderHelp();
+  $('stOpenDate').value = st.openDate || '';
+  $('stOpenBal').value = fmt(st.openBal);
+  $('floatCard').classList.toggle('hidden', role !== '112');
+  $('stFloat').value = fmt(st.floatAmt);
+  var opts = '';
+  for (var m = 1; m <= 12; m++) opts += '<option value="' + m + '"' + (+st.fiscalMonth === m ? ' selected' : '') + '>' + m + '月決算</option>';
+  $('stFiscal').innerHTML = opts;
+  $('stOfficeMail').value = st.officeMail || '';
+  $('shopCodeNow').innerHTML = st.shopCode ? '商号コード：<b>' + esc(st.shopCode) + '</b>' : '商号コード：<b>未設定</b>';
+  $('stShopCode').value = st.shopCode || '';
+  renderTrash();
+  renderBackupLines();
+  Array.prototype.forEach.call(document.querySelectorAll('[data-akind]'), function(b){ b.classList.toggle('on', b.getAttribute('data-akind') === acctKind); });
+  var list = st.accounts[acctKind], html = '';
+  list.forEach(function(a, i){
+    var jn = a.code ? (JDL_NAMES[a.code] || a.jdlName) : '';
+    html += '<div class="erow" data-i="' + i + '" style="flex-wrap:wrap"><input class="nm" data-f="name" maxlength="40" value="' + esc(a.name) + '" aria-label="科目名">' +
+      '<input class="cd" data-f="code" maxlength="6" value="' + esc(a.code) + '" inputmode="numeric" placeholder="任意" aria-label="' + esc(a.name) + 'の科目コード">' +
+      '<button type="button" data-act="up" aria-label="' + esc(a.name) + 'を上へ">↑</button><button type="button" data-act="down" aria-label="' + esc(a.name) + 'を下へ">↓</button><button type="button" class="del" data-act="del" aria-label="' + esc(a.name) + 'を削除">削除</button>' +
+      (a.code ? '<div class="jn' + (jn ? '' : ' ng') + '">' + (jn ? '会計ソフトの科目名：' + esc(jn) : 'このコードは会計ソフトの科目一覧にありません（帳簿にはボタン名で出ます）') + '</div>' : '') + '</div>';
+  });
+  $('acctEditor').innerHTML = html;
+  html = '';
+  st.partners.forEach(function(p, i){
+    html += '<div class="erow" data-i="' + i + '"><input class="nm" data-f="name" maxlength="40" value="' + esc(p.name) + '" aria-label="取引先名">' +
+      '<span class="muted" style="flex:none;font-size:12px;width:44px;text-align:right">' + fmt(p.count || 0) + '回</span>' +
+      '<button type="button" data-act="up" aria-label="' + esc(p.name) + 'を上へ">↑</button><button type="button" data-act="down" aria-label="' + esc(p.name) + 'を下へ">↓</button><button type="button" class="del" data-act="del" aria-label="' + esc(p.name) + 'を削除">削除</button></div>';
+  });
+  $('partnerEditor').innerHTML = html || '<p class="muted">まだ登録がありません。</p>';
+}
+/* 消した記録（ゴミ箱）：新しい順 */
+function renderTrash(){
+  var list = (state.trash || []).map(function(t, i){ return { t: t, i: i }; }).reverse(), html = '';
+  list.forEach(function(x){
+    var e = x.t.entry, d = parseDate(e.date), del = new Date(x.t.deletedAt);
+    var sub = [(d.getMonth() + 1) + '/' + d.getDate() + 'の記録', e.partner, e.memo].filter(Boolean).join('　');
+    html += '<li><span class="tag ' + (e.type === 'in' ? 'in' : 'out') + '">' + (e.type === 'in' ? '入金' : '出金') + '</span>' +
+      '<div class="li-main"><div class="t">' + esc(e.acctName) + '　' + fmt(e.amount) + '円</div><div class="s">' + esc(sub) + '　（' + (del.getMonth() + 1) + '/' + del.getDate() + ' ' + pad2(del.getHours()) + ':' + pad2(del.getMinutes()) + ' に削除）</div></div>' +
+      '<button type="button" class="rb" data-ti="' + x.i + '">戻す</button></li>';
+  });
+  $('trashList').innerHTML = html || '<li class="empty" style="display:block">消した記録はありません。</li>';
+}
+function restoreTrash(i){
+  var t = (state.trash || [])[i]; if (!t) return;
+  var e = {}; Object.keys(t.entry).forEach(function(k){ e[k] = t.entry[k]; });
+  if (!e.id || state.entries.some(function(x){ return x.id === e.id; })) e.id = uid();
+  state.entries.push(e);
+  state.trash = state.trash.filter(function(x, j){ return j !== i; });
+  touch(e.date); save(); render();
+  var d = parseDate(e.date);
+  toast((d.getMonth() + 1) + '/' + d.getDate() + 'の記録（' + e.acctName + ' ' + fmt(e.amount) + '円）を戻しました');
+}
+/* 商号コード（事務所向け）：今の役割と、この端末のもう一方の役割のデータに入れる */
+function saveShopCode(){
+  var raw = String($('stShopCode').value || '').trim(), v = cleanCode(raw);
+  if (raw && !v){ toast('商号コードは数字（6桁まで）で入れてください', true); return; }
+  state.settings.shopCode = v; save();
+  putCodeToRaw(role === '111' ? '112' : '111', v, true);
+  if (v) lsSet(KEY_PENDCODE, v); else { try { localStorage.removeItem(KEY_PENDCODE); } catch(e){} }
+  render(); toast(v ? '商号コードを ' + v + ' にしました' : '商号コードを消しました');
+}
+
+/* ---------- 事務所に不具合を伝える ---------- */
+function bugOpen(){ return !$('bugBox').classList.contains('hidden'); }
+function openBug(){
+  $('bugStep1').classList.remove('hidden'); $('bugStep2').classList.add('hidden');
+  $('bugNote').value = '';
+  $('bugBox').classList.remove('hidden');
+}
+function closeBug(){ $('bugBox').classList.add('hidden'); }
+function bugText(){
+  return bugReportText({ code: state.settings.shopCode, role: role, note: cleanStr($('bugNote').value.replace(/[\r\n]+/g, ' '), 500).trim(),
+    size: (window.innerWidth || 0) + '×' + (window.innerHeight || 0), ua: String(navigator.userAgent || '').slice(0, 300), errors: readErrors() });
+}
+function sendBug(){
+  var text = bugText(), d = new Date(), nowIso = d.toISOString(), bk, files = null;
+  try { bk = backupPack(d, nowIso); files = [new File([bk.content], bk.meta.fileName, { type: 'application/json' })]; } catch(e){ files = null; }
+  var title = mailTag(state.settings.shopCode) + APP_NAME + ' 不具合の連絡';
+  if (files && canShareFiles(files)){
+    navigator.share({ files: files, title: title, text: text }).then(function(){
+      closeBug(); toast('事務所へ送りました。ありがとうございます');
+    }, function(err){
+      if (err && err.name === 'AbortError') return;
+      showBugFallback(text);
+    });
+    return;
+  }
+  showBugFallback(text);
+}
+function showBugFallback(text){
+  $('bugText').value = text;
+  $('bugStep1').classList.add('hidden'); $('bugStep2').classList.remove('hidden');
+}
+function copyBugText(){
+  var ta = $('bugText');
+  function fb(){ try { ta.focus(); ta.select(); document.execCommand && document.execCommand('copy'); toast('文面を選びました。コピーして貼り付けてください'); } catch(e){ toast('文面を長押ししてコピーしてください', true); } }
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(function(){ toast('文面をコピーしました'); }, fb);
+    else fb();
+  } catch(e){ fb(); }
+}
+
+/* ---------- 新しい版のお知らせ（今日画面の上に1回） ---------- */
+function showNewVersion(){
+  if (needChoose) return;
+  var seen = lsGet(KEY_SEENVER);
+  var msg = newVersionNote(seen, APP_VERSION, APP_HISTORY);
+  lsSet(KEY_SEENVER, APP_VERSION);
+  if (!msg) return;
+  $('newVerMsg').textContent = msg;
+  $('newVer').classList.remove('hidden');
+}
+
+/* ---------- ネットが無くても開ける（Service Worker）。https（と試験用の localhost）だけ。file:// と claude.ai の画面では使わない ---------- */
+function showUpdateBar(){ $('updBar').classList.remove('hidden'); }
+function setupSW(){
+  try {
+    var host = String(location.hostname || '');
+    if (!(location.protocol === 'https:' || host === 'localhost')) return;
+    if (window.claude || /(^|\.)claude\.ai$|claudeusercontent\.com$|anthropic\.com$/.test(host)) return;
+    if (!('serviceWorker' in navigator) || !navigator.serviceWorker) return;
+    var sw = navigator.serviceWorker, hadCtrl = !!sw.controller;
+    sw.onmessage = function(ev){ if (ev && ev.data && ev.data.type === 'choubo-updated') showUpdateBar(); };
+    sw.addEventListener('controllerchange', function(){ if (hadCtrl) showUpdateBar(); hadCtrl = true; });
+    sw.register('./sw.js').catch(function(e){ logError('sw register: ' + (e && e.message), 0); });
+  } catch(e){}
+}
+
+/* 使い方：このタブレットの役割でやることだけを表示 */
+var HELP_COMMON = [
+  'マイクの形のボタンを押して話すと、取引先・摘要・金額を声で入れられます（対応しているブラウザのみ）。',
+  '「今日」画面の上で日付を選び、入金／出金 → 金額（テンキー）→ 相手科目 → 取引先・摘要の順に入れ、「保存する」を押します。テンキーの「次へ ▼」で相手科目へ進みます。続けて次の記録を入れられます。',
+  '記録をタップすると、直したり消したりできます。「帳簿」タブ（横向きの大きい画面では右側）で、月ごとの帳簿を確認できます。'
+];
+var HELP = {
+  '112': {
+    lead: 'このタブレットは「小口現金用」（お店のレジ）です。',
+    steps: [
+      '<b>入力</b>：レジのお金が出入りしたら、そのつど記録します。',
+      '<b>毎日締める</b>：1日の終わりに「今日」画面の「本日を締める」を押します。基準額（78,000円など）より多い分は「小口から現金へ」の行が自動で入るので、その金額をレジから出してオーナー用の現金へ移します。足りないときは不足額が出るだけです（数え間違いや記録もれを確認してください）。',
+      '<b>月末に送る</b>：「月表示」の「事務所へ送る」を押して、Gmail などで事務所へ送ります（帳簿ファイル・データ・バックアップが添付されます）。',
+      '<b>月に1回バックアップ</b>：月末の「事務所へ送る」でバックアップも一緒に送られます。今日画面に「バックアップを送ってください」と出たら、そのボタンで送ります。'
+    ]
+  },
+  '111': {
+    lead: 'このタブレットは「オーナー用」（111 現金）です。',
+    steps: [
+      '<b>入力</b>：オーナー用の現金が出入りしたら、そのつど記録します。',
+      '<b>レジから受取</b>：小口現金用のタブレットで締めたときの「小口から現金へ」の金額を受け取ったら、「今日」画面の「レジから受取」を押して、その金額を入れます。',
+      '<b>月末に送る</b>：「月表示」の「事務所へ送る」を押して、Gmail などで事務所へ送ります（帳簿ファイル・データ・バックアップが添付されます）。',
+      '<b>月に1回バックアップ</b>：月末の「事務所へ送る」でバックアップも一緒に送られます。今日画面に「バックアップを送ってください」と出たら、そのボタンで送ります。'
+    ]
+  }
+};
+function renderHelp(){
+  var h = HELP[role];
+  $('helpLead').textContent = h.lead;
+  $('helpList').innerHTML = h.steps.concat(HELP_COMMON.map(esc)).map(function(s){ return '<li>' + s + '</li>'; }).join('');
+}
+function listEditor(container, getList, label){
+  container.addEventListener('change', function(ev){
+    var row = ev.target.closest('.erow'); if (!row) return;
+    var list = getList(), i = +row.getAttribute('data-i'), f = ev.target.getAttribute('data-f');
+    if (!f) return;
+    var v = ev.target.value.trim();
+    if (f === 'name' && !v){ toast(label + 'の名前は空にできません', true); ev.target.value = list[i].name; return; }
+    if (f === 'code'){
+      v = v.replace(/[０-９]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); });
+      if (v && !/^\d{1,6}$/.test(v)){ toast('科目コードは数字（6桁まで）で入れてください', true); ev.target.value = list[i].code || ''; return; }
+    }
+    if (f === 'name') v = cleanStr(v, 40);
+    list[i][f] = v; save(); toast('保存しました');
+    if (f === 'code') renderSettings();
+  });
+  container.addEventListener('click', function(ev){
+    var btn = ev.target.closest('button'); if (!btn) return;
+    var row = btn.closest('.erow'); var list = getList(), i = +row.getAttribute('data-i');
+    var act = btn.getAttribute('data-act'), t;
+    if (act === 'up' && i > 0){ t = list[i - 1]; list[i - 1] = list[i]; list[i] = t; save(); renderSettings(); }
+    else if (act === 'down' && i < list.length - 1){ t = list[i + 1]; list[i + 1] = list[i]; list[i] = t; save(); renderSettings(); }
+    else if (act === 'del'){
+      confirmDlg('「' + list[i].name + '」を一覧から削除しますか？\n（過去の記録はそのまま残ります）', '削除する').then(function(ok){
+        if (!ok) return;
+        var removed = list.splice(i, 1)[0];
+        if (label === '取引先' && removed){ var rn = String(removed.name).trim(); if (rn && state.settings.hiddenPartners.indexOf(rn) < 0) state.settings.hiddenPartners.push(rn); }
+        save(); renderSettings(); toast('削除しました');
+      });
+    }
+  });
+}
+/* この端末に保存されている両方の役割のデータ（今の役割は画面のデータ、もう一方は保存データ） */
+function otherRawState(r){
+  var raw = lsGet(KEY_DATA + r); if (!raw) return null;
+  try { var s = JSON.parse(raw); return isObj(s) ? s : null; } catch(e){ return null; }
+}
+function backupPack(d, nowIso){
+  var roles = {};
+  ['111', '112'].forEach(function(r){
+    if (r === role){ roles[r] = state; return; }
+    var s = otherRawState(r);
+    if (s){ try { roles[r] = migrateState(s, r, today); } catch(e){} }
+  });
+  var keys = Object.keys(roles).sort();
+  var code = state.settings.shopCode;
+  return { roleKeys: keys, meta: backupAllMeta(d, state.settings.officeMail, keys, code), content: JSON.stringify(buildBackupAll(roles, nowIso, code), null, 2) };
+}
+/* バックアップ済みの記録：今の役割は state に、もう一方は保存データの lastBackup だけを書き換える（中身はそのまま） */
+function markBackupAll(keys, nowIso){
+  (keys || [role]).forEach(function(r){
+    if (r === role) return;
+    var s = otherRawState(r); if (!s) return;
+    s.lastBackup = nowIso; lsSet(KEY_DATA + r, JSON.stringify(s));
+  });
+  state.lastBackup = nowIso; save(); render();
+}
+function markBackup(nowIso){ markBackupAll([role], nowIso); }
+var persistState = '';
+function askPersist(){
+  try {
+    if (!navigator.storage || !navigator.storage.persist){ persistState = 'na'; renderBackupLines(); return; }
+    var p = navigator.storage.persisted ? navigator.storage.persisted() : Promise.resolve(false);
+    p.then(function(already){
+      if (already) return true;
+      return navigator.storage.persist();
+    }).then(function(ok){ persistState = ok ? 'yes' : 'no'; renderBackupLines(); }, function(){ persistState = 'no'; renderBackupLines(); });
+  } catch(e){ persistState = 'na'; renderBackupLines(); }
+}
+function renderBackupLines(){
+  var b = backupStatus(state.lastBackup, new Date());
+  ['bkLine', 'mBkLine'].forEach(function(id){
+    var el = $(id); if (!el) return;
+    el.textContent = '前回のバックアップ：' + b.label + (b.stale ? '（そろそろ取ってください）' : '');
+    el.classList.toggle('stale', b.stale);
+  });
+  var pl = $('persistLine');
+  if (pl) pl.textContent = persistState === 'yes' ? 'この端末のブラウザは「データを自動で消さない」設定になっています。それでも機種変更や履歴の消去では消えるので、月1回のバックアップは続けてください。' :
+    persistState ? 'この端末のブラウザは、空き容量が少ないときなどにデータを自動で消すことがあります。月1回のバックアップを必ず続けてください。' : '';
+}
+function renderBackupWarn(){
+  var msg = backupNudge(state, new Date());
+  $('bkWarn').classList.toggle('hidden', !msg);
+  $('bkWarnMsg').textContent = msg;
+}
+function doBackup(){
+  var d = new Date(), nowIso = d.toISOString();
+  var bk = backupPack(d, nowIso);
+  return download(bk.meta.fileName, bk.content, 'application/json').then(function(ok){
+    if (!ok) return false;
+    markBackupAll(bk.roleKeys, nowIso);
+    toast('バックアップを書き出しました');
+    return true;
+  });
+}
+function shareBackup(){
+  var d = new Date(), nowIso = d.toISOString();
+  var bk = backupPack(d, nowIso), m = bk.meta, files;
+  try { files = [new File([bk.content], m.fileName, { type: 'application/json' })]; } catch(e){ files = null; }
+  if (!files || !canShareFiles(files)){
+    /* 共有メニューが無い端末（PC のブラウザなど）はファイルとして保存する */
+    doBackup().then(function(ok){
+      if (ok) infoDlg('この端末では共有メニューが使えないため、バックアップをファイルとして保存しました（' + m.fileName + '）。\nメールに添付して事務所（または自分）宛てに送ってください。');
+    });
+    return;
+  }
+  navigator.share({ files: files, title: m.title, text: m.text }).then(function(){
+    markBackupAll(bk.roleKeys, nowIso); toast('バックアップを送りました');
+  }, function(err){
+    if (err && err.name === 'AbortError') return;
+    toast('共有できませんでした。下の「バックアップを書き出す」でファイルを保存して添付してください', true);
+  });
+}
+var MAX_BACKUP_BYTES = 30 * 1024 * 1024;
+function doRestoreFile(file){
+  if (file.size > MAX_BACKUP_BYTES){ infoDlg('ファイルが大きすぎます（30MBまで）。このアプリのバックアップファイルか確認してください。'); return; }
+  var rd = new FileReader();
+  rd.onload = function(){
+    var obj;
+    try { obj = JSON.parse(rd.result); } catch(e){ infoDlg('ファイルを読めませんでした（JSONではありません）。'); return; }
+    function okData(v){ return isObj(v) && isObj(v.settings) && Array.isArray(v.entries); }
+    if (!isObj(obj) || !isBackupFormat(obj.format)){
+      infoDlg('このアプリのバックアップファイルではありません。'); return;
+    }
+    /* 商号コードの照合：バックアップ側が空・一致・アプリ側が未設定なら確認なし。違えば確認する */
+    var appCode = state.settings.shopCode, bkCode = cleanCode(obj.shopCode);
+    var codeMismatch = !!(appCode && bkCode && appCode !== bkCode);
+    /* v2：roles に両方の役割／v1：data に1つの役割。
+       タブレットごとに役割を固定しているので、復元するのはこのタブレットの役割の分だけ。
+       v2 のもう一方の役割の分は使わない（この端末にあるもう一方のデータにも触らない）。v1 で役割が違うものは断る */
+    var src = {}, isV2 = isObj(obj.roles);
+    if (isV2) ['111', '112'].forEach(function(r){ if (okData(obj.roles[r])) src[r] = obj.roles[r]; });
+    else if (okData(obj.data)) src[obj.data.role === '112' ? '112' : '111'] = obj.data;
+    var keys = Object.keys(src).sort();
+    if (!keys.length){ infoDlg('このアプリのバックアップファイルではありません。'); return; }
+    if (!src[role]){
+      var fr = keys.map(function(r){ return ROLES[r].label; }).join('・');
+      infoDlg('このバックアップは「' + fr + '」のものです。\nこのタブレットは「' + ROLES[role].label + '」なので、ここには復元できません。\n' + fr + 'のタブレットで復元するか、事務所に連絡してください。');
+      return;
+    }
+    var clean, dropped, skipped = [];
+    try { clean = migrateState(src[role], role, today); dropped = LAST_MIGRATE_DROPPED; } catch(e){ infoDlg('バックアップの中身が壊れていて復元できません。'); return; }
+    /* 復元後の商号コード：バックアップのデータ → バックアップのファイル → 今のアプリの順 */
+    if (!clean.settings.shopCode) clean.settings.shopCode = bkCode || appCode || '';
+    clean.trash = purgeTrash(clean.trash, Date.now());
+    keys.forEach(function(r){
+      if (r === role) return;
+      var n = Array.isArray(src[r].entries) ? Math.min(src[r].entries.length, MAX_ENTRIES) : 0;
+      skipped.push(ROLES[r].label + '（' + n + '件）');
+    });
+    var sv = String(obj.savedAt || ''), sd = new Date(sv);
+    var when = (sv.length <= 40 && !isNaN(sd.getTime())) ? dateStr(sd).replace(/-/g, '/') + ' 保存' : '保存日時不明';
+    var msg = 'バックアップ（' + when + '）から、このタブレット（' + ROLES[role].label + '）の分を復元します。\n' +
+      '・' + ROLES[role].label + '：' + clean.entries.length + '件' + (dropped ? '（読み取れない記録 ' + dropped + ' 件は復元されません）' : '') + '\n' +
+      (skipped.length ? '※ このバックアップに入っている ' + skipped.join('・') + ' の分は、このタブレットでは使わないので復元しません。\n' : '') +
+      ROLES[role].label + 'の今のデータをすべて置き換えます。よろしいですか？';
+    var pre = codeMismatch
+      ? confirmDlg('このバックアップは商号コード ' + bkCode + ' のものです（このタブレットは ' + appCode + '）。\n別のお店のバックアップかもしれません。続けますか？', '続ける')
+      : Promise.resolve(true);
+    pre.then(function(go){ return go ? confirmDlg(msg, '復元する') : false; }).then(function(ok){
+      if (!ok) return;
+      /* 先に今のデータを退避（失敗しても続ける） */
+      var raw = lsGet(KEY_DATA + role); if (raw) lsSet(KEY_DATA + role + '_before_restore', raw);
+      var ok2 = lsSet(KEY_DATA + role, JSON.stringify(clean));
+      if (!ok2){
+        infoDlg(lsErr === 'quota' ? '保存容量が足りず、復元できませんでした。今のデータはそのままです。' : 'この端末では保存できないため、復元できませんでした。今のデータはそのままです。');
+        return;
+      }
+      state = load(role); applyRole(); render();
+      if (ok2) toast('復元しました（' + ROLES[role].label + '・' + clean.entries.length + '件）');
+    });
+  };
+  rd.onerror = function(){ toast('ファイルを読めませんでした', true); };
+  rd.readAsText(file);
+}
+
+/* ---------- 金額入力のカンマ整形（設定画面） ---------- */
+function bindAmount(el){
+  el.addEventListener('input', function(){
+    var n = parseAmount(el.value, (el.id === 'stFloat' || el.id === 'wzFloat') ? MAX_AMOUNT : MAX_BALANCE);
+    el.value = n ? fmt(n) : '';
+  });
+}
+
+/* ---------- render ---------- */
+function render(){
+  applyLayout();
+  if (tab === 'today') renderToday();
+  else if (tab === 'month') renderMonth();
+  else if (tab === 'settings') renderSettings();
+  if (isPC() || tab === 'ledger') renderLedger();
+}
+
+/* ---------- events ---------- */
+function bind(){
+  bindQuick();
+  setupVoice();
+  Array.prototype.forEach.call(document.querySelectorAll('#roleChooser [data-pick]'), function(b){
+    b.onclick = function(){ pickRole(b.getAttribute('data-pick')); };
+  });
+  $('rcCancel').onclick = function(){ closeChooser(); toast('役割はそのままです'); };
+  $('roleChangeBtn').onclick = openRoleChange;
+  $('roleChangeNo').onclick = closeRoleChange;
+  $('roleChangeYes').onclick = submitRoleChange;
+  $('roleChangeBox').addEventListener('click', function(ev){ if (ev.target === $('roleChangeBox')) closeRoleChange(); });
+  $('roleChangeCode').addEventListener('keydown', function(ev){ if (ev.key === 'Enter' && !ev.isComposing){ ev.preventDefault(); submitRoleChange(); } });
+  $('openWizard').onclick = openWizard;
+  $('wzNext').onclick = wizardNext;
+  $('wzBack').onclick = wizardBack;
+  $('wzClose').onclick = closeWizard;
+  $('wzLater').onclick = closeWizard;
+  bindAmount($('wzBal')); bindAmount($('wzFloat'));
+  ['wzBal', 'wzMail', 'wzFloat'].forEach(function(id){ $(id).addEventListener('keydown', function(ev){ if (ev.key === 'Enter' && !ev.isComposing){ ev.preventDefault(); wizardNext(); } }); });
+  Array.prototype.forEach.call(document.querySelectorAll('.tabs button'), function(b){
+    b.onclick = function(){ if (b.getAttribute('data-tab') === 'month') curMonth = ymOf(curDate); setTab(b.getAttribute('data-tab')); };
+  });
+  $('prevDay').onclick = function(){ curDate = addDays(curDate, -1); render(); };
+  $('nextDay').onclick = function(){ curDate = addDays(curDate, 1); render(); };
+  $('curDate').onchange = function(){
+    if (this.value && validDate(this.value)){ curDate = this.value; render(); }
+    else if (this.value){ toast('2000〜2099年の日付を選んでください', true); this.value = curDate; }
+  };
+  $('dayList').addEventListener('keydown', function(ev){
+    if (ev.key !== 'Enter' && ev.key !== ' ') return;
+    var li = ev.target.closest('li[data-id]'); if (!li) return;
+    ev.preventDefault(); ev.stopPropagation(); li.click();
+  });
+  $('receiveBtn').onclick = openReceive;
+  $('dayList').onclick = function(ev){
+    var li = ev.target.closest('li[data-id]'); if (!li) return;
+    var e = state.entries.find(function(x){ return x.id === li.getAttribute('data-id'); });
+    if (e) openSheet(e.type, e);
+  };
+
+  $('sheetClose').onclick = closeSheet;
+  $('sheet').addEventListener('click', function(ev){ if (ev.target === $('sheet')) closeSheet(); });
+  $('fType').onclick = function(ev){
+    var b = ev.target.closest('button'); if (!b) return;
+    var t = b.getAttribute('data-type'); if (t === form.type) return;
+    form.type = t; keepAcctOnType(form);
+    renderSheetParts(); autoMemo();
+  };
+  $('fAccts').onclick = function(ev){
+    var r = acctPickerClick(ev, form); if (!r) return;
+    renderSheetParts(); if (r === true) autoMemo();
+  };
+  bindSugg(SF);
+
+  /* 入力箇所の切替：金額欄→テンキー、取引先・摘要→通常のキーボード */
+  $('fAmount').addEventListener('click', function(){ setAmtActive(true); });
+  $('fAmount').addEventListener('focus', function(){ setAmtActive(true); });
+  ['fPartner', 'fMemo', 'fDate'].forEach(function(id){ $(id).addEventListener('focus', function(){ setAmtActive(false); }); });
+  $('keypad').addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+  $('keypad').addEventListener('click', function(ev){
+    var b = ev.target.closest('button[data-k]'); if (!b) return;
+    var ae = document.activeElement;
+    if (ae && (ae.id === 'fPartner' || ae.id === 'fMemo' || ae.id === 'fDate')) ae.blur();
+    setAmtActive(true);
+    keyIn(b.getAttribute('data-k'));
+  });
+  $('fSave').onclick = saveForm;
+  $('fDelete').onclick = deleteForm;
+
+  $('prevMonth').onclick = function(){ curMonth = addMonths(curMonth, -1); render(); };
+  $('nextMonth').onclick = function(){ curMonth = addMonths(curMonth, 1); render(); };
+  $('monthBody').onclick = function(ev){
+    var tr = ev.target.closest('tr[data-date]'); if (!tr) return;
+    curDate = tr.getAttribute('data-date'); setTab('today');
+  };
+  $('shareBtn').onclick = shareToOffice;
+  $('exportJdlBtn').onclick = exportJdl;
+  $('trashList').onclick = function(ev){ var b = ev.target.closest('button[data-ti]'); if (b) restoreTrash(+b.getAttribute('data-ti')); };
+  $('saveShopCode').onclick = saveShopCode;
+  $('stShopCode').addEventListener('keydown', function(ev){ if (ev.key === 'Enter' && !ev.isComposing){ ev.preventDefault(); saveShopCode(); } });
+  $('bugBtn').onclick = openBug;
+  $('bugNo').onclick = closeBug;
+  $('bugClose').onclick = closeBug;
+  $('bugSend').onclick = sendBug;
+  $('bugCopy').onclick = copyBugText;
+  $('bugBackup').onclick = function(){ doBackup(); };
+  $('bugBox').addEventListener('click', function(ev){ if (ev.target === $('bugBox')) closeBug(); });
+  $('newVerClose').onclick = function(){ $('newVer').classList.add('hidden'); };
+  $('updReload').onclick = function(){ location.reload(); };
+  $('exportCsvBtn').onclick = exportCsv;
+  $('exportJsonBtn').onclick = exportJson;
+  $('printBtn').onclick = function(){ printLedger(curMonth); };
+
+  $('lPrev').onclick = function(){ ledgerMonth = addMonths(ledgerMonth, -1); renderLedger(); };
+  $('lNext').onclick = function(){ ledgerMonth = addMonths(ledgerMonth, 1); renderLedger(); };
+  $('lPrint').onclick = function(){ printLedger(ledgerMonth); };
+  $('lWrap').onclick = function(ev){
+    if (ev.target.closest('tr[data-carry]')){ openCarry(ledgerMonth); return; }
+    var tr = ev.target.closest('tr[data-id]'); if (!tr) return;
+    var e = state.entries.find(function(x){ return x.id === tr.getAttribute('data-id'); });
+    if (e) openSheet(e.type, e);
+  };
+
+  bindAmount($('stOpenBal')); bindAmount($('stFloat')); bindAmount($('carryAmt'));
+  $('mCarryBtn').onclick = function(){ openCarry(curMonth); };
+  $('carrySave').onclick = saveCarry;
+  $('carryClear').onclick = clearCarry;
+  $('carryCancel').onclick = closeCarry;
+  $('carryBox').addEventListener('click', function(ev){ if (ev.target === $('carryBox')) closeCarry(); });
+  $('carryAmt').addEventListener('keydown', function(ev){ if (ev.key === 'Enter' && !ev.isComposing){ ev.preventDefault(); saveCarry(); } });
+  $('saveOpen').onclick = function(){
+    var d = $('stOpenDate').value;
+    if (!d || !validDate(d)){ toast('開始日を選んでください', true); return; }
+    state.settings.openDate = d; state.settings.openBal = parseAmount($('stOpenBal').value, MAX_BALANCE);
+    save(); render(); toast('繰越残高を保存しました');
+  };
+  $('saveFloat').onclick = function(){
+    var n = parseAmount($('stFloat').value, MAX_AMOUNT);
+    if (!n){ toast('基準額を入れてください', true); return; }
+    state.settings.floatAmt = n; save(); render(); toast('基準額を ' + fmt(n) + ' 円にしました');
+  };
+  $('stOfficeMail').onchange = function(){
+    var v = this.value.trim().replace(/[　\s]/g, '');
+    if (v && !validMail(v)){ toast('メールアドレスの形を確認してください（保存していません）', true); return; }
+    state.settings.officeMail = v; this.value = v; save(); toast(v ? '事務所のメールアドレスを保存しました' : '事務所のメールアドレスを消しました');
+  };
+  $('stFiscal').onchange = function(){
+    state.settings.fiscalMonth = parseInt(this.value, 10) || DEFAULT_FISCAL_MONTH;
+    save(); render(); toast(state.settings.fiscalMonth + '月決算にしました');
+  };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-akind]'), function(b){
+    b.onclick = function(){ acctKind = b.getAttribute('data-akind'); renderSettings(); };
+  });
+  listEditor($('acctEditor'), function(){ return state.settings.accounts[acctKind]; }, '科目');
+  listEditor($('partnerEditor'), function(){ return state.settings.partners; }, '取引先');
+  $('addAcct').onclick = function(){
+    state.settings.accounts[acctKind].push({ id: uid(), name: '新しい科目', code: '' }); save(); renderSettings();
+    var inputs = $('acctEditor').querySelectorAll('input.nm'); var last = inputs[inputs.length - 1];
+    if (last){ last.focus(); last.select(); }
+    toast('科目を追加しました。名前を書き換えてください');
+  };
+  $('addPartner').onclick = function(){
+    state.settings.partners.push({ id: uid(), name: '新しい取引先', count: 0 }); save(); renderSettings();
+    var inputs = $('partnerEditor').querySelectorAll('input.nm'); var last = inputs[inputs.length - 1];
+    if (last){ last.focus(); last.select(); }
+  };
+  $('backupBtn').onclick = function(){ doBackup(); };
+  $('backupShareBtn').onclick = shareBackup;
+  $('bkWarnBtn').onclick = shareBackup;
+  $('restoreBtn').onclick = function(){ $('restoreFile').value = ''; $('restoreFile').click(); };
+  $('restoreFile').onchange = function(){ if (this.files && this.files[0]) doRestoreFile(this.files[0]); };
+
+  document.addEventListener('keydown', function(ev){
+    var confirmOpen = !$('confirmBox').classList.contains('hidden');
+    if (chooserOpen() && !confirmOpen) return; /* 役割を選ぶまではほかの操作をしない */
+    if (ev.key === 'Escape'){
+      if (confirmOpen) $('confirmNo').click();
+      else if (roleChangeOpen()) closeRoleChange();
+      else if (bugOpen()) closeBug();
+      else if (wizardOpen()) closeWizard();
+      else if (carryOpen()) closeCarry();
+      else if (sheetOpen()) closeSheet();
+      return;
+    }
+    if (confirmOpen || carryOpen() || roleChangeOpen() || bugOpen() || wizardOpen() || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+    var ae = document.activeElement;
+    if (!sheetOpen()){
+      /* シートが閉じているときは今日画面の入力欄へ。取引先・摘要・日付の入力中は数字キーを奪わない */
+      if (!quickVisible()) return;
+      if (ae && (ae.id === 'qPartner' || ae.id === 'qMemo')){
+        if (ev.key === 'Enter' && !ev.isComposing){ ev.preventDefault(); ae.blur(); saveQuick(); }
+        return;
+      }
+      if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'SELECT' || ae.tagName === 'TEXTAREA') && ae.id !== 'qAmount') return;
+      if (ev.key === 'Enter' && !(ae && ae.tagName === 'BUTTON')){ ev.preventDefault(); if (qf.amtActive) quickNext(); else saveQuick(); return; }
+      if (!qf.amtActive) return;
+      var qk = ev.key;
+      if (/^[0-9]$/.test(qk)){ ev.preventDefault(); quickKey(qk); }
+      else if (qk === 'Backspace'){ ev.preventDefault(); quickKey('bs'); }
+      else if (qk === 'Delete'){ ev.preventDefault(); quickKey('c'); }
+      return;
+    }
+    var typing = ae && (ae.id === 'fPartner' || ae.id === 'fMemo' || ae.id === 'fDate');
+    if (typing){
+      if (ev.key === 'Enter' && !ev.isComposing && ae.id !== 'fDate'){ ev.preventDefault(); ae.blur(); saveForm(); }
+      return;
+    }
+    if (ev.key === 'Enter'){ if (ae && ae.tagName === 'BUTTON') return; ev.preventDefault(); if (form.amtActive) sheetNext(); else saveForm(); return; }
+    if (!form.amtActive) return;
+    var k = ev.key;
+    if (/^[0-9]$/.test(k)){ ev.preventDefault(); keyIn(k); }
+    else if (k === 'Backspace'){ ev.preventDefault(); keyIn('bs'); }
+    else if (k === 'Delete'){ ev.preventDefault(); keyIn('c'); }
+  });
+  if (pcMQ){
+    var onMQ = function(){ render(); };
+    if (pcMQ.addEventListener) pcMQ.addEventListener('change', onMQ); else if (pcMQ.addListener) pcMQ.addListener(onMQ);
+  }
+}
+
+/* ---------- start ---------- */
+$('appVer').textContent = 'v' + APP_VERSION;
+$('verNow').textContent = 'v' + APP_VERSION;
+$('verHist').innerHTML = APP_HISTORY.map(function(h){ return '<li>v' + esc(h[0]) + '：' + esc(h[1]) + '</li>'; }).join('');
+state = load(role);
+if (!needChoose) save(); /* 役割を選ぶまでは何も保存しない */
+applyRole();
+bind();
+render();
+if (!storageOK) toast('この端末では保存できません（プライベートモード等）。記録が残りません', true);
+if (needChoose) openChooser(false);
+else if (brokenNotice) infoDlg(brokenNotice);
+showNewVersion();
+askPersist();
+getDownloads();
+setupSW();
+})();
+</script>
+</body>
+</html>
