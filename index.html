@@ -432,7 +432,7 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
       <div class="plabel"><label class="f" for="qMemo">摘要・内容（任意）</label><button id="qmEdit" type="button" class="hidden" aria-label="摘要の候補を編集">編集</button></div>
       <div class="vrow"><input class="in" id="qMemo" maxlength="100" autocomplete="off"><button type="button" class="mic hidden" data-voice="qMemo" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qMemoV" aria-live="polite"></div>
       <div class="chips" id="qMemos" style="margin-top:8px"></div>
-      <div class="savebox"><button class="btn" id="qSave">保存する</button></div>
+      <div class="savebox"><button class="btn" id="qSave">保存する</button><button class="btn sub" id="qNextEntry" type="button">▲ 次を入れる（上へ戻る）</button></div>
     </div>
 
     <div class="card">
@@ -780,8 +780,9 @@ var EXPORT_FORMAT = 'choubo-export';
 var BACKUP_FORMAT = 'choubo-backup';
 /* 復元で受け付けるバックアップの format（新形式と、旧版の「<コード>-suitocho-backup」） */
 function isBackupFormat(f){ return typeof f === 'string' && (f === BACKUP_FORMAT || /-suitocho-backup$/.test(f)); }
-var APP_VERSION = '2.3';
+var APP_VERSION = '2.4';
 var APP_HISTORY = [
+  ['2.4', '保存するの下に「次を入れる（上へ戻る）」ボタン'],
   ['2.3', 'JDLへそのまま取り込める仕訳CSVを添付、ネットなしでも開ける、不具合を伝えるボタン、新しい版のお知らせ、消した記録を7日間戻せる、アプリ名を『きょうの帳簿』に、商号コードは事務所が設定'],
   ['2.2', 'マイクのアイコンを線画に変更'],
   ['2.1', '別々に作った 2.0 を統合'],
@@ -2476,6 +2477,11 @@ function bindQuick(){
     setQuickActive(true); quickKey(b.getAttribute('data-k'));
   });
   $('qSave').onclick = saveQuick;
+  $('qNextEntry').onclick = function(){
+    var ae = document.activeElement; if (ae && ae.blur && (ae.id === 'qPartner' || ae.id === 'qMemo')) ae.blur();
+    setQuickActive(true);
+    scrollToEl(document.querySelector('#v-today .datebar'));
+  };
 }
 
 /* ---------- 月表示 ---------- */
