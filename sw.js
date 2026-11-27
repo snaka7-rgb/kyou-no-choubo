@@ -2,7 +2,7 @@
    - 同じフォルダの index.html だけを扱う（ほかのリクエストには触らない）
    - キャッシュにあればすぐ返し（cache-first）、裏で新しい版を取りに行って、中身が変わっていればキャッシュを差し替えて画面に知らせる
      （stale-while-revalidate）。記録データは localStorage にあり、ここでは一切扱わない */
-var VERSION = '2.6';
+var VERSION = '2.7';
 var CACHE_PREFIX = 'kyou-no-choubo-';
 var CACHE = CACHE_PREFIX + 'v' + VERSION;
 var PAGE = new URL('index.html', self.registration.scope).href;

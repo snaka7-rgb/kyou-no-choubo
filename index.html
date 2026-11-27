@@ -184,6 +184,19 @@ input.in:focus{outline:2px solid var(--role);border-color:transparent}
 .keypad button.fn{font-size:18px;color:var(--sub)}
 .keypad button.ok{grid-row:span 2;background:var(--role);color:#fff;font-size:18px;font-weight:700}
 .keypad .k00{grid-column:span 2}
+.keypad button.op{background:#f3f1eb;color:var(--role);font-size:20px;padding:9px 0;font-weight:700}
+.keypad button.op.eq{background:var(--role-soft);color:var(--role)}
+.calc-line{margin-top:6px;padding:6px 10px;border-radius:8px;background:var(--role-soft);color:var(--role);font-size:14px;font-weight:600;word-break:break-all}
+.calc-line.ng{background:var(--warn-bg);color:var(--warn)}
+.preset-box{margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.preset-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.preset-head span{flex:1;font-size:13px;font-weight:600;color:var(--sub)}
+.preset-head button{border:1px solid var(--line);background:#fff;border-radius:8px;min-height:38px;min-width:54px;padding:4px 10px;font-size:13px;color:var(--role)}
+.preset-head button.on{background:var(--out);border-color:var(--out);color:#fff}
+.chips button.pr{text-align:left;line-height:1.28;padding:8px 11px;border-color:var(--role);background:#fafbfc}
+.chips button.pr .ps{display:block;font-size:11.5px;font-weight:400;margin-top:2px}
+.addpr-btn{display:block;width:100%;margin-top:8px;border:1px dashed var(--role);background:transparent;color:var(--role);border-radius:10px;min-height:44px;padding:8px 10px;font-size:14px;font-weight:600}
+.erow .pa{width:108px;text-align:right}
 .plabel{display:flex;align-items:flex-end;gap:8px}
 .plabel label.f{flex:1}
 .plabel button{border:1px solid var(--line);background:#fff;border-radius:8px;min-height:44px;min-width:56px;padding:5px 12px;font-size:14px;color:var(--role);margin-bottom:2px}
@@ -295,6 +308,16 @@ table.ledger tr.carry-row td.cm{white-space:normal}
 #shareBtn{font-size:18px;padding:17px}
 .ledger-foot{display:flex;justify-content:flex-end;gap:14px;flex-wrap:wrap;margin:10px 4px 0;font-size:14px}
 .ledger-foot b{font-size:18px}
+.lsearch{background:#fff;border-radius:var(--radius);padding:10px 12px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.ls-inwrap{position:relative;display:flex;align-items:center}
+input.in.ls-in{padding:9px 38px 9px 12px;font-size:15px}
+.ls-clr{position:absolute;right:4px;border:0;background:transparent;color:var(--sub);min-width:38px;min-height:38px;font-size:20px;line-height:1;border-radius:8px}
+.ls-filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+.ls-seg{display:inline-flex;background:#f0eee8;border-radius:8px;padding:2px;gap:2px}
+.ls-seg button{border:0;background:transparent;color:var(--sub);border-radius:6px;min-height:36px;padding:4px 10px;font-size:13px;font-weight:600;white-space:nowrap}
+.ls-seg button.on{background:var(--role);color:#fff}
+.ls-reset{margin-left:auto;border:1px solid var(--line);background:#fff;color:var(--role);border-radius:8px;min-height:36px;padding:4px 10px;font-size:13px;font-weight:600}
+.ls-stat{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:13px;color:var(--ink);display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center}
 
 /* 保存失敗の常時表示 */
 #storeWarn{background:#8d2f1c;color:#fff;font-size:14px;font-weight:600;padding:10px 12px;text-align:center}
@@ -433,6 +456,12 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
          摘要から選ぶ：金額 → 摘要 → 入金/出金・相手科目（自動） → 取引先（たたむ） → 保存
          科目から選ぶ：区分 → 金額 → 相手科目 → 取引先 → 摘要 → 保存 -->
     <div class="card qform amt-on" id="qForm">
+     <div class="qg hidden" id="qgPreset">
+      <div class="preset-box">
+        <div class="preset-head"><span>よく使う定型（押すと入力欄に入ります）</span><button type="button" id="qPresetEdit" aria-label="定型を編集">編集</button></div>
+        <div class="chips" id="qPresets"></div>
+      </div>
+     </div>
      <div class="qg" id="qgType">
       <div class="f mm-only" id="qTypeLabel" style="font-size:14px;color:var(--sub);margin:12px 0 6px">入金・出金（摘要から自動で決まります）</div>
       <div class="seg tsel" id="qType" role="group" aria-label="入金か出金か">
@@ -442,8 +471,9 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
      </div>
      <div class="qg" id="qgAmt">
       <label class="f" for="qAmount">金額</label>
-      <div class="amt-wrap"><input class="in num" id="qAmount" readonly inputmode="none" autocomplete="off" placeholder="0"><span>円</span><button type="button" class="mic hidden" data-voice="qAmount" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qAmountV" aria-live="polite"></div>
-      <div class="keypad" id="qKeypad" role="group" aria-label="金額テンキー">
+      <div class="amt-wrap"><input class="in num" id="qAmount" readonly inputmode="none" autocomplete="off" placeholder="0"><span>円</span><button type="button" class="mic hidden" data-voice="qAmount" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qAmountV" aria-live="polite"></div><div class="calc-line num hidden" id="qCalcLine" aria-live="polite"></div>
+      <div class="keypad" id="qKeypad" role="group" aria-label="金額テンキー（電卓機能つき）">
+        <button type="button" data-k="+" class="op" aria-label="足す">＋</button><button type="button" data-k="-" class="op" aria-label="引く">−</button><button type="button" data-k="*" class="op" aria-label="掛ける">×</button><button type="button" data-k="=" class="op eq" aria-label="計算する">＝</button>
         <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><button type="button" data-k="bs" class="fn" aria-label="1文字消す">⌫</button>
         <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="c" class="fn" aria-label="クリア">C</button>
         <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="ok" class="ok" aria-label="次へ（相手科目へ）">次へ ▼</button>
@@ -468,7 +498,7 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
       <div class="vrow"><input class="in" id="qMemo" maxlength="100" autocomplete="off"><button type="button" class="mic hidden" data-voice="qMemo" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="qMemoV" aria-live="polite"></div>
       <div class="chips" id="qMemos" style="margin-top:8px"></div>
      </div>
-      <div class="savebox" id="qgSave"><button class="btn" id="qSave">保存する</button><button class="btn sub" id="qNextEntry" type="button">▲ 次を入れる（上へ戻る）</button></div>
+      <div class="savebox" id="qgSave"><button class="btn" id="qSave">保存する</button><button class="btn sub" id="qNextEntry" type="button">▲ 次を入れる（上へ戻る）</button><button type="button" class="addpr-btn" id="qAddPreset">☆ 今の入力内容を「定型」に登録する</button></div>
     </div>
 
     <div class="card">
@@ -554,6 +584,12 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
         <button type="button" data-mode="acct" aria-pressed="false">科目から選ぶ（今まで）</button>
       </div>
       <p class="muted" style="margin:10px 0 0">摘要から選ぶ：金額のあとに摘要（何の出入りか）を選ぶと、入金・出金と相手科目が自動で決まります（違っていれば押して変えられます）。<br>科目から選ぶ：今までどおり、入金・出金と相手科目を先に選びます。<br>このタブレットに保存され、記録はどちらでも同じです。</p>
+    </div>
+
+    <div class="card">
+      <h2>定型セット（ワンタップ呼び出し）</h2>
+      <p class="muted" style="margin-top:-4px">きまった金額や毎回の支払先を登録しておくと、「今日」画面の上から1タップで入力欄にセットできます。金額を0円（空欄）にすると、呼び出したときに金額だけテンキーで入れられます。「今日」画面で入力してから「☆ 今の入力内容を『定型』に登録する」を押すと追加できます。</p>
+      <div id="presetEditor"></div>
     </div>
 
     <div class="card">
@@ -671,6 +707,25 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
       <b id="lCash">111 現金</b><span class="muted">出納帳</span><span class="sp"></span>
       <button class="btn sub small" id="lPrint">印刷／PDF</button>
     </div>
+    <div class="lsearch" id="lSearchBox">
+      <div class="ls-inwrap">
+        <input type="search" class="in ls-in" id="lQuery" maxlength="60" autocomplete="off" placeholder="摘要・取引先・科目・金額で検索" aria-label="帳簿を検索">
+        <button type="button" class="ls-clr hidden" id="lQueryClear" aria-label="検索文字を消す">×</button>
+      </div>
+      <div class="ls-filters">
+        <div class="ls-seg" id="lScope" role="group" aria-label="検索する期間">
+          <button type="button" data-scope="month" class="on" aria-pressed="true">この月</button>
+          <button type="button" data-scope="all" aria-pressed="false">全期間</button>
+        </div>
+        <div class="ls-seg" id="lTypeFilter" role="group" aria-label="入出金の絞り込み">
+          <button type="button" data-lt="all" class="on" aria-pressed="true">すべて</button>
+          <button type="button" data-lt="in" aria-pressed="false">入金</button>
+          <button type="button" data-lt="out" aria-pressed="false">出金</button>
+        </div>
+        <button type="button" class="ls-reset hidden" id="lFilterReset">絞り込み解除</button>
+      </div>
+      <div class="ls-stat num hidden" id="lSearchStat" aria-live="polite"></div>
+    </div>
     <div class="ltable-wrap" id="lWrap"></div>
     <div class="ledger-foot num" id="lFoot"></div>
     <div class="warnline hidden" id="lWarn"></div>
@@ -699,8 +754,9 @@ textarea.in.ta{width:100%;border:1px solid var(--line);border-radius:10px;paddin
       </div>
       <div class="sf-amt" id="fgAmt">
         <label class="f" for="fAmount">金額</label>
-        <div class="amt-wrap"><input class="in num" id="fAmount" readonly inputmode="none" autocomplete="off" placeholder="0"><span>円</span><button type="button" class="mic hidden" data-voice="fAmount" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="fAmountV" aria-live="polite"></div>
-        <div class="keypad" id="keypad" role="group" aria-label="金額テンキー">
+        <div class="amt-wrap"><input class="in num" id="fAmount" readonly inputmode="none" autocomplete="off" placeholder="0"><span>円</span><button type="button" class="mic hidden" data-voice="fAmount" aria-label="声で入力" title="声で入力"><svg class="micico" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5"/><path d="M5 11.5a7 7 0 0 0 14 0"/><path d="M12 18.5v3"/><path d="M8.5 21.5h7"/></svg></button></div><div class="vstat hidden" id="fAmountV" aria-live="polite"></div><div class="calc-line num hidden" id="fCalcLine" aria-live="polite"></div>
+        <div class="keypad" id="keypad" role="group" aria-label="金額テンキー（電卓機能つき）">
+          <button type="button" data-k="+" class="op" aria-label="足す">＋</button><button type="button" data-k="-" class="op" aria-label="引く">−</button><button type="button" data-k="*" class="op" aria-label="掛ける">×</button><button type="button" data-k="=" class="op eq" aria-label="計算する">＝</button>
           <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button><button type="button" data-k="bs" class="fn" aria-label="1文字消す">⌫</button>
           <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button><button type="button" data-k="c" class="fn" aria-label="クリア">C</button>
           <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button><button type="button" data-k="ok" class="ok" aria-label="次へ（相手科目へ）">次へ ▼</button>
@@ -848,8 +904,9 @@ var EXPORT_FORMAT = 'choubo-export';
 var BACKUP_FORMAT = 'choubo-backup';
 /* 復元で受け付けるバックアップの format（新形式と、旧版の「<コード>-suitocho-backup」） */
 function isBackupFormat(f){ return typeof f === 'string' && (f === BACKUP_FORMAT || /-suitocho-backup$/.test(f)); }
-var APP_VERSION = '2.6';
+var APP_VERSION = '2.7';
 var APP_HISTORY = [
+  ['2.7', 'HTML二重構造・外部依存の整理、定型セット（ワンタップ呼び出し）と電卓機能、帳簿の検索・絞り込み'],
   ['2.6', '摘要から選ぶ入力（摘要を選ぶと科目が自動で決まる）、過去の帳簿から摘要を読み込む'],
   ['2.5', '帳簿の科目名・摘要の見出しを中身とそろえ、摘要を少し右へ'],
   ['2.4', '保存するの下に「次を入れる（上へ戻る）」ボタン'],
@@ -1004,7 +1061,7 @@ function defaultAccounts(role){
 function defaultState(role, today){
   return {
     role: role, schema: SCHEMA,
-    settings: { openBal: 0, openDate: today, floatAmt: DEFAULT_FLOAT, fiscalMonth: DEFAULT_FISCAL_MONTH, accounts: defaultAccounts(role), partners: [], hiddenPartners: [], hiddenMemos: [], carry: {}, inputMode: 'memo', memoDict: [], memoDictInfo: null },
+    settings: { openBal: 0, openDate: today, floatAmt: DEFAULT_FLOAT, fiscalMonth: DEFAULT_FISCAL_MONTH, accounts: defaultAccounts(role), partners: [], hiddenPartners: [], hiddenMemos: [], carry: {}, inputMode: 'memo', memoDict: [], memoDictInfo: null, presets: [] },
     entries: [], closed: {}, sent: {}, touched: {}, trash: []
   };
 }
@@ -1026,7 +1083,8 @@ function migrateState(s, role, today){
     inputMode: src.inputMode === 'acct' ? 'acct' : 'memo',
     /* 過去の帳簿から読み込んだ摘要の辞書（検証して組み直す）と、その期間 */
     memoDict: cleanMemoDict(src.memoDict),
-    memoDictInfo: cleanMemoDictInfo(src.memoDictInfo)
+    memoDictInfo: cleanMemoDictInfo(src.memoDictInfo),
+    presets: cleanPresets(src.presets)
   };
   if (st.openBal === null) st.openBal = 0;
   if (st.floatAmt === null) st.floatAmt = DEFAULT_FLOAT;
@@ -1885,6 +1943,137 @@ function ledgerPeriodLabel(from, to){
   var a = warekiYm(ymOf(from)), b = warekiYm(ymOf(to));
   return a === b ? a : a + '〜' + b;
 }
+/* ---- 電卓計算（CSP対応・eval不使用）・定型検証・重複チェック・帳簿検索 ---- */
+function hasCalcOp(expr){ return /[+\-*]/.test(String(expr || '')); }
+function formatCalcExpr(expr){
+  return String(expr || '').replace(/\d+/g, function(m){ return fmt(+m); })
+    .replace(/\+/g, ' ＋ ').replace(/-/g, ' − ').replace(/\*/g, ' × ');
+}
+function evalCalc(expr){
+  var s = String(expr || '').replace(/[^0-9+\-*]/g, '').replace(/[+\-*]+$/, '');
+  if (!s) return 0;
+  var nums = s.split(/[+\-*]/).map(function(x){ return parseInt(x || '0', 10) || 0; });
+  var ops = s.replace(/[0-9]+/g, '').split('');
+  var n2 = [nums[0]], o2 = [];
+  for (var i = 0; i < ops.length; i++){
+    if (ops[i] === '*') n2[n2.length - 1] *= nums[i + 1];
+    else { o2.push(ops[i]); n2.push(nums[i + 1]); }
+    if (!Number.isSafeInteger(n2[n2.length - 1])) return NaN; /* 桁あふれ（途中の値が正確に扱えない大きさ）は NaN */
+  }
+  var res = n2[0];
+  for (var j = 0; j < o2.length; j++){
+    res = o2[j] === '+' ? res + n2[j + 1] : res - n2[j + 1];
+    if (!Number.isSafeInteger(res)) return NaN;
+  }
+  return res;
+}
+function calcStep(expr, k){
+  expr = String(expr || '');
+  var parts = expr.split(/[+\-*]/), seg = parts[parts.length - 1] || '';
+  if (/^[0-9]$/.test(k)){
+    if (!seg && k === '0') return { expr: expr };
+    if (seg.length >= 9) return { expr: expr, warn: 'max' };
+    return { expr: expr + k };
+  }
+  if (k === '00'){
+    if (!seg) return { expr: expr };
+    if (seg.length >= 9) return { expr: expr, warn: 'max' };
+    var add = seg.length === 8 ? '0' : '00';
+    return { expr: expr + add };
+  }
+  if (k === '+' || k === '-' || k === '*'){
+    if (!expr) return { expr: '' };
+    if (/[+\-*]$/.test(expr)) return { expr: expr.slice(0, -1) + k };
+    if (parts.length >= 20) return { expr: expr };
+    return { expr: expr + k };
+  }
+  if (k === 'bs') return { expr: expr.slice(0, -1) };
+  if (k === 'c') return { expr: '' };
+  if (k === '='){
+    var trimmed = expr.replace(/[+\-*]+$/, '');
+    if (!hasCalcOp(trimmed)) return { expr: trimmed };
+    var v = evalCalc(trimmed);
+    if (isNaN(v)) return { expr: trimmed, err: 'max', val: v };
+    if (v <= 0) return { expr: trimmed, err: 'nonpos', val: v };
+    if (v > MAX_AMOUNT) return { expr: trimmed, err: 'max', val: v };
+    return { expr: String(v), committed: true, val: v };
+  }
+  return { expr: expr };
+}
+function cleanPresets(src){
+  var out = [];
+  (Array.isArray(src) ? src.slice(0, 50) : []).forEach(function(p){
+    if (!isObj(p)) return;
+    var acctName = cleanStr(p.acctName, 40).trim();
+    if (!acctName || (p.type !== 'in' && p.type !== 'out')) return;
+    var amt = toInt(p.amount, 0, MAX_AMOUNT);
+    var label = cleanStr(p.label, 36).trim() || cleanStr(p.memo, 36).trim() || acctName;
+    var o = { id: cleanStr(p.id, 40) || uid(), label: label, type: p.type, amount: amt === null ? 0 : amt,
+      acctName: acctName, acctCode: cleanCode(p.acctCode), partner: cleanStr(p.partner, 60).trim(), memo: cleanStr(p.memo, 100).trim() };
+    if (p.jdlName) o.jdlName = cleanStr(p.jdlName, 40);
+    out.push(o);
+  });
+  return out;
+}
+function findSameDayDup(entries, d){
+  return (entries || []).some(function(e){
+    return !e.auto && e.date === d.date && e.type === d.type && e.acctName === d.acctName &&
+      (e.acctCode || '') === (d.acctCode || '') && e.amount === d.amount &&
+      (e.partner || '') === (d.partner || '') && (e.memo || '') === (d.memo || '');
+  });
+}
+function allLedgerRows(entries, st, cashCode){
+  var list = sortEntries((entries || []).filter(function(e){ return inRange(e, st); }));
+  if (!list.length) return [];
+  var bal = balanceBefore(entries, st, list[0].date);
+  var curA = anchorOf(st, list[0].date).date, rows = [];
+  list.forEach(function(e, i){
+    var prev = list[i - 1], next = list[i + 1];
+    var an = anchorOf(st, e.date);
+    if (!an.before && an.date !== curA){ curA = an.date; bal = an.bal; }
+    bal += signed(e);
+    var code = e.acctCode || '';
+    rows.push({
+      id: e.id, date: e.date, type: e.type,
+      firstOfDay: !prev || prev.date !== e.date, lastOfDay: !next || next.date !== e.date,
+      code: code, name: jdlNameOf(code, e.jdlName, e.acctName), shortName: jdlShortName(code, e.jdlName, e.acctName),
+      memo: ledgerMemo(e, cashCode), debit: e.type === 'in' ? e.amount : 0, credit: e.type === 'out' ? e.amount : 0,
+      balance: bal, auto: !!e.auto
+    });
+  });
+  return rows;
+}
+function filterLedgerRows(rows, entryMap, query, typeFilter){
+  var rawTokens = String(query || '').trim().split(/[\s　]+/).filter(Boolean);
+  var tokens = rawTokens.map(function(t){
+    return { text: kanaFold(memoKey(t)), num: memoKey(t).replace(/[,，円¥￥]/g, '') };
+  });
+  var matched = [], dr = 0, cr = 0;
+  rows.forEach(function(r){
+    if (typeFilter === 'in' && r.type !== 'in') return;
+    if (typeFilter === 'out' && r.type !== 'out') return;
+    if (tokens.length){
+      var e = entryMap.get(r.id) || {};
+      var dp = r.date.split('-'), md = (+dp[1]) + '/' + (+dp[2]), mjp = (+dp[1]) + '月' + (+dp[2]) + '日';
+      var hay = kanaFold(memoKey([r.code, r.name, r.shortName, r.memo, e.acctName, e.partner, e.memo, r.date, r.date.replace(/-/g, '/'), md, mjp].join(' ')));
+      var amtStr = String(r.debit || r.credit || 0);
+      var ok = tokens.every(function(tk){
+        return hay.indexOf(tk.text) >= 0 || (/^\d+$/.test(tk.num) && amtStr.indexOf(tk.num) >= 0);
+      });
+      if (!ok) return;
+    }
+    matched.push(r);
+  });
+  var out = matched.map(function(r, i){
+    var prev = matched[i - 1], next = matched[i + 1];
+    dr += r.debit; cr += r.credit;
+    var c = {}; Object.keys(r).forEach(function(k){ c[k] = r[k]; });
+    c.firstOfDay = !prev || prev.date !== r.date;
+    c.lastOfDay = !next || next.date !== r.date;
+    return c;
+  });
+  return { rows: out, debitSum: dr, creditSum: cr, count: out.length };
+}
 /* LOGIC-END */
 </script>
 
@@ -2351,7 +2540,7 @@ function keepAcctOnType(sel){
 }
 
 /* ---------- 入力シート ---------- */
-var form = { id: null, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', amtActive: true, pEdit: false, autoFrom: null, pOpen: false };
+var form = { id: null, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', expr: '', amtActive: true, pEdit: false, autoFrom: null, pOpen: false };
 function sheetOpen(){ return !$('sheet').classList.contains('hidden'); }
 function openSheet(type, entry){
   form.id = entry ? entry.id : null;
@@ -2365,6 +2554,7 @@ function openSheet(type, entry){
   $('sheetTitle').textContent = entry ? '記録を直す' : (type === 'in' ? '入金を記録' : '出金を記録');
   $('fDate').value = entry ? entry.date : curDate;
   $('fPartner').value = entry ? (entry.partner || '') : '';
+  form.expr = '';
   setAmt(entry ? String(entry.amount) : '');
   $('fMemo').value = entry ? (entry.memo || '') : '';
   $('fDelete').classList.toggle('hidden', !entry);
@@ -2392,12 +2582,42 @@ function autoMemo(){
   if (cur === '' || cur === form.lastAutoMemo){ $('fMemo').value = m; form.lastAutoMemo = m; }
   renderMemos(SF);
 }
-/* 金額（テンキー） */
+/* 金額（テンキー＋電卓機能） */
+function renderCalcUi(target, inputId, lineId){
+  var expr = target.expr || '', line = $(lineId);
+  if (!hasCalcOp(expr)){
+    target.amt = expr;
+    $(inputId).value = expr ? fmt(parseInt(expr, 10)) : '';
+    line.classList.add('hidden'); line.classList.remove('ng'); line.textContent = '';
+    return;
+  }
+  var val = evalCalc(expr), trailing = /[+\-*]$/.test(expr), huge = isNaN(val);
+  var bad = huge || (!trailing && (val <= 0 || val > MAX_AMOUNT));
+  target.amt = (!bad && val > 0 && val <= MAX_AMOUNT) ? String(Math.min(val, MAX_AMOUNT)) : '';
+  if (huge){
+    $(inputId).value = '';
+    line.classList.remove('hidden'); line.classList.add('ng');
+    line.textContent = '式：' + formatCalcExpr(expr) + ' ＝ 桁が大きすぎます（上限超過）';
+    return;
+  }
+  $(inputId).value = fmt(val);
+  line.classList.remove('hidden');
+  line.classList.toggle('ng', bad);
+  line.textContent = trailing
+    ? '計算中：' + formatCalcExpr(expr) + ' …'
+    : '式：' + formatCalcExpr(expr) + ' ＝ ' + fmt(val) + ' 円' + (val <= 0 ? '（0円以下は保存できません）' : val > MAX_AMOUNT ? '（上限超過）' : '');
+}
+function commitCalc(target, inputId, lineId){
+  if (!hasCalcOp(target.expr)) return true;
+  var r = calcStep(target.expr, '=');
+  if (r.err === 'nonpos'){ toast('計算結果が 0 円以下です。式を確認してください', true); return false; }
+  if (r.err === 'max'){ toast('金額は 999,999,999 円までです', true); return false; }
+  target.expr = r.expr; renderCalcUi(target, inputId, lineId);
+  return true;
+}
 function setAmt(s){
-  s = String(s || '').replace(/[^0-9]/g, '').replace(/^0+/, '');
-  if (s.length > 9){ s = s.slice(0, 9); toast('金額は 999,999,999 円までです', true); }
-  form.amt = s;
-  $('fAmount').value = s ? fmt(parseInt(s, 10)) : '';
+  s = String(s || '').replace(/[^0-9]/g, '').replace(/^0+/, '').slice(0, 9);
+  form.expr = s; renderCalcUi(form, 'fAmount', 'fCalcLine');
 }
 function setAmtActive(on){
   form.amtActive = on;
@@ -2406,15 +2626,15 @@ function setAmtActive(on){
   $('fAmount').classList.toggle('amt-active', on);
 }
 function keyIn(k){
-  var s = form.amt;
-  if (/^[0-9]$/.test(k)) s += k;
-  else if (k === '00'){ if (s) s += '00'; }
-  else if (k === 'bs') s = s.slice(0, -1);
-  else if (k === 'c') s = '';
-  else if (k === 'ok'){ sheetNext(); return; }
-  setAmt(s);
+  if (k === 'ok'){ if (commitCalc(form, 'fAmount', 'fCalcLine')) sheetNext(); return; }
+  var r = calcStep(form.expr || '', k);
+  if (r.warn === 'max') toast('金額は 999,999,999 円までです', true);
+  if (r.err === 'nonpos') toast('計算結果が 0 円以下です', true);
+  if (r.err === 'max') toast('金額は 999,999,999 円までです', true);
+  form.expr = r.expr; renderCalcUi(form, 'fAmount', 'fCalcLine');
 }
 function saveForm(){
+  if (!commitCalc(form, 'fAmount', 'fCalcLine')) return;
   var date = $('fDate').value;
   var amount = parseInt(form.amt || '0', 10) || 0;
   if (!date){ toast('日付を選んでください', true); return; }
@@ -2479,12 +2699,14 @@ function scrollToEl(el, box){
 }
 /* テンキーの「次へ ▼」：金額を確定して相手科目へ */
 function quickNext(){
+  if (!commitCalc(qf, 'qAmount', 'qCalcLine')) return;
   if (!(parseInt(qf.amt || '0', 10) > 0)){ toast('金額を入れてください', true); return; }
   setQuickActive(false);
   if (memoMode()){ scrollToEl($('qgMemo')); if (isPC()) try { $('qMemo').focus({ preventScroll: true }); } catch(e){} return; }
   scrollToEl($('qAcctsLabel'));
 }
 function sheetNext(){
+  if (!commitCalc(form, 'fAmount', 'fCalcLine')) return;
   if (!(parseInt(form.amt || '0', 10) > 0)){ toast('金額を入れてください', true); return; }
   setAmtActive(false);
   if (memoMode()){ scrollToEl($('fgMemo'), $('sheet').querySelector('.sheet')); if (isPC()) try { $('fMemo').focus({ preventScroll: true }); } catch(e){} return; }
@@ -2688,7 +2910,7 @@ function renderPartnerFold(c){
   $(c.pBody).classList.toggle('hidden', fold);
 }
 /* 入力のしかたに合わせて並びと見出しを変える（今日画面・修正シート） */
-var QORDER = { acct: ['qgType', 'qgAmt', 'qgAcct', 'qgPartner', 'qgMemo', 'qgSave'], memo: ['qgAmt', 'qgMemo', 'qgType', 'qgAcct', 'qgPartner', 'qgSave'] };
+var QORDER = { acct: ['qgPreset', 'qgType', 'qgAmt', 'qgAcct', 'qgPartner', 'qgMemo', 'qgSave'], memo: ['qgPreset', 'qgAmt', 'qgMemo', 'qgType', 'qgAcct', 'qgPartner', 'qgSave'] };
 var FORDER = { acct: ['fgDate', 'fgType', 'fgAmt', 'fgAcct', 'fgPartner', 'fgMemo', 'fgSave'], memo: ['fgDate', 'fgAmt', 'fgMemo', 'fgType', 'fgAcct', 'fgPartner', 'fgSave'] };
 function applyInputMode(){
   var mm = memoMode(), k = mm ? 'memo' : 'acct';
@@ -2855,18 +3077,86 @@ function applyVoice(id, text){
 }
 
 /* ---------- 今日画面の入力欄（インライン。日付は日付バーの curDate） ---------- */
-var qf = { more: false, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', amtActive: true, pEdit: false, pMore: false, mEdit: false, autoFrom: null, pOpen: false };
+var qf = { more: false, type: 'out', acctName: '', acctCode: '', jdlName: '', lastAutoMemo: '', amt: '', expr: '', amtActive: true, pEdit: false, pMore: false, mEdit: false, prEdit: false, autoFrom: null, pOpen: false };
 var SQ = { sel: qf, pIn: 'qPartner', pBox: 'qPartners', pEdit: 'qpEdit', mIn: 'qMemo', mBox: 'qMemos', mEdit: 'qmEdit', autoMemo: function(){ quickAutoMemo(); },
   pOpen: 'qpOpen', pBody: 'qpBody', alt: 'qAlt', acc: 'qAccts', typeG: 'qgType', box: null, renderAll: function(){ renderQuick(); } };
 var SF = { sel: form, pIn: 'fPartner', pBox: 'fPartners', pEdit: 'pEdit', mIn: 'fMemo', mBox: 'fMemos', mEdit: 'mEdit', autoMemo: function(){ autoMemo(); },
   pOpen: 'fpOpen', pBody: 'fpBody', alt: 'fAlt', acc: 'fAccts', typeG: 'fgType', box: function(){ return $('sheet').querySelector('.sheet'); }, renderAll: function(){ renderSheetParts(); } };
 function quickVisible(){ return tab === 'today' && !$('v-today').classList.contains('hidden'); }
+function renderPresets(){
+  var list = state.settings.presets || [], wrap = $('qgPreset');
+  if (!list.length){ qf.prEdit = false; wrap.classList.add('hidden'); return; }
+  wrap.classList.remove('hidden');
+  $('qPresetEdit').classList.toggle('on', !!qf.prEdit);
+  $('qPresetEdit').textContent = qf.prEdit ? '編集を終える' : '編集';
+  var h = '';
+  list.forEach(function(p, i){
+    if (qf.prEdit){
+      h += '<button type="button" class="pdel" data-delpr="' + i + '" aria-label="' + esc(p.label) + 'を定型から消す">' + esc(p.label) + '<b>×</b></button>';
+    } else {
+      var sub = (p.type === 'in' ? '入 ' : '出 ') + (p.amount ? fmt(p.amount) + '円' : '金額入力') + '・' + p.acctName;
+      h += '<button type="button" class="pr" data-pri="' + i + '" aria-label="' + esc(p.label + '（' + sub + '）') + '">' +
+        esc(p.label) + '<span class="ps ' + (p.type === 'in' ? 'c-in' : 'c-out') + '">' + esc(sub) + '</span></button>';
+    }
+  });
+  $('qPresets').innerHTML = h;
+}
+function applyPreset(i){
+  var p = (state.settings.presets || [])[i]; if (!p) return;
+  qf.type = p.type; qf.acctName = p.acctName; qf.acctCode = p.acctCode || ''; qf.jdlName = p.jdlName || '';
+  qf.autoFrom = null; qf.pOpen = !!p.partner; qf.more = false;
+  $('qPartner').value = p.partner || ''; $('qMemo').value = p.memo || '';
+  $('qAccts').classList.remove('need');
+  if (p.amount > 0){
+    setQuickAmt(String(p.amount)); setQuickActive(false); renderQuick();
+    scrollToEl($('qgSave'));
+    toast('定型「' + p.label + '」を入れました。「保存する」で記録します');
+  } else {
+    setQuickAmt(''); setQuickActive(true); renderQuick();
+    scrollToEl($('qgAmt'));
+    toast('定型「' + p.label + '」を選びました。金額を入れてください');
+  }
+}
+function addCurrentAsPreset(){
+  if (!commitCalc(qf, 'qAmount', 'qCalcLine')) return;
+  if (!qf.acctName) tryAutoAcct(SQ);
+  if (!qf.acctName){ toast('先に相手科目（または摘要）を選んでください', true); return; }
+  var amt = parseInt(qf.amt || '0', 10) || 0;
+  var partner = cleanStr($('qPartner').value, 60).trim(), memo = cleanStr($('qMemo').value, 100).trim();
+  var label = cleanStr(memo || partner || qf.acctName, 36).trim();
+  confirmDlg('今の入力内容を定型に登録しますか？\n「' + label + '」（' + (qf.type === 'in' ? '入金' : '出金') + '・' + qf.acctName + '・' + (amt ? fmt(amt) + '円' : '金額は毎回入力') + '）', '登録する').then(function(ok){
+    if (!ok) return;
+    var o = { id: uid(), label: label, type: qf.type, amount: amt, acctName: qf.acctName, acctCode: qf.acctCode || '', partner: partner, memo: memo };
+    if (qf.jdlName) o.jdlName = qf.jdlName;
+    state.settings.presets = (state.settings.presets || []).concat([o]).slice(0, 50);
+    save(); render(); toast('定型「' + label + '」を登録しました');
+  });
+}
+function renderPresetEditor(){
+  var el = $('presetEditor'); if (!el) return;
+  var list = state.settings.presets || [];
+  if (!list.length){ el.innerHTML = '<p class="muted">まだ定型はありません。「今日」画面の下の「☆ 今の入力内容を『定型』に登録する」から追加できます。</p>'; return; }
+  var h = '';
+  list.forEach(function(p, i){
+    var info = (p.type === 'in' ? '入金' : '出金') + '・' + p.acctName + (p.acctCode ? '（' + p.acctCode + '）' : '') + (p.partner ? '・' + p.partner : '') + (p.memo ? '・' + p.memo : '');
+    h += '<div class="erow" data-pri-idx="' + i + '" style="flex-wrap:wrap">' +
+      '<input class="nm" data-pf="label" maxlength="36" value="' + esc(p.label) + '" aria-label="定型名">' +
+      '<input class="pa num" data-pf="amount" maxlength="11" inputmode="numeric" value="' + (p.amount ? fmt(p.amount) : '0') + '" aria-label="' + esc(p.label) + 'の金額">' +
+      '<button type="button" data-pact="up" aria-label="' + esc(p.label) + 'を上へ">↑</button>' +
+      '<button type="button" data-pact="down" aria-label="' + esc(p.label) + 'を下へ">↓</button>' +
+      '<button type="button" class="del" data-pact="del" aria-label="' + esc(p.label) + 'を削除">削除</button>' +
+      '<div class="jn">' + esc(info) + '（金額 0 で毎回手入力）</div></div>';
+  });
+  el.innerHTML = h;
+}
 function renderQuick(){
+  renderPresets();
   Array.prototype.forEach.call($('qType').children, function(b){ var on = b.getAttribute('data-type') === qf.type; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
   $('qAccts').innerHTML = acctPickerHtml(qf);
   if (qf.acctName) $('qAccts').classList.remove('need');
   renderAlt(SQ); renderPartnerFold(SQ);
   renderQuickPartners();
+  renderCalcUi(qf, 'qAmount', 'qCalcLine');
   setQuickActive(qf.amtActive);
 }
 function renderQuickPartners(){ renderSugg(SQ); }
@@ -2878,9 +3168,8 @@ function quickAutoMemo(){
   renderMemos(SQ);
 }
 function setQuickAmt(s){
-  s = String(s || '').replace(/[^0-9]/g, '').replace(/^0+/, '');
-  if (s.length > 9){ s = s.slice(0, 9); toast('金額は 999,999,999 円までです', true); }
-  qf.amt = s; $('qAmount').value = s ? fmt(parseInt(s, 10)) : '';
+  s = String(s || '').replace(/[^0-9]/g, '').replace(/^0+/, '').slice(0, 9);
+  qf.expr = s; renderCalcUi(qf, 'qAmount', 'qCalcLine');
 }
 function setQuickActive(on){
   qf.amtActive = on;
@@ -2889,33 +3178,22 @@ function setQuickActive(on){
   $('qAmount').classList.toggle('amt-active', on);
 }
 function quickKey(k){
-  var s = qf.amt;
-  if (/^[0-9]$/.test(k)) s += k;
-  else if (k === '00'){ if (s) s += '00'; }
-  else if (k === 'bs') s = s.slice(0, -1);
-  else if (k === 'c') s = '';
-  else if (k === 'ok'){ quickNext(); return; }
-  setQuickAmt(s);
+  if (k === 'ok'){ if (commitCalc(qf, 'qAmount', 'qCalcLine')) quickNext(); return; }
+  var r = calcStep(qf.expr || '', k);
+  if (r.warn === 'max') toast('金額は 999,999,999 円までです', true);
+  if (r.err === 'nonpos') toast('計算結果が 0 円以下です', true);
+  if (r.err === 'max') toast('金額は 999,999,999 円までです', true);
+  qf.expr = r.expr; renderCalcUi(qf, 'qAmount', 'qCalcLine');
 }
 /* 保存後・役割切替時：金額・科目・取引先・摘要を空にし、金額欄をアクティブに（keepType で区分は残す） */
 function resetQuick(keepType){
   if (!keepType) qf.type = 'out';
-  qf.acctName = ''; qf.acctCode = ''; qf.jdlName = ''; qf.lastAutoMemo = ''; qf.pEdit = false; qf.pMore = false; qf.mEdit = false; qf.more = false; qf.autoFrom = null; qf.pOpen = false;
-  setQuickAmt(''); $('qPartner').value = ''; $('qMemo').value = '';
+  qf.acctName = ''; qf.acctCode = ''; qf.jdlName = ''; qf.lastAutoMemo = ''; qf.pEdit = false; qf.pMore = false; qf.mEdit = false; qf.prEdit = false; qf.more = false; qf.autoFrom = null; qf.pOpen = false;
+  qf.expr = ''; setQuickAmt(''); $('qPartner').value = ''; $('qMemo').value = '';
   $('qAccts').classList.remove('need');
   qf.amtActive = true;
 }
-function saveQuick(){
-  var date = curDate, amount = parseInt(qf.amt || '0', 10) || 0;
-  if (!amount){ toast('金額を入れてください', true); setQuickActive(true); try { $('qAmount').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){} return; }
-  if (!qf.acctName && tryAutoAcct(SQ)){ toast('摘要から相手科目を選びました。よければもう一度「保存する」を押してください'); return; }
-  if (!qf.acctName){
-    toast('相手科目を選んでください', true);
-    $('qAccts').classList.add('need');
-    try { $('qAcctsLabel').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){ $('qAcctsLabel').scrollIntoView(); }
-    return;
-  }
-  if (!validDate(date)){ toast('日付が正しくありません', true); return; }
+function commitSaveQuick(date, amount){
   var st = state.settings, partner = cleanStr($('qPartner').value, 60).trim();
   var data = { id: uid(), date: date, type: qf.type === 'in' ? 'in' : 'out', acctName: qf.acctName, acctCode: qf.acctCode, partner: partner, amount: Math.min(amount, MAX_AMOUNT), memo: cleanStr($('qMemo').value, 200).trim(), createdAt: Date.now() };
   if (qf.jdlName) data.jdlName = qf.jdlName;
@@ -2929,7 +3207,46 @@ function saveQuick(){
   resetQuick(true);
   ledgerMonth = ymOf(date); render();
 }
+function saveQuick(){
+  if (!commitCalc(qf, 'qAmount', 'qCalcLine')) return;
+  var date = curDate, amount = parseInt(qf.amt || '0', 10) || 0;
+  if (!amount){ toast('金額を入れてください', true); setQuickActive(true); try { $('qAmount').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){} return; }
+  if (!qf.acctName && tryAutoAcct(SQ)){ toast('摘要から相手科目を選びました。よければもう一度「保存する」を押してください'); return; }
+  if (!qf.acctName){
+    toast('相手科目を選んでください', true);
+    $('qAccts').classList.add('need');
+    try { $('qAcctsLabel').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){ $('qAcctsLabel').scrollIntoView(); }
+    return;
+  }
+  if (!validDate(date)){ toast('日付が正しくありません', true); return; }
+  var cand = { date: date, type: qf.type === 'in' ? 'in' : 'out', acctName: qf.acctName, acctCode: qf.acctCode,
+    partner: cleanStr($('qPartner').value, 60).trim(), amount: Math.min(amount, MAX_AMOUNT), memo: cleanStr($('qMemo').value, 200).trim() };
+  if (findSameDayDup(state.entries, cand)){
+    confirmDlg('同じ日に同じ内容の記録がすでにあります。\nもう1件記録しますか？', 'もう1件記録する').then(function(ok){
+      if (ok) commitSaveQuick(date, amount);
+    });
+    return;
+  }
+  commitSaveQuick(date, amount);
+}
 function bindQuick(){
+  $('qPresetEdit').onclick = function(){ qf.prEdit = !qf.prEdit; renderPresets(); };
+  $('qPresets').onclick = function(ev){
+    var b = ev.target.closest('button'); if (!b) return;
+    var delIdx = b.getAttribute('data-delpr');
+    if (delIdx !== null){
+      var idx = +delIdx, list = state.settings.presets || [], item = list[idx];
+      if (!item) return;
+      confirmDlg('定型「' + item.label + '」を消しますか？\n（過去の記録はそのまま残ります）', '消す').then(function(ok){
+        if (!ok) return;
+        state.settings.presets.splice(idx, 1); save(); render(); toast('定型「' + item.label + '」を消しました');
+      });
+      return;
+    }
+    var pri = b.getAttribute('data-pri');
+    if (pri !== null) applyPreset(+pri);
+  };
+  $('qAddPreset').onclick = addCurrentAsPreset;
   $('qType').onclick = function(ev){
     var b = ev.target.closest('button'); if (!b) return;
     var t = b.getAttribute('data-type'); if (t === qf.type) return;
@@ -3027,14 +3344,17 @@ function carryDiffText(ci){
 function ledgerTableHtml(L, forPrint, ci){
   var h = '<table class="ledger num"><thead><tr><th>日付</th><th>科目</th><th>科目名</th><th>摘要</th>' +
     '<th>借方' + (forPrint ? '' : '<small>入金</small>') + '</th><th>貸方' + (forPrint ? '' : '<small>出金</small>') + '</th><th>残高</th></tr></thead><tbody>';
-  if (forPrint){
+  var flt = !!L.filtered;
+  if (flt){
+    /* 検索・絞り込み中：繰越行は出さない（期首残高・月末残高は絞り込みと関係がないため） */
+  } else if (forPrint){
     h += '<tr class="open"><td></td><td></td><td></td><td>期首残高（前月繰越）</td><td></td><td></td><td class="n">' + fmt(L.carry) + '</td></tr>';
   } else {
     var hand = ci && ci.override !== null;
     h += '<tr class="open carry-row" data-carry="1" title="タップすると前月繰越を直せます"><td></td><td></td><td></td><td class="cm">期首残高（前月繰越）' +
       (hand ? '<span class="hand-badge">手入力</span>' : '') + '<span class="carry-edit">✎ 繰越を直す</span></td><td></td><td></td><td class="n">' + fmt(L.carry) + '</td></tr>';
   }
-  if (!L.rows.length) h += '<tr><td colspan="7" class="c" style="padding:18px 0">この月の記録はありません</td></tr>';
+  if (!L.rows.length) h += '<tr><td colspan="7" class="c" style="padding:18px 0">' + (flt ? '条件に合う記録はありません' : 'この月の記録はありません') + '</td></tr>';
   L.rows.forEach(function(r){
     var d = parseDate(r.date);
     var cls = [];
@@ -3042,25 +3362,50 @@ function ledgerTableHtml(L, forPrint, ci){
     if (r.lastOfDay) cls.push('day-end');
     if (!forPrint && r.date === curDate) cls.push('cur');
     h += '<tr class="' + cls.join(' ') + '" data-id="' + esc(r.id) + '">' +
-      '<td class="dt">' + (r.firstOfDay ? (d.getMonth() + 1) + '/' + d.getDate() : '') + '</td>' +
+      '<td class="dt">' + (r.firstOfDay ? (L.showYear ? d.getFullYear() + '/' : '') + (d.getMonth() + 1) + '/' + d.getDate() : '') + '</td>' +
       '<td class="c">' + (r.code ? esc(r.code) : '<span class="nocode">—</span>') + '</td>' +
       '<td title="' + esc(r.name) + '">' + esc(r.shortName) + '</td>' +
       '<td class="memo" title="' + esc(r.memo) + '">' + esc(r.memo) + '</td>' +
       '<td class="n c-in">' + (r.debit ? fmt(r.debit) : '') + '</td>' +
       '<td class="n c-out">' + (r.credit ? fmt(r.credit) : '') + '</td>' +
-      '<td class="n">' + (r.lastOfDay ? fmt(r.balance) : '') + '</td></tr>';
+      '<td class="n">' + (!flt && r.lastOfDay ? fmt(r.balance) : '') + '</td></tr>';
   });
-  h += '<tr class="total"><td></td><td></td><td></td><td>合計金額</td><td class="n">' + fmt(L.debitSum) + '</td><td class="n">' + fmt(L.creditSum) + '</td><td class="n">' + fmt(L.end) + '</td></tr>';
+  if (flt) h += '<tr class="total"><td></td><td></td><td></td><td>絞り込みの合計</td><td class="n">' + fmt(L.debitSum) + '</td><td class="n">' + fmt(L.creditSum) + '</td><td class="n"></td></tr>';
+  else h += '<tr class="total"><td></td><td></td><td></td><td>合計金額</td><td class="n">' + fmt(L.debitSum) + '</td><td class="n">' + fmt(L.creditSum) + '</td><td class="n">' + fmt(L.end) + '</td></tr>';
   return h + '</tbody></table>';
 }
+var lFilter = { q: '', scope: 'month', type: 'all' };
+function isLedgerFiltered(){ return !!(lFilter.q.trim() || lFilter.scope === 'all' || lFilter.type !== 'all'); }
 function renderLedger(){
   var L = ledgerRows(state.entries, state.settings, ledgerMonth, role);
   var p = ledgerMonth.split('-');
   $('lTitle').innerHTML = esc(warekiYm(ledgerMonth)) + ' <small class="muted" style="font-weight:400;font-size:13px">' + p[0] + '/' + (+p[1]) + '</small>';
   $('lCash').textContent = role + ' ' + ROLES[role].cashName;
   var ci = carryInfo(state.entries, state.settings, ledgerMonth);
-  $('lWrap').innerHTML = ledgerTableHtml(L, false, ci);
-  $('lFoot').innerHTML = '<span>期首残高 ' + fmt(L.carry) + (ci.override !== null ? '（手入力）' : '') + '</span><span>月末残高 <b>' + fmt(L.end) + '</b> 円</span>';
+  $('lQueryClear').classList.toggle('hidden', !$('lQuery').value);
+  Array.prototype.forEach.call($('lScope').children, function(b){ var on = b.getAttribute('data-scope') === lFilter.scope; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  Array.prototype.forEach.call($('lTypeFilter').children, function(b){ var on = b.getAttribute('data-lt') === lFilter.type; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+  var filtered = isLedgerFiltered();
+  $('lFilterReset').classList.toggle('hidden', !filtered);
+  var statEl = $('lSearchStat');
+  if (!filtered){
+    statEl.classList.add('hidden'); statEl.innerHTML = '';
+    $('lWrap').innerHTML = ledgerTableHtml(L, false, ci);
+    $('lFoot').innerHTML = '<span>期首残高 ' + fmt(L.carry) + (ci.override !== null ? '（手入力）' : '') + '</span><span>月末残高 <b>' + fmt(L.end) + '</b> 円</span>';
+  } else {
+    var srcRows = lFilter.scope === 'all' ? allLedgerRows(state.entries, state.settings, role) : L.rows;
+    var entryMap = new Map();
+    state.entries.forEach(function(e){ entryMap.set(e.id, e); });
+    var F = filterLedgerRows(srcRows, entryMap, lFilter.q, lFilter.type);
+    var scopeLabel = lFilter.scope === 'all' ? '全期間' : warekiYm(ledgerMonth);
+    statEl.classList.remove('hidden');
+    statEl.innerHTML = '<span><b>' + F.count + '件</b>ヒット（' + esc(scopeLabel) + '）</span>' +
+      '<span class="c-in">入金 ' + fmt(F.debitSum) + '円</span>' +
+      '<span class="c-out">出金 ' + fmt(F.creditSum) + '円</span>' +
+      '<span>差引 ' + fmt(F.debitSum - F.creditSum) + '円</span>';
+    $('lWrap').innerHTML = ledgerTableHtml({ rows: F.rows, debitSum: F.debitSum, creditSum: F.creditSum, filtered: true, showYear: lFilter.scope === 'all' }, false, ci);
+    $('lFoot').innerHTML = '<span>絞り込み ' + F.count + ' 件</span><span>差引 <b>' + fmt(F.debitSum - F.creditSum) + '</b> 円</span>';
+  }
   var w = [];
   var cw = carryDiffText(ci); if (cw) w.push(cw);
   if (L.noCode) w.push('科目コードのない行が ' + L.noCode + ' 件あります（「—」の行）。事務所で科目を確認します。');
@@ -3127,14 +3472,6 @@ function clearCarry(){
 /* ファイル保存：claude.ai の画面では downloads 機能（確認画面が出る）、それ以外（端末に保存した HTML など）は通常のダウンロード。
    保存できたら true、やめた・できなかったら false で終わる Promise */
 var dlPromise = null;
-function getDownloads(){
-  if (!dlPromise){
-    dlPromise = (window.claude && typeof window.claude.use === 'function')
-      ? Promise.resolve().then(function(){ return window.claude.use('downloads'); }).catch(function(){ return null; })
-      : Promise.resolve(null);
-  }
-  return dlPromise;
-}
 function plainDownload(name, content, mime){
   var blob = new Blob([content], { type: mime });
   var url = URL.createObjectURL(blob);
@@ -3143,19 +3480,14 @@ function plainDownload(name, content, mime){
   setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
 }
 function download(name, content, mime){
-  var inClaude = !!(window.claude && typeof window.claude.use === 'function');
-  return getDownloads().then(function(dl){
-    if (!dl){
-      if (inClaude){ toast('この画面ではファイルを保存できません。「事務所へ送る」「バックアップを送る」を使ってください', true); return false; }
-      plainDownload(name, content, mime); return true;
-    }
-    return dl.save({ filename: name, data: content }).then(function(){ return true; }, function(err){
-      var c = err && err.code;
-      if (c === 'declined') return false;
-      if (c === 'rate_limited'){ toast('保存の確認画面がすでに開いています。そちらを先に閉じてください', true); return false; }
-      toast('ファイルを保存できませんでした', true); return false;
-    });
-  });
+  try {
+    plainDownload(name, content, mime);
+    return Promise.resolve(true);
+  } catch(e){
+    logError('download: ' + (e && e.message), 0);
+    toast('ファイルを保存できませんでした', true);
+    return Promise.resolve(false);
+  }
 }
 function withEmptyCheck(ym, go){
   var s = monthSummary(state.entries, state.settings, ym);
@@ -3301,6 +3633,7 @@ function renderSettings(){
     ? '読み込んだ摘要：<b>' + st.memoDict.length + ' 件</b>' + (di && di.from ? '（' + esc(ledgerPeriodLabel(di.from, di.to)) + 'の帳簿から）' : '')
     : '読み込んだ摘要：<b>なし</b>';
   $('memoDictClear').classList.toggle('hidden', !st.memoDict.length);
+  renderPresetEditor();
   renderTrash();
   renderBackupLines();
   Array.prototype.forEach.call(document.querySelectorAll('[data-akind]'), function(b){ b.classList.toggle('on', b.getAttribute('data-akind') === acctKind); });
@@ -3404,13 +3737,12 @@ function showNewVersion(){
   $('newVer').classList.remove('hidden');
 }
 
-/* ---------- ネットが無くても開ける（Service Worker）。https（と試験用の localhost）だけ。file:// と claude.ai の画面では使わない ---------- */
+/* ---------- ネットが無くても開ける（Service Worker）。https（と試験用の localhost）だけ。file:// では使わない ---------- */
 function showUpdateBar(){ $('updBar').classList.remove('hidden'); }
 function setupSW(){
   try {
     var host = String(location.hostname || '');
     if (!(location.protocol === 'https:' || host === 'localhost')) return;
-    if (window.claude || /(^|\.)claude\.ai$|claudeusercontent\.com$|anthropic\.com$/.test(host)) return;
     if (!('serviceWorker' in navigator) || !navigator.serviceWorker) return;
     var sw = navigator.serviceWorker, hadCtrl = !!sw.controller;
     sw.onmessage = function(ev){ if (ev && ev.data && ev.data.type === 'choubo-updated') showUpdateBar(); };
@@ -3746,6 +4078,17 @@ function bind(){
   $('lPrev').onclick = function(){ ledgerMonth = addMonths(ledgerMonth, -1); renderLedger(); };
   $('lNext').onclick = function(){ ledgerMonth = addMonths(ledgerMonth, 1); renderLedger(); };
   $('lPrint').onclick = function(){ printLedger(ledgerMonth); };
+  $('lQuery').addEventListener('input', function(){ lFilter.q = this.value; renderLedger(); });
+  $('lQueryClear').onclick = function(){ $('lQuery').value = ''; lFilter.q = ''; renderLedger(); $('lQuery').focus(); };
+  $('lScope').onclick = function(ev){
+    var b = ev.target.closest('button[data-scope]'); if (!b) return;
+    lFilter.scope = b.getAttribute('data-scope'); renderLedger();
+  };
+  $('lTypeFilter').onclick = function(ev){
+    var b = ev.target.closest('button[data-lt]'); if (!b) return;
+    lFilter.type = b.getAttribute('data-lt'); renderLedger();
+  };
+  $('lFilterReset').onclick = function(){ $('lQuery').value = ''; lFilter = { q: '', scope: 'month', type: 'all' }; renderLedger(); };
   $('lWrap').onclick = function(ev){
     if (ev.target.closest('tr[data-carry]')){ openCarry(ledgerMonth); return; }
     var tr = ev.target.closest('tr[data-id]'); if (!tr) return;
@@ -3785,6 +4128,33 @@ function bind(){
   });
   listEditor($('acctEditor'), function(){ return state.settings.accounts[acctKind]; }, '科目');
   listEditor($('partnerEditor'), function(){ return state.settings.partners; }, '取引先');
+  $('presetEditor').addEventListener('change', function(ev){
+    var row = ev.target.closest('[data-pri-idx]'); if (!row) return;
+    var list = state.settings.presets || [], i = +row.getAttribute('data-pri-idx'), p = list[i]; if (!p) return;
+    var pf = ev.target.getAttribute('data-pf');
+    if (pf === 'label'){
+      var nm = cleanStr(ev.target.value, 36).trim();
+      if (!nm){ toast('定型名は空にできません', true); ev.target.value = p.label; return; }
+      p.label = nm; save(); toast('保存しました');
+    } else if (pf === 'amount'){
+      var n = parseAmount(ev.target.value, MAX_AMOUNT);
+      p.amount = n; ev.target.value = n ? fmt(n) : '0'; save(); toast('保存しました');
+    }
+  });
+  $('presetEditor').addEventListener('click', function(ev){
+    var btn = ev.target.closest('button[data-pact]'); if (!btn) return;
+    var row = btn.closest('[data-pri-idx]'); if (!row) return;
+    var list = state.settings.presets || [], i = +row.getAttribute('data-pri-idx'), p = list[i]; if (!p) return;
+    var act = btn.getAttribute('data-pact'), t;
+    if (act === 'up' && i > 0){ t = list[i - 1]; list[i - 1] = list[i]; list[i] = t; save(); renderPresetEditor(); }
+    else if (act === 'down' && i < list.length - 1){ t = list[i + 1]; list[i + 1] = list[i]; list[i] = t; save(); renderPresetEditor(); }
+    else if (act === 'del'){
+      confirmDlg('定型「' + p.label + '」を消しますか？\n（過去の記録はそのまま残ります）', '消す').then(function(ok){
+        if (!ok) return;
+        list.splice(i, 1); save(); renderPresetEditor(); renderPresets(); toast('削除しました');
+      });
+    }
+  });
   $('addAcct').onclick = function(){
     state.settings.accounts[acctKind].push({ id: uid(), name: '新しい科目', code: '' }); save(); renderSettings();
     var inputs = $('acctEditor').querySelectorAll('input.nm'); var last = inputs[inputs.length - 1];
@@ -3832,6 +4202,7 @@ function bind(){
       if (!qf.amtActive) return;
       var qk = ev.key;
       if (/^[0-9]$/.test(qk)){ ev.preventDefault(); quickKey(qk); }
+      else if (qk === '+' || qk === '-' || qk === '*' || qk === '='){ ev.preventDefault(); quickKey(qk); }
       else if (qk === 'Backspace'){ ev.preventDefault(); quickKey('bs'); }
       else if (qk === 'Delete'){ ev.preventDefault(); quickKey('c'); }
       return;
@@ -3849,6 +4220,7 @@ function bind(){
     if (!form.amtActive) return;
     var k = ev.key;
     if (/^[0-9]$/.test(k)){ ev.preventDefault(); keyIn(k); }
+    else if (k === '+' || k === '-' || k === '*' || k === '='){ ev.preventDefault(); keyIn(k); }
     else if (k === 'Backspace'){ ev.preventDefault(); keyIn('bs'); }
     else if (k === 'Delete'){ ev.preventDefault(); keyIn('c'); }
   });
@@ -3872,7 +4244,6 @@ if (needChoose) openChooser(false);
 else if (brokenNotice) infoDlg(brokenNotice);
 showNewVersion();
 askPersist();
-getDownloads();
 setupSW();
 })();
 </script>
