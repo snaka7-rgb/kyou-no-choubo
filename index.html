@@ -904,8 +904,9 @@ var EXPORT_FORMAT = 'choubo-export';
 var BACKUP_FORMAT = 'choubo-backup';
 /* 復元で受け付けるバックアップの format（新形式と、旧版の「<コード>-suitocho-backup」） */
 function isBackupFormat(f){ return typeof f === 'string' && (f === BACKUP_FORMAT || /-suitocho-backup$/.test(f)); }
-var APP_VERSION = '2.8';
+var APP_VERSION = '2.9';
 var APP_HISTORY = [
+  ['2.9', '二重HTML・不要記述の整理、端末時計ズレ・修正シート新規保存の二度押し対策、使い方の案内を追加'],
   ['2.8', '同じ内容の確認は、直前（1分以内）に保存したときだけ出すように'],
   ['2.7', 'HTML二重構造・外部依存の整理、定型セット（ワンタップ呼び出し）と電卓機能、帳簿の検索・絞り込み'],
   ['2.6', '摘要から選ぶ入力（摘要を選ぶと科目が自動で決まる）、過去の帳簿から摘要を読み込む'],
@@ -2017,13 +2018,15 @@ function cleanPresets(src){
   return out;
 }
 /* 二度押し防止：同じ内容を「直前（既定 60 秒以内）」に保存したときだけ true。
-   同じ金額のチケットやコピー代を1件ずつ入れるのはふつうなので、時間が空いていれば確認しない */
+   同じ金額のチケットやコピー代を1件ずつ入れるのはふつうなので、時間が空いていれば確認しない。
+   端末の時計ズレで未来の createdAt が残っている場合も誤判定しないよう絶対値で判定する */
 var DUP_WINDOW_MS = 60000;
 function findSameDayDup(entries, d, now, windowMs){
   var t = typeof now === 'number' ? now : Date.now();
   var w = typeof windowMs === 'number' ? windowMs : DUP_WINDOW_MS;
   return (entries || []).some(function(e){
-    return !e.auto && (e.createdAt || 0) >= t - w && e.date === d.date && e.type === d.type && e.acctName === d.acctName &&
+    var ca = e.createdAt || 0;
+    return !e.auto && ca > 0 && Math.abs(t - ca) <= w && e.date === d.date && e.type === d.type && e.acctName === d.acctName &&
       (e.acctCode || '') === (d.acctCode || '') && e.amount === d.amount &&
       (e.partner || '') === (d.partner || '') && (e.memo || '') === (d.memo || '');
   });
@@ -2639,24 +2642,8 @@ function keyIn(k){
   if (r.err === 'max') toast('金額は 999,999,999 円までです', true);
   form.expr = r.expr; renderCalcUi(form, 'fAmount', 'fCalcLine');
 }
-function saveForm(){
-  if (!commitCalc(form, 'fAmount', 'fCalcLine')) return;
-  var date = $('fDate').value;
-  var amount = parseInt(form.amt || '0', 10) || 0;
-  if (!date){ toast('日付を選んでください', true); return; }
-  if (!validDate(date)){ toast('日付が正しくありません（2000〜2099年の日付を選んでください）', true); return; }
-  if (!form.acctName && tryAutoAcct(SF)){ toast('摘要から相手科目を選びました。よければもう一度「保存する」を押してください'); return; }
-  if (!form.acctName){
-    toast('相手科目を選んでください', true);
-    var ac = $('fAccts'); ac.classList.add('need');
-    try { $('fAcctsLabel').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){ $('fAcctsLabel').scrollIntoView(); }
-    return;
-  }
-  if (!amount){ toast('金額を入れてください', true); setAmtActive(true); return; }
+function commitSaveForm(date, amount, partner, data){
   var st = state.settings;
-  var partner = cleanStr($('fPartner').value, 60).trim();
-  var data = { date: date, type: form.type === 'in' ? 'in' : 'out', acctName: form.acctName, acctCode: form.acctCode, partner: partner, amount: Math.min(amount, MAX_AMOUNT), memo: cleanStr($('fMemo').value, 200).trim() };
-  if (form.jdlName) data.jdlName = form.jdlName;
   if (form.id){
     var e = state.entries.find(function(x){ return x.id === form.id; });
     if (e){ touch(e.date); Object.keys(data).forEach(function(k){ e[k] = data[k]; }); if (!form.jdlName) delete e.jdlName; e.updatedAt = Date.now(); }
@@ -2672,6 +2659,32 @@ function saveForm(){
   if (!isCounted(st, date)) setTimeout(function(){ toast('残高の起点（開始日・前月繰越）より前の日付です。残高には含まれません', true); }, 2300);
   save(); closeSheet();
   curDate = date; ledgerMonth = ymOf(date); render();
+}
+function saveForm(){
+  if (!sheetOpen()) return;
+  if (!commitCalc(form, 'fAmount', 'fCalcLine')) return;
+  var date = $('fDate').value;
+  var amount = parseInt(form.amt || '0', 10) || 0;
+  if (!date){ toast('日付を選んでください', true); return; }
+  if (!validDate(date)){ toast('日付が正しくありません（2000〜2099年の日付を選んでください）', true); return; }
+  if (!form.acctName && tryAutoAcct(SF)){ toast('摘要から相手科目を選びました。よければもう一度「保存する」を押してください'); return; }
+  if (!form.acctName){
+    toast('相手科目を選んでください', true);
+    var ac = $('fAccts'); ac.classList.add('need');
+    try { $('fAcctsLabel').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){ $('fAcctsLabel').scrollIntoView(); }
+    return;
+  }
+  if (!amount){ toast('金額を入れてください', true); setAmtActive(true); return; }
+  var partner = cleanStr($('fPartner').value, 60).trim();
+  var data = { date: date, type: form.type === 'in' ? 'in' : 'out', acctName: form.acctName, acctCode: form.acctCode, partner: partner, amount: Math.min(amount, MAX_AMOUNT), memo: cleanStr($('fMemo').value, 200).trim() };
+  if (form.jdlName) data.jdlName = form.jdlName;
+  if (!form.id && findSameDayDup(state.entries, data)){
+    confirmDlg('いま同じ内容を保存したばかりです（二度押しかもしれません）。\nもう1件記録しますか？', 'もう1件記録する').then(function(ok){
+      if (ok && sheetOpen()) commitSaveForm(date, amount, partner, data);
+    });
+    return;
+  }
+  commitSaveForm(date, amount, partner, data);
 }
 function deleteForm(){
   var e = state.entries.find(function(x){ return x.id === form.id; });
@@ -3475,9 +3488,7 @@ function clearCarry(){
 }
 
 /* ---------- 書き出し（1ボタン1ファイル） ---------- */
-/* ファイル保存：claude.ai の画面では downloads 機能（確認画面が出る）、それ以外（端末に保存した HTML など）は通常のダウンロード。
-   保存できたら true、やめた・できなかったら false で終わる Promise */
-var dlPromise = null;
+/* ファイル保存：保存できたら true、できなかったら false で終わる Promise */
 function plainDownload(name, content, mime){
   var blob = new Blob([content], { type: mime });
   var url = URL.createObjectURL(blob);
@@ -3762,7 +3773,8 @@ var HELP_COMMON = [
   'マイクの形のボタンを押して話すと、取引先・摘要・金額を声で入れられます（対応しているブラウザのみ）。',
   { memo: '「今日」画面の上で日付を選び、金額（テンキー）→ 摘要（何の出入りか）の順に入れ、「保存する」を押します。テンキーの「次へ ▼」で摘要へ進みます。摘要の候補を押すと、入金・出金と相手科目が自動で決まります（違っていれば押して変えられます）。候補にない摘要は、入れたあとで入金・出金と相手科目を選びます。取引先は「＋取引先を入れる」から入れられます（任意）。続けて次の記録を入れられます。',
     acct: '「今日」画面の上で日付を選び、入金／出金 → 金額（テンキー）→ 相手科目 → 取引先・摘要の順に入れ、「保存する」を押します。テンキーの「次へ ▼」で相手科目へ進みます。続けて次の記録を入れられます。' },
-  '記録をタップすると、直したり消したりできます。「帳簿」タブ（横向きの大きい画面では右側）で、月ごとの帳簿を確認できます。'
+  '複数のレシートをまとめるときは、テンキー上の「＋」「−」「×」「＝」で計算できます。きまった支払いは「☆ 今の入力内容を『定型』に登録する」で登録すると、1タップで呼び出せます。',
+  '記録をタップすると、直したり消したりできます。「帳簿」タブ（横向きの大きい画面では右側）では、月ごとの帳簿の確認や、摘要・取引先・科目・金額での検索（全期間にも対応）ができます。'
 ];
 var HELP = {
   '112': {
